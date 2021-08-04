@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Switch } from 'react-router-dom';
 import { Backdrop, Button, IconButton, Modal } from '@material-ui/core';
 import { useSpring, animated } from '@react-spring/web';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/styles';
 import AddTodo from '../AddTodo';
-import { addTodo } from '../../actions/index';
+import { addTodo } from '../../actions/todo';
+import applyTheme from '../../actions/theme';
+import { darkTheme, lightTheme } from '../../styles/theme';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'white',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -46,8 +47,7 @@ const Fade = React.forwardRef(function Fade(props, ref) {
   );
 });
 
-const TodoNav = ({ onAddTodo }) => {
-  const [darkMode, setDarkMode] = useState(false);
+const TodoNav = ({ onAddTodo, onApplyTheme }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -65,7 +65,8 @@ const TodoNav = ({ onAddTodo }) => {
 
   return (
     <div>
-      <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+      <Button onClick={() => onApplyTheme(darkTheme)}>dark</Button>
+      <Button onClick={() => onApplyTheme(lightTheme)}>light</Button>
       <Button onClick={handleOpen}>Add</Button>
       <Modal
         aria-labelledby="spring-modal-title"
@@ -102,5 +103,6 @@ export default connect(
   }),
   (dispatch) => ({
     onAddTodo: (state) => dispatch(addTodo(state)),
+    onApplyTheme: (theme) => dispatch(applyTheme(theme)),
   }),
 )(TodoNav);

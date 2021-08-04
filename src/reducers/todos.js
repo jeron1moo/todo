@@ -1,5 +1,26 @@
 import { ADD_TODO, ARCHIVE_TODO, PIN_TODO } from '../constants/ActionTypes';
 
+const todos = [
+  {
+    id: 1,
+    title: 'Here',
+    description: 'Do nothing',
+    state: 'TODO_INBOX',
+  },
+  {
+    id: 2,
+    title: 'Asss',
+    description: 'Relax',
+    state: 'TODO_INBOX',
+  },
+  {
+    id: 3,
+    title: 'Here',
+    description: 'Chill',
+    state: 'TODO_INBOX',
+  },
+];
+
 const todoStateReducer = (todoState) => {
   return (state, action) => {
     switch (action.type) {
@@ -11,10 +32,10 @@ const todoStateReducer = (todoState) => {
             todo.id === action.id ? { ...todo, state: todoState } : todo,
           ),
         };
-      case 'ADD_TODO':
-        state.todos.push(action.value);
+      case ADD_TODO:
+        // state.todos.push(action.value);
         return {
-          ...state,
+          state,
         };
       default:
         return state;
@@ -22,10 +43,10 @@ const todoStateReducer = (todoState) => {
   };
 };
 
-export default (state, action) => {
+export default (state = todos, action) => {
   switch (action.type) {
     case ADD_TODO: {
-      return todoStateReducer('ADD_TODO')(state, action);
+      return todoStateReducer(ADD_TODO)(state, action);
     }
     case ARCHIVE_TODO: {
       return todoStateReducer('TODO_ARCHIVED')(state, action);

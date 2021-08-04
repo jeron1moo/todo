@@ -2,7 +2,7 @@ import React from 'react';
 import { List } from '@material-ui/core';
 import { connect } from 'react-redux';
 import TodoItem from '../TodoItem';
-import { archiveTodo, pinTodo } from '../../actions/index';
+import { archiveTodo, pinTodo } from '../../actions/todo';
 
 export const TodoList = ({ loading, todos, onArchiveTodo, onPinTodo }) => {
   const events = {
