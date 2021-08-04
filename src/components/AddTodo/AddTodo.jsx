@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Grid, TextField } from '@material-ui/core';
 import useStyles from './styles';
-
-const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+import { random } from '../../utils';
 
 const AddTodo = ({ onAddTodo }) => {
   const classes = useStyles();

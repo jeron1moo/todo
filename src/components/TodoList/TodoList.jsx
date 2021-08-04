@@ -27,7 +27,7 @@ export const TodoList = ({ loading, todos, onArchiveTodo, onPinTodo }) => {
       {todosInOrder.length > 0 && (
         <List style={{ overflowY: 'auto', height: '100%' }}>
           {todosInOrder.map((todo) => (
-            <TodoItem {...todo} key={todo.id} todo={todo} {...events} />
+            <TodoItem key={todo.id} todo={todo} {...events} />
           ))}
         </List>
       )}

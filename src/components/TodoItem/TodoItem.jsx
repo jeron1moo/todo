@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Divider,
   Grid,
   IconButton,
@@ -9,6 +8,8 @@ import {
 } from '@material-ui/core';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import GradeIcon from '@material-ui/icons/Grade';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+
 import React from 'react';
 import useStyle from './styles';
 
@@ -22,13 +23,17 @@ const TodoItem = ({
     <ListItem className={`list-item ${state}`}>
       <Grid container className={classes.listItem}>
         <Grid item xs={1}>
-          <Checkbox
-            disabled
+          {/* <Checkbox
             checked={state === 'TODO_ARCHIVED'}
-            disableRipple
             name="checked"
             onClick={() => onArchiveTodo(id)}
-          />
+          /> */}
+          <IconButton
+            aria-label="Archive Todo"
+            onClick={() => onArchiveTodo(id)}
+          >
+            <DeleteOutlineIcon />
+          </IconButton>
         </Grid>
         <Grid item xs={10}>
           <ListItemText value={title} style={{ textOverflow: 'ellipsis' }}>

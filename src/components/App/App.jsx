@@ -8,9 +8,10 @@ import { useSelector } from 'react-redux';
 import Todo from '../Todo/Todo';
 
 const App = () => {
+  const choosedTheme = useSelector(({ themeReducer }) => themeReducer.theme);
   return (
     <BrowserRouter>
-      <ThemeProvider theme={useSelector(({ theme }) => theme.theme)}>
+      <ThemeProvider theme={choosedTheme}>
         <CssBaseline />
         <Route exact path="/" component={Todo} />
       </ThemeProvider>

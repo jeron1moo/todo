@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import todos from './todos';
-import theme from './theme';
+import themeReducer from './theme';
 
 const rootReducer = combineReducers({
   todos,
-  theme,
+  themeReducer,
 });
 
 export default rootReducer;

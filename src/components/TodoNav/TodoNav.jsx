@@ -1,27 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Backdrop, Button, IconButton, Modal } from '@material-ui/core';
 import { useSpring, animated } from '@react-spring/web';
 import CloseIcon from '@material-ui/icons/Close';
-import { makeStyles } from '@material-ui/styles';
 import AddTodo from '../AddTodo';
 import { addTodo } from '../../actions/todo';
 import applyTheme from '../../actions/theme';
 import { darkTheme, lightTheme } from '../../styles/theme';
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: 'white',
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
+import useStyles from './styles';
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const { in: open, children, onEnter, onExited, ...other } = props;
@@ -49,7 +35,7 @@ const Fade = React.forwardRef(function Fade(props, ref) {
 
 const TodoNav = ({ onAddTodo, onApplyTheme }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
