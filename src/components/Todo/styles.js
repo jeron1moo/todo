@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   todoContainer: {
     margin: '0 auto',
     width: '600px',
@@ -11,8 +11,8 @@ export default makeStyles(() => ({
     justifyContent: 'center',
   },
   todoItem: {
-    bgcolor: 'primary.main',
-    color: 'white',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     borderRadius: 1,
     textAlign: 'center',
     fontSize: 19,

@@ -35,7 +35,7 @@ const TodoItem = ({
         </Box>
         <Box className={classes.todoBody}>
           <ListItemText className={classes.todoTitle}>{title}</ListItemText>
-          <Divider />
+          <Divider className={classes.todoDivider} />
           <ListItemText className={classes.todoDescription}>
             {description}
           </ListItemText>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, List } from '@material-ui/core';
 import { connect, useDispatch } from 'react-redux';
 import TodoItem from '../TodoItem';
-import { archiveTodo, pinTodo } from '../../actions/todo';
+import { archiveTodo, pinTodo } from '../../redux/actions/todo';
 import useStyles from './styles';
 
 export const TodoList = ({ loading, todos }) => {

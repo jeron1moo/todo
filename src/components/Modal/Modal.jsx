@@ -15,9 +15,17 @@ const CustomModal = ({ modalName, buttonName, children }) => {
     setOpen(false);
   };
 
+  const newChildren = { ...children };
+  newChildren.props = {
+    ...children.props,
+    handleClose,
+  };
+
   return (
     <Box>
-      <Button onClick={handleOpen}>{buttonName}</Button>
+      <Button className={classes.themeButton} onClick={handleOpen}>
+        {buttonName}
+      </Button>
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -25,16 +33,18 @@ const CustomModal = ({ modalName, buttonName, children }) => {
         open={open}
         onClose={handleClose}
       >
-        <Box className={classes.paper}>
-          <Typography>{modalName}</Typography>
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            className={classes.margin}
-          >
-            <CloseIcon fontSize="small" />
-          </IconButton>
-          {children}
+        <Box className={classes.modalContent}>
+          <Box className={classes.modalDescription}>
+            <Typography className={classes.modalTitle}>{modalName}</Typography>
+            <IconButton
+              className={classes.modalButton}
+              aria-label="close"
+              onClick={handleClose}
+            >
+              <CloseIcon className={classes.modalClose} fontSize="small" />
+            </IconButton>
+          </Box>
+          {newChildren}
         </Box>
       </Modal>
     </Box>

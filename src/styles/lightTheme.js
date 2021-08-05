@@ -6,14 +6,22 @@ export default createTheme({
     primary: {
       main: '#556cd6',
       light: 'rgb(81, 91, 95)',
-      dark: 'rgb(26, 35, 39)',
+      dark: '#1a237e',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#cc4444',
+      main: '#ffffff',
       light: 'rgb(255, 197, 112)',
       dark: 'rgb(200, 147, 89)',
       contrastText: 'rgba(0, 0, 0, 0.87)',
     },
+    background: {
+      default: '#fafafa',
+      paper: '#fff',
+    },
+  },
+  background: {
+    default: '#fafafa',
+    paper: '#fff',
   },
 });

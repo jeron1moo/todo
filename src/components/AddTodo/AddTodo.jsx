@@ -3,7 +3,7 @@ import { Box, Button, TextField } from '@material-ui/core';
 import useStyles from './styles';
 import { getRandom } from '../../utils';
 
-const AddTodo = ({ onAddTodo }) => {
+const AddTodo = ({ onAddTodo, handleClose }) => {
   const classes = useStyles();
   const [state, setState] = useState({
     id: getRandom(5, 100),
@@ -25,18 +25,27 @@ const AddTodo = ({ onAddTodo }) => {
       <TextField
         label="Title"
         name="title"
+        className={classes.addInput}
         value={state.title}
         onChange={handleChange}
         fullWidth
       />
       <TextField
         label="Description"
+        className={classes.addInput}
         name="description"
         value={state.description}
         onChange={handleChange}
         fullWidth
       />
-      <Button onClick={() => onAddTodo(state)} fullWidth>
+      <Button
+        className={classes.themeButton}
+        onClick={() => {
+          onAddTodo(state);
+          handleClose();
+        }}
+        fullWidth
+      >
         Add
       </Button>
     </Box>

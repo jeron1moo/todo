@@ -2,8 +2,8 @@ import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Box, Button } from '@material-ui/core';
 import AddTodo from '../AddTodo';
-import { addTodo } from '../../actions/todo';
-import applyTheme from '../../actions/theme';
+import { addTodo } from '../../redux/actions/todo';
+import applyTheme from '../../redux/actions/theme';
 import lightTheme from '../../styles/lightTheme';
 import darkTheme from '../../styles/darkTheme';
 import useStyles from './styles';
@@ -21,9 +21,19 @@ const TodoNav = () => {
   };
 
   return (
-    <Box className={classes.paper}>
-      <Button onClick={() => onApplyTheme(darkTheme)}>dark</Button>
-      <Button onClick={() => onApplyTheme(lightTheme)}>light</Button>
+    <Box className={classes.todoNav}>
+      <Button
+        className={classes.themeButton}
+        onClick={() => onApplyTheme(darkTheme)}
+      >
+        dark
+      </Button>
+      <Button
+        className={classes.themeButton}
+        onClick={() => onApplyTheme(lightTheme)}
+      >
+        light
+      </Button>
       <Modal modalName="Add Todo" buttonName="Add">
         <AddTodo {...events} />
       </Modal>

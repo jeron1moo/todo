@@ -1,5 +1,5 @@
 import { APPLY_THEME } from '../constants/theme';
-import theme from '../styles/lightTheme';
+import theme from '../../styles/lightTheme';
 
 const initialState = {
   ...theme,

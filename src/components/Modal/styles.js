@@ -7,10 +7,28 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     verticalAlign: 'middle',
   },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
+  modalContent: {
+    color: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(2, 4, 3),
+  },
+  modalDescription: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  themeButton: {
+    color: theme.palette.secondary.main,
+  },
+  modalClose: {
+    color: theme.palette.secondary.main,
+  },
+  modalButton: {
+    marginRight: '-20px',
+  },
+  modalTitle: {
+    display: 'inline',
   },
 }));
