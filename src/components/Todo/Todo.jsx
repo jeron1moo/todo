@@ -1,43 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Box } from '@material-ui/core';
-import TodoNav from '../TodoNav/TodoNav';
+import { Box, Typography } from '@material-ui/core';
+import TodoNav from '../TodoNav';
 import TodoList from '../TodoList';
 
 import useStyles from './styles';
 
-function Item(props) {
-  const { sx, ...other } = props;
-  return (
-    <Box
-      sx={{
-        bgcolor: 'primary.main',
-        color: 'white',
-        borderRadius: 1,
-        textAlign: 'center',
-        fontSize: 19,
-        fontWeight: '700',
-        ...sx,
-      }}
-      {...other}
-    />
-  );
-}
-
 export const Todo = ({ error }) => {
   const classes = useStyles();
   if (error) {
-    return <h1>Error</h1>;
+    return <Typography>Error</Typography>;
   }
   return (
-    <Box className={classes.todoContainer} sx={{ display: 'grid' }}>
-      <Item>
+    <Box className={classes.todoContainer}>
+      <Box className={classes.todoItem}>
         <TodoNav />
-      </Item>
-      <Item>
+      </Box>
+      <Box className={classes.todoItem}>
         <TodoList />
-      </Item>
+      </Box>
     </Box>
   );
 };

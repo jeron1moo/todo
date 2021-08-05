@@ -1,6 +1,12 @@
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    verticalAlign: 'middle',
+  },
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',

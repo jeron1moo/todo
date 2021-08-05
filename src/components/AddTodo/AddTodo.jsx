@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Grid, TextField } from '@material-ui/core';
+import { Box, Button, TextField } from '@material-ui/core';
 import useStyles from './styles';
-import { random } from '../../utils';
+import { getRandom } from '../../utils';
 
 const AddTodo = ({ onAddTodo }) => {
   const classes = useStyles();
   const [state, setState] = useState({
-    id: random(5, 100),
+    id: getRandom(5, 100),
     title: '',
     description: '',
     state: 'TODO_INBOX',
@@ -21,33 +21,25 @@ const AddTodo = ({ onAddTodo }) => {
   };
 
   return (
-    <Grid className={classes.addTodo} container>
-      <Grid item xs={10}>
-        <Grid item>
-          <TextField
-            label="Title"
-            name="title"
-            value={state.title}
-            onChange={handleChange}
-            fullWidth
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            label="Description"
-            name="description"
-            value={state.description}
-            onChange={handleChange}
-            fullWidth
-          />
-        </Grid>
-      </Grid>
-      <Grid xs={2} item>
-        <Button onClick={() => onAddTodo(state)} fullWidth>
-          Add
-        </Button>
-      </Grid>
-    </Grid>
+    <Box className={classes.addTodo}>
+      <TextField
+        label="Title"
+        name="title"
+        value={state.title}
+        onChange={handleChange}
+        fullWidth
+      />
+      <TextField
+        label="Description"
+        name="description"
+        value={state.description}
+        onChange={handleChange}
+        fullWidth
+      />
+      <Button onClick={() => onAddTodo(state)} fullWidth>
+        Add
+      </Button>
+    </Box>
   );
 };
 

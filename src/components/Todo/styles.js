@@ -10,4 +10,12 @@ export default makeStyles(() => ({
     gridTemplateRows: '150px 1fr',
     justifyContent: 'center',
   },
+  todoItem: {
+    bgcolor: 'primary.main',
+    color: 'white',
+    borderRadius: 1,
+    textAlign: 'center',
+    fontSize: 19,
+    fontWeight: '700',
+  },
 }));

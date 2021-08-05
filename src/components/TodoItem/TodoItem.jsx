@@ -23,11 +23,6 @@ const TodoItem = ({
     <ListItem className={`list-item ${state}`}>
       <Grid container className={classes.listItem}>
         <Grid item xs={1}>
-          {/* <Checkbox
-            checked={state === 'TODO_ARCHIVED'}
-            name="checked"
-            onClick={() => onArchiveTodo(id)}
-          /> */}
           <IconButton
             aria-label="Archive Todo"
             onClick={() => onArchiveTodo(id)}
@@ -36,14 +31,11 @@ const TodoItem = ({
           </IconButton>
         </Grid>
         <Grid item xs={10}>
-          <ListItemText value={title} style={{ textOverflow: 'ellipsis' }}>
+          <ListItemText style={{ textOverflow: 'ellipsis' }}>
             {title}
           </ListItemText>
           <Divider />
-          <ListItemText
-            value={description}
-            style={{ textOverflow: 'ellipsis' }}
-          >
+          <ListItemText style={{ textOverflow: 'ellipsis' }}>
             {description}
           </ListItemText>
         </Grid>
