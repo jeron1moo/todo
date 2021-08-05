@@ -4,13 +4,17 @@ import { Box, Button } from '@material-ui/core';
 import AddTodo from '../AddTodo';
 import { addTodo } from '../../actions/todo';
 import applyTheme from '../../actions/theme';
-import { darkTheme, lightTheme } from '../../styles/theme';
+import lightTheme from '../../styles/lightTheme';
+import darkTheme from '../../styles/darkTheme';
 import useStyles from './styles';
 import Modal from '../Modal';
 
-const TodoNav = ({ onAddTodo, onApplyTheme }) => {
+const TodoNav = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const onApplyTheme = (theme) => dispatch(applyTheme(theme));
+  const onAddTodo = (state) => dispatch(addTodo(state));
 
   const events = {
     onAddTodo,
@@ -27,12 +31,6 @@ const TodoNav = ({ onAddTodo, onApplyTheme }) => {
   );
 };
 
-export default connect(
-  ({ todos }) => ({
-    todos,
-  }),
-  (dispatch) => ({
-    onAddTodo: (state) => dispatch(addTodo(state)),
-    onApplyTheme: (theme) => dispatch(applyTheme(theme)),
-  }),
-)(TodoNav);
+export default connect(({ todos }) => ({
+  todos,
+}))(TodoNav);

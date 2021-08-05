@@ -1,14 +1,14 @@
-import { APPLY_THEME } from '../constants/Theme';
-import { lightTheme } from '../styles/theme';
+import { APPLY_THEME } from '../constants/theme';
+import theme from '../styles/lightTheme';
 
 const initialState = {
-  theme: lightTheme,
+  ...theme,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case APPLY_THEME:
-      return { theme: action.payload };
+      return action.payload;
     default:
       return state;
   }

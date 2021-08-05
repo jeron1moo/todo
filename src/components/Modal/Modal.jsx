@@ -25,7 +25,7 @@ const CustomModal = ({ modalName, buttonName, children }) => {
         open={open}
         onClose={handleClose}
       >
-        <div className={classes.paper}>
+        <Box className={classes.paper}>
           <Typography>{modalName}</Typography>
           <IconButton
             aria-label="close"
@@ -35,7 +35,7 @@ const CustomModal = ({ modalName, buttonName, children }) => {
             <CloseIcon fontSize="small" />
           </IconButton>
           {children}
-        </div>
+        </Box>
       </Modal>
     </Box>
   );

@@ -1,4 +1,4 @@
-import { ADD_TODO, ARCHIVE_TODO, PIN_TODO } from '../constants/ActionTypes';
+import { ADD_TODO, ARCHIVE_TODO, PIN_TODO } from '../constants/actionTypes';
 
 const TODO_ARCHIVED = 'TODO_ARCHIVED';
 const TODO_PINNED = 'TODO_PINNED';
@@ -24,35 +24,22 @@ const todos = [
   },
 ];
 
-const todoStateReducer = (todoState) => {
-  return (state, action) => {
-    switch (action.type) {
-      case ARCHIVE_TODO:
-      case PIN_TODO: {
-        const newState = state.map((todo) =>
-          todo.id === action.id ? { ...todo, state: todoState } : todo,
-        );
-        return newState;
-      }
-      case ADD_TODO: {
-        return [...state, action.todo];
-      }
-      default:
-        return state;
-    }
-  };
-};
-
-export default (state = todos, action) => {
-  switch (action.type) {
+export default (state = todos, { type, payload }) => {
+  switch (type) {
     case ADD_TODO: {
-      return todoStateReducer()(state, action);
+      return [...state, payload.todo];
     }
     case ARCHIVE_TODO: {
-      return todoStateReducer(TODO_ARCHIVED)(state, action);
+      const newState = state.map((todo) =>
+        todo.id === payload.id ? { ...todo, state: TODO_ARCHIVED } : todo,
+      );
+      return newState;
     }
     case PIN_TODO: {
-      return todoStateReducer(TODO_PINNED)(state, action);
+      const newState = state.map((todo) =>
+        todo.id === payload.id ? { ...todo, state: TODO_PINNED } : todo,
+      );
+      return newState;
     }
     default:
       return state;

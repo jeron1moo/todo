@@ -1,21 +1,28 @@
 import React from 'react';
-import { List } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { Box, List } from '@material-ui/core';
+import { connect, useDispatch } from 'react-redux';
 import TodoItem from '../TodoItem';
 import { archiveTodo, pinTodo } from '../../actions/todo';
+import useStyles from './styles';
 
-export const TodoList = ({ loading, todos, onArchiveTodo, onPinTodo }) => {
+export const TodoList = ({ loading, todos }) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const onArchiveTodo = (id) => dispatch(archiveTodo(id));
+  const onPinTodo = (id) => dispatch(pinTodo(id));
+
   const events = {
     onPinTodo,
     onArchiveTodo,
   };
 
   if (loading) {
-    return <div className="list-todos">loading</div>;
+    return <Box className={classes.loadingTodos}>loading</Box>;
   }
 
   if (todos.length === 0) {
-    return <div className="list-todos">empty</div>;
+    return <Box className={classes.emptyTodos}>empty</Box>;
   }
 
   const todosInOrder = [
@@ -25,7 +32,7 @@ export const TodoList = ({ loading, todos, onArchiveTodo, onPinTodo }) => {
   return (
     <>
       {todosInOrder.length > 0 && (
-        <List style={{ overflowY: 'auto', height: '100%' }}>
+        <List className={classes.listTodos}>
           {todosInOrder.map((todo) => (
             <TodoItem key={todo.id} todo={todo} {...events} />
           ))}
@@ -35,14 +42,8 @@ export const TodoList = ({ loading, todos, onArchiveTodo, onPinTodo }) => {
   );
 };
 
-export default connect(
-  ({ todos }) => ({
-    todos: todos.filter(
-      (t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED',
-    ),
-  }),
-  (dispatch) => ({
-    onArchiveTodo: (id) => dispatch(archiveTodo(id)),
-    onPinTodo: (id) => dispatch(pinTodo(id)),
-  }),
-)(TodoList);
+export default connect(({ todos }) => ({
+  todos: todos.filter(
+    (t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED',
+  ),
+}))(TodoList);

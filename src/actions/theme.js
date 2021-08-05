@@ -1,4 +1,4 @@
-import { APPLY_THEME } from '../constants/Theme';
+import { APPLY_THEME } from '../constants/theme';
 
 const applyTheme = (theme) => ({
   type: APPLY_THEME,
