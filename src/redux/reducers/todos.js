@@ -2,6 +2,7 @@ import { ADD_TODO, ARCHIVE_TODO, PIN_TODO } from '../constants/actionTypes';
 
 const TODO_ARCHIVED = 'TODO_ARCHIVED';
 const TODO_PINNED = 'TODO_PINNED';
+const TODO_INBOX = 'TODO_INBOX';
 
 const todos = [
   {
@@ -37,7 +38,12 @@ export default (state = todos, { type, payload }) => {
     }
     case PIN_TODO: {
       const newState = state.map((todo) =>
-        todo.id === payload.id ? { ...todo, state: TODO_PINNED } : todo,
+        todo.id === payload.id
+          ? {
+              ...todo,
+              state: todo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
+            }
+          : todo,
       );
       return newState;
     }
