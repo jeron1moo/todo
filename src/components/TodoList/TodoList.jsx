@@ -7,7 +7,7 @@ import useStyles from './styles';
 import useActions from '../../hooks/useActions';
 
 const selectInboxAndPinnedTodos = createSelector(
-  (state) => state.todos,
+  (state) => state.todos.todos,
   (todos) =>
     todos.filter((t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED'),
 );
