@@ -1,10 +1,11 @@
+import produce from 'immer';
 import { ADD_TODO, ARCHIVE_TODO, PIN_TODO } from '../constants/actionTypes';
 
 const TODO_ARCHIVED = 'TODO_ARCHIVED';
 const TODO_PINNED = 'TODO_PINNED';
 const TODO_INBOX = 'TODO_INBOX';
 
-const todos = [
+const initialState = [
   {
     id: 1,
     title: 'Here',
@@ -25,29 +26,24 @@ const todos = [
   },
 ];
 
-export default (state = todos, { type, payload }) => {
+export default produce((state, { type, payload }) => {
   switch (type) {
     case ADD_TODO: {
-      return [...state, payload.todo];
+      state.push(payload.todo);
+      break;
     }
     case ARCHIVE_TODO: {
-      const newState = state.map((todo) =>
-        todo.id === payload.id ? { ...todo, state: TODO_ARCHIVED } : todo,
-      );
-      return newState;
+      const findTodo = state.find((todo) => todo.id === payload.id);
+      findTodo.state = TODO_ARCHIVED;
+      break;
     }
     case PIN_TODO: {
-      const newState = state.map((todo) =>
-        todo.id === payload.id
-          ? {
-              ...todo,
-              state: todo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
-            }
-          : todo,
-      );
-      return newState;
+      const findTodo = state.find((todo) => todo.id === payload.id);
+      findTodo.state =
+        findTodo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED;
+      break;
     }
     default:
-      return state;
+      break;
   }
-};
+}, initialState);

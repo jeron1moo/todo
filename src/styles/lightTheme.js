@@ -16,7 +16,7 @@ export default createTheme({
       contrastText: 'rgba(0, 0, 0, 0.87)',
     },
     background: {
-      default: '#fafafa',
+      default: '#8290CE',
       paper: '#fff',
     },
   },
