@@ -6,15 +6,11 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import GradeIcon from '@material-ui/icons/Grade';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import React from 'react';
 import useStyle from './styles';
-
-const TODO_ARCHIVED = 'TODO_ARCHIVED';
-const TODO_PINNED = 'TODO_PINNED';
+import CustomIconButton from '../CustomIconButton';
 
 const TodoItem = ({
   todo: { id, title, description, state },
@@ -42,11 +38,7 @@ const TodoItem = ({
             className="actions"
             onClick={(event) => event.stopPropagation()}
           >
-            {state !== TODO_ARCHIVED && (
-              <IconButton onClick={() => pinTodo(id)}>
-                {state === TODO_PINNED ? <GradeIcon /> : <StarBorderIcon />}
-              </IconButton>
-            )}
+            <CustomIconButton state={state} onClick={() => pinTodo(id)} />
           </ListItemSecondaryAction>
         </Box>
       </Box>
