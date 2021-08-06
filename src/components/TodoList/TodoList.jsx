@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, List } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import TodoItem from '../TodoItem';
-import { archiveTodo, pinTodo } from '../../redux/actions/todo';
 import useStyles from './styles';
+import useActions from '../../hooks/useActions';
 
 const selectInboxAndPinnedTodos = createSelector(
   (state) => state.todos,
@@ -14,22 +14,26 @@ const selectInboxAndPinnedTodos = createSelector(
 
 export const TodoList = ({ loading, className }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const todosList = useSelector(selectInboxAndPinnedTodos);
-  const onArchiveTodo = (id) => dispatch(archiveTodo(id));
-  const onPinTodo = (id) => dispatch(pinTodo(id));
+  const { pinTodo, archiveTodo } = useActions();
 
   const events = {
-    onPinTodo,
-    onArchiveTodo,
+    pinTodo,
+    archiveTodo,
   };
 
   if (loading) {
-    return <Box className={classes.loadingTodos}>loading</Box>;
+    return (
+      <Box className={`${classes.loadingTodos} ${className || ''}`}>
+        loading
+      </Box>
+    );
   }
 
   if (todosList.length === 0) {
-    return <Box className={classes.emptyTodos}>empty</Box>;
+    return (
+      <Box className={`${classes.emptyTodos} ${className || ''}`}>empty</Box>
+    );
   }
 
   const todosInOrder = [

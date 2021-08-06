@@ -3,7 +3,7 @@ import { Box, Button, TextField } from '@material-ui/core';
 import useStyles from './styles';
 import { getRandom } from '../../utils';
 
-const AddTodo = ({ onAddTodo, handleClose }) => {
+const AddTodo = ({ addTodo, handleClose }) => {
   const classes = useStyles();
   const [state, setState] = useState({
     id: getRandom(5, 100),
@@ -41,7 +41,7 @@ const AddTodo = ({ onAddTodo, handleClose }) => {
       <Button
         className={classes.themeButton}
         onClick={() => {
-          onAddTodo(state);
+          addTodo(state);
           handleClose();
         }}
         fullWidth

@@ -18,18 +18,15 @@ const TODO_PINNED = 'TODO_PINNED';
 
 const TodoItem = ({
   todo: { id, title, description, state },
-  onArchiveTodo,
-  onPinTodo,
+  archiveTodo,
+  pinTodo,
 }) => {
   const classes = useStyle();
   return (
     <ListItem className={`list-item ${state}`}>
       <Box className={classes.listItem}>
         <Box className={classes.todoArchive}>
-          <IconButton
-            aria-label="Archive Todo"
-            onClick={() => onArchiveTodo(id)}
-          >
+          <IconButton aria-label="Archive Todo" onClick={() => archiveTodo(id)}>
             <DeleteOutlineIcon />
           </IconButton>
         </Box>
@@ -46,7 +43,7 @@ const TodoItem = ({
             onClick={(event) => event.stopPropagation()}
           >
             {state !== TODO_ARCHIVED && (
-              <IconButton onClick={() => onPinTodo(id)}>
+              <IconButton onClick={() => pinTodo(id)}>
                 {state === TODO_PINNED ? <GradeIcon /> : <StarBorderIcon />}
               </IconButton>
             )}
