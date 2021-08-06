@@ -27,6 +27,13 @@ export default makeStyles((theme) => ({
   todoArchive: {
     flex: 1,
   },
+  todoTag: {
+    maxWidth: '200px',
+    minWidth: '150px',
+    paddingLeft: '12px',
+    marginRight: '12px',
+    flex: 1,
+  },
   todoPin: {
     flex: 1,
   },

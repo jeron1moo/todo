@@ -1,4 +1,9 @@
-import { ADD_TODO, ARCHIVE_TODO, PIN_TODO } from '../constants/actionTypes';
+import {
+  ADD_TODO,
+  ARCHIVE_TODO,
+  PIN_TODO,
+  TAG_TODO,
+} from '../constants/actionTypes';
 
 const TODO_ARCHIVED = 'TODO_ARCHIVED';
 const TODO_PINNED = 'TODO_PINNED';
@@ -10,18 +15,21 @@ const todos = [
     title: 'Here',
     description: 'Do nothing',
     state: 'TODO_INBOX',
+    tag: 'TODO',
   },
   {
     id: 2,
     title: 'Asss',
     description: 'Relax',
     state: 'TODO_INBOX',
+    tag: 'DONE',
   },
   {
     id: 3,
     title: 'Here',
     description: 'Chill',
     state: 'TODO_PINNED',
+    tag: 'IN_PROGRESS',
   },
 ];
 
@@ -42,6 +50,17 @@ export default (state = todos, { type, payload }) => {
           ? {
               ...todo,
               state: todo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
+            }
+          : todo,
+      );
+      return newState;
+    }
+    case TAG_TODO: {
+      const newState = state.map((todo) =>
+        todo.id === payload.id
+          ? {
+              ...todo,
+              tag: payload.tag,
             }
           : todo,
       );

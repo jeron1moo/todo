@@ -15,11 +15,12 @@ const selectInboxAndPinnedTodos = createSelector(
 export const TodoList = ({ loading, className }) => {
   const classes = useStyles();
   const todosList = useSelector(selectInboxAndPinnedTodos);
-  const { pinTodo, archiveTodo } = useActions();
+  const { pinTodo, archiveTodo, tagTodo } = useActions();
 
   const events = {
     pinTodo,
     archiveTodo,
+    tagTodo,
   };
 
   if (loading) {

@@ -12,14 +12,16 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import React from 'react';
 import useStyle from './styles';
+import TodoTag from '../TodoTag';
 
 const TODO_ARCHIVED = 'TODO_ARCHIVED';
 const TODO_PINNED = 'TODO_PINNED';
 
 const TodoItem = ({
-  todo: { id, title, description, state },
+  todo: { id, title, description, state, tag },
   archiveTodo,
   pinTodo,
+  tagTodo,
 }) => {
   const classes = useStyle();
   return (
@@ -36,6 +38,9 @@ const TodoItem = ({
           <ListItemText className={classes.todoDescription}>
             {description}
           </ListItemText>
+        </Box>
+        <Box className={classes.todoTag}>
+          <TodoTag id={id} tag={tag} tagTodo={tagTodo} />
         </Box>
         <Box className={classes.todoPin}>
           <ListItemSecondaryAction
