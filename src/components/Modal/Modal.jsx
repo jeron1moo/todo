@@ -15,12 +15,6 @@ const CustomModal = ({ modalName, buttonName, children }) => {
     setOpen(false);
   };
 
-  const newChildren = { ...children };
-  newChildren.props = {
-    ...children.props,
-    handleClose,
-  };
-
   return (
     <Box>
       <Button className={classes.themeButton} onClick={handleOpen}>
@@ -44,7 +38,7 @@ const CustomModal = ({ modalName, buttonName, children }) => {
               <CloseIcon className={classes.modalClose} fontSize="small" />
             </IconButton>
           </Box>
-          {newChildren}
+          {React.cloneElement(children, { handleClose })}
         </Box>
       </Modal>
     </Box>

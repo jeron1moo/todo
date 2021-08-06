@@ -20,8 +20,4 @@ export default createTheme({
       paper: '#424242',
     },
   },
-  background: {
-    default: '#303030',
-    paper: '#424242',
-  },
 });

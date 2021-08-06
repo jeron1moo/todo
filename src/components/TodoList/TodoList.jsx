@@ -1,14 +1,21 @@
 import React from 'react';
 import { Box, List } from '@material-ui/core';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 import TodoItem from '../TodoItem';
 import { archiveTodo, pinTodo } from '../../redux/actions/todo';
 import useStyles from './styles';
 
-export const TodoList = ({ loading, todos }) => {
+const selectInboxAndPinnedTodos = createSelector(
+  (state) => state.todos,
+  (todos) =>
+    todos.filter((t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED'),
+);
+
+export const TodoList = ({ loading, className }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const todosList = useSelector(selectInboxAndPinnedTodos);
   const onArchiveTodo = (id) => dispatch(archiveTodo(id));
   const onPinTodo = (id) => dispatch(pinTodo(id));
 
@@ -21,18 +28,18 @@ export const TodoList = ({ loading, todos }) => {
     return <Box className={classes.loadingTodos}>loading</Box>;
   }
 
-  if (todos.length === 0) {
+  if (todosList.length === 0) {
     return <Box className={classes.emptyTodos}>empty</Box>;
   }
 
   const todosInOrder = [
-    ...todos.filter((t) => t.state === 'TODO_PINNED'),
-    ...todos.filter((t) => t.state !== 'TODO_PINNED'),
+    ...todosList.filter((t) => t.state === 'TODO_PINNED'),
+    ...todosList.filter((t) => t.state !== 'TODO_PINNED'),
   ];
   return (
     <>
       {todosInOrder.length > 0 && (
-        <List className={classes.listTodos}>
+        <List className={`${classes.todoNav} ${className || ''}`}>
           {todosInOrder.map((todo) => (
             <TodoItem key={todo.id} todo={todo} {...events} />
           ))}
@@ -42,8 +49,4 @@ export const TodoList = ({ loading, todos }) => {
   );
 };
 
-export default connect(({ todos }) => ({
-  todos: todos.filter(
-    (t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED',
-  ),
-}))(TodoList);
+export default TodoList;

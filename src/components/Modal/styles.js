@@ -8,6 +8,7 @@ export default makeStyles((theme) => ({
     verticalAlign: 'middle',
   },
   modalContent: {
+    position: 'relative',
     color: theme.palette.secondary.main,
     backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(2, 4, 3),
@@ -26,7 +27,9 @@ export default makeStyles((theme) => ({
     color: theme.palette.secondary.main,
   },
   modalButton: {
-    marginRight: '-20px',
+    position: 'absolute',
+    right: '4px',
+    top: '4px',
   },
   modalTitle: {
     display: 'inline',

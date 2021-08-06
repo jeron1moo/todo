@@ -14,12 +14,8 @@ export const Todo = ({ error }) => {
   }
   return (
     <Box className={classes.todoContainer}>
-      <Box className={classes.todoItem}>
-        <TodoNav />
-      </Box>
-      <Box className={classes.todoItem}>
-        <TodoList />
-      </Box>
+      <TodoNav className={classes.todoItem} />
+      <TodoList className={classes.todoItem} />
     </Box>
   );
 };
