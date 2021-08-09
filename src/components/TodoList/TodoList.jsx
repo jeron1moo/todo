@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, List } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
 import useActions from '../../hooks/useActions';
+import useSort from '../../hooks/useSort';
 
 const selectInboxAndPinnedTodos = createSelector(
   (state) => state.todos.todos,
@@ -17,11 +18,18 @@ export const TodoList = ({ className }) => {
   const todosList = useSelector(selectInboxAndPinnedTodos);
   const loading = useSelector(({ todos }) => todos.loading);
   const { pinTodo, archiveTodo } = useActions();
+  const { sorted } = useSort();
 
   const events = {
     pinTodo,
     archiveTodo,
   };
+
+  useEffect(() => {
+    if (!loading) {
+      sorted();
+    }
+  }, [loading]);
 
   if (loading) {
     return (
@@ -41,6 +49,7 @@ export const TodoList = ({ className }) => {
     ...todosList.filter((t) => t.state === 'TODO_PINNED'),
     ...todosList.filter((t) => t.state !== 'TODO_PINNED'),
   ];
+
   return (
     <>
       {todosInOrder.length > 0 && (

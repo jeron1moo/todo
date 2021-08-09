@@ -8,6 +8,7 @@ import {
   LOAD_TODOS,
   PIN_TODO,
   ADD_TODO_SUCCESS,
+  SORT_TODO,
 } from '../constants/actionTypes';
 
 const addTodoSuccess = (todo) => ({
@@ -43,6 +44,7 @@ export const addTodo = (todo) => {
         ...todo,
         state: 'TODO_INBOX',
         id: nanoid(),
+        createdAt: new Date(),
       })
       .then((res) => {
         dispatch(addTodoSuccess(res.data));
@@ -70,6 +72,7 @@ export const archiveTodo = (id) => {
 };
 
 export const pinTodo = (id) => ({ type: PIN_TODO, payload: { id } });
+export const sortTodo = (todos) => ({ type: SORT_TODO, payload: { todos } });
 
 export const loadTodos = () => {
   return (dispatch) => {

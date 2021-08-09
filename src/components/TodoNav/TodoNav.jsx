@@ -6,6 +6,7 @@ import applyTheme from '../../redux/actions/theme';
 import useStyles from './styles';
 import Modal from '../Modal';
 import useActions from '../../hooks/useActions';
+import SortTodo from '../SortTodo';
 
 const TodoNav = ({ className }) => {
   const classes = useStyles();
@@ -24,6 +25,7 @@ const TodoNav = ({ className }) => {
       <Modal modalName="Add Todo" buttonName="Add">
         <AddTodo {...events} />
       </Modal>
+      <SortTodo />
     </Box>
   );
 };

@@ -4,3 +4,4 @@ export const LOADING = 'LOADING';
 export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
 export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE';
 export const LOAD_TODOS = 'LOAD_TODOS';
+export const SORT_TODO = 'SORT_TODO';
