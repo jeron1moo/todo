@@ -5,13 +5,12 @@ import AddTodo from '../AddTodo';
 import applyTheme from '../../redux/actions/theme';
 import useStyles from './styles';
 import Modal from '../Modal';
-import useActions from '../../hooks/useActions';
+import useTodosQuery from '../../hooks/useTodosQuery';
 
 const TodoNav = ({ className }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { addTodo } = useActions();
-
+  const { addTodo } = useTodosQuery();
   const onApplyTheme = () => dispatch(applyTheme());
 
   const events = {

@@ -1,27 +1,26 @@
 import React from 'react';
 import { Box, List } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
-import useActions from '../../hooks/useActions';
-
-const selectInboxAndPinnedTodos = createSelector(
-  (state) => state.todos.todos,
-  (todos) =>
-    todos.filter((t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED'),
-);
+import useTodosQuery from '../../hooks/useTodosQuery';
 
 export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const todosList = useSelector(selectInboxAndPinnedTodos);
-  const loading = useSelector(({ todos }) => todos.loading);
-  const { pinTodo, archiveTodo } = useActions();
+  const { useTodos, pinTodo, archiveTodo } = useTodosQuery();
+  const { data: todosList, isLoading: loading, isError } = useTodos();
 
   const events = {
     pinTodo,
     archiveTodo,
   };
+
+  if (isError) {
+    return (
+      <Box className={`${classes.loadingTodos} ${className || ''}`}>
+        isError
+      </Box>
+    );
+  }
 
   if (loading) {
     return (
