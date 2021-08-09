@@ -7,8 +7,9 @@ export const TodoTag = ({ id, tag, tagTodo }) => {
   const classes = useStyles();
   return (
     <FormControl variant="outlined" className={classes.formControl}>
-      <InputLabel>Tag</InputLabel>
+      <InputLabel className={classes.formLabel}>Tag</InputLabel>
       <Select
+        className={classes.formSelect}
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
         value={tag}
