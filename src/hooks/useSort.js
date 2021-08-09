@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import useActions from './useActions';
 
@@ -23,10 +23,6 @@ const useSort = () => {
   const sorted = () => {
     sortTodo(sortBy());
   };
-
-  useEffect(() => {
-    sorted();
-  }, [sort]);
 
   return {
     sort,

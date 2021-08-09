@@ -62,7 +62,7 @@ export default produce((state, { type, payload }) => {
       state.error = payload.error;
       break;
     case SORT_TODO:
-      state.todos = payload.todos;
+      state.todos = [...payload.todos];
       break;
     default:
       break;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 
@@ -11,7 +11,10 @@ import useActions from '../../hooks/useActions';
 const App = () => {
   const choosedTheme = useSelector(({ theme }) => theme);
   const { loadTodos } = useActions();
-  loadTodos();
+  useEffect(() => {
+    loadTodos();
+  }, []);
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={choosedTheme}>

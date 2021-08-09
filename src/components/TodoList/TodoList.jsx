@@ -26,7 +26,7 @@ export const TodoList = ({ className }) => {
   };
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && todosList.length > 1) {
       sorted();
     }
   }, [loading]);

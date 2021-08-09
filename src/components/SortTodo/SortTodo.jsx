@@ -5,10 +5,11 @@ import useStyles from './styles';
 
 const SortTodo = () => {
   const classes = useStyles();
-  const { sort, setSort } = useSort();
+  const { sort, setSort, sorted } = useSort();
 
   const handleChange = () => {
     setSort(sort === 'ASC' ? 'DESC' : 'ASC');
+    sorted();
   };
 
   return (
