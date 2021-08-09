@@ -6,10 +6,12 @@ import { CssBaseline } from '@material-ui/core';
 
 import { useSelector } from 'react-redux';
 import Todo from '../Todo/Todo';
+import useActions from '../../hooks/useActions';
 
 const App = () => {
   const choosedTheme = useSelector(({ theme }) => theme);
-
+  const { loadTodos } = useActions();
+  loadTodos();
   return (
     <BrowserRouter>
       <ThemeProvider theme={choosedTheme}>

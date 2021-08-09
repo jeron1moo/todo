@@ -33,6 +33,7 @@
     "quotes": [1, "single"],
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
-    "import/no-named-as-default": 0
+    "import/no-named-as-default": 0,
+    "no-param-reassign": "off"
   }
 }
