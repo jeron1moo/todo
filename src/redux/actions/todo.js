@@ -39,7 +39,7 @@ export const addTodo = (todo) => {
   return (dispatch) => {
     dispatch(loading());
     axios
-      .post('http://localhost:4000/todos', {
+      .post(process.env.REACT_APP_URL_TODO, {
         ...todo,
         state: 'TODO_INBOX',
         id: nanoid(),
@@ -57,7 +57,7 @@ export const archiveTodo = (id) => {
   return (dispatch) => {
     dispatch(loading());
     axios
-      .delete(`http://localhost:4000/todos/${id}`, {
+      .delete(`${process.env.REACT_APP_URL_TODO}/${id}`, {
         id,
       })
       .then(() => {
@@ -75,7 +75,7 @@ export const loadTodos = () => {
   return (dispatch) => {
     dispatch(loading());
     axios
-      .get('http://localhost:4000/todos')
+      .get(process.env.REACT_APP_URL_TODO)
       .then((res) => {
         dispatch(importTodos(res.data));
       })
