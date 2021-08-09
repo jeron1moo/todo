@@ -1,3 +1,4 @@
+import produce from 'immer';
 import {
   ARCHIVE_TODO,
   PIN_TODO,
@@ -26,53 +27,39 @@ const initialState = {
   error: null,
 };
 
-export default (state = initialState, { type, payload }) => {
+export default produce((state, { type, payload }) => {
   switch (type) {
-    case LOAD_TODOS: {
-      return { ...state, todos: payload.todos };
-    }
+    case LOAD_TODOS:
+      state.todos = [...payload.todos];
+      state.loading = false;
+      state.error = null;
+      break;
     case ARCHIVE_TODO: {
-      const newState = state.todos.map((todo) =>
-        todo.id === payload.id ? { ...todo, state: TODO_ARCHIVED } : todo,
-      );
-      return {
-        ...state,
-        todos: newState,
-      };
+      const findTodo = state.todos.find((todo) => todo.id === payload.id);
+      findTodo.state = TODO_ARCHIVED;
+      state.loading = false;
+      state.error = null;
+      break;
     }
     case PIN_TODO: {
-      const newState = state.todos.map((todo) =>
-        todo.id === payload.id
-          ? {
-              ...todo,
-              state: todo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
-            }
-          : todo,
-      );
-      return {
-        ...state,
-        todos: newState,
-      };
+      const findTodo = state.todos.find((todo) => todo.id === payload.id);
+      findTodo.state =
+        findTodo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED;
+      break;
     }
     case LOADING:
-      return {
-        ...state,
-        loading: true,
-      };
+      state.loading = true;
+      break;
     case ADD_TODO_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        todos: [...state.todos, payload],
-      };
+      state.loading = false;
+      state.error = null;
+      state.todos.push(payload);
+      break;
     case ADD_TODO_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: payload.error,
-      };
+      state.loading = false;
+      state.error = payload.error;
+      break;
     default:
-      return state;
+      break;
   }
-};
+}, initialState);

@@ -12,9 +12,10 @@ const selectInboxAndPinnedTodos = createSelector(
     todos.filter((t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED'),
 );
 
-export const TodoList = ({ loading, className }) => {
+export const TodoList = ({ className }) => {
   const classes = useStyles();
   const todosList = useSelector(selectInboxAndPinnedTodos);
+  const loading = useSelector(({ todos }) => todos.loading);
   const { pinTodo, archiveTodo } = useActions();
 
   const events = {
