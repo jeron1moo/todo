@@ -2,12 +2,13 @@ import React from 'react';
 import { Box, List } from '@material-ui/core';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
-import useTodosQuery from '../../hooks/useTodosQuery';
+import { useTodos, useArchiveTodo, usePinTodo } from '../../hooks/useQueries';
 
 export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const { useTodos, pinTodo, archiveTodo } = useTodosQuery();
   const { data: todosList, isLoading: loading, isError } = useTodos();
+  const { pinTodo } = usePinTodo();
+  const { archiveTodo } = useArchiveTodo();
 
   const events = {
     pinTodo,

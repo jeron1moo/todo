@@ -16,7 +16,7 @@ const pinMutate = async (id) => {
 };
 
 const archiveMutate = async (id) => {
-  const res = axios.delete(`${process.env.REACT_APP_URL_TODO}/${id}`, {
+  const res = await axios.delete(`${process.env.REACT_APP_URL_TODO}/${id}`, {
     id,
   });
   return res;
@@ -31,50 +31,53 @@ const addMutate = async (todo) => {
   return res;
 };
 
-export default () => {
+export const usePinTodo = () => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: mutatePinAsync } = useMutation(pinMutate, {
+  const { mutate } = useMutation(pinMutate, {
     onSuccess: () => {
       queryClient.invalidateQueries(TODOS);
     },
   });
-
-  const { mutateAsync: mutateAsyncArchive } = useMutation(archiveMutate, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(TODOS);
-    },
-  });
-
-  const { mutateAsync: mutateAddAsync } = useMutation(addMutate, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('todos');
-    },
-  });
-
-  const addTodo = async (todo) => {
-    await mutateAddAsync(todo);
-  };
-
-  const useTodos = () => {
-    return useQuery('todos', async () => {
-      const { data } = await axios.get(process.env.REACT_APP_URL_TODO);
-      return data;
-    });
-  };
-
-  const archiveTodo = async (id) => {
-    await mutateAsyncArchive(id);
-  };
-
-  const pinTodo = async (id) => {
-    await mutatePinAsync(id);
-  };
 
   return {
-    archiveTodo,
-    pinTodo,
-    useTodos,
-    addTodo,
+    pinTodo: mutate,
   };
 };
+
+export const useAddTodo = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(addMutate, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(TODOS);
+    },
+  });
+
+  return {
+    addTodo: mutate,
+  };
+};
+
+export const useArchiveTodo = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(archiveMutate, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(TODOS);
+    },
+  });
+
+  return {
+    archiveTodo: mutate,
+  };
+};
+
+export const useTodos = () => {
+  return useQuery(TODOS, async () => {
+    const { data } = await axios.get(process.env.REACT_APP_URL_TODO);
+    return data;
+  });
+};
+
+export default { usePinTodo, useArchiveTodo, useAddTodo, useTodos };
