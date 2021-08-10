@@ -25,7 +25,7 @@ const archiveMutate = async (id) => {
 const addMutate = async (todo) => {
   const res = await axios.post(process.env.REACT_APP_URL_TODO, {
     ...todo,
-    state: 'TODO_INBOX',
+    state: TODO_INBOX,
     id: nanoid(),
   });
   return res;
