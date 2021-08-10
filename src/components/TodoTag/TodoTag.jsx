@@ -3,10 +3,17 @@ import React from 'react';
 
 import useStyles from './styles';
 
-export const TodoTag = ({ id, tag, tagTodo }) => {
+const TODO = 'TODO';
+const DONE = 'DONE';
+const IN_PROGRESS = 'IN_PROGRESS';
+
+export const TodoTag = ({ id, tag, tagTodo, className }) => {
   const classes = useStyles();
   return (
-    <FormControl variant="outlined" className={classes.formControl}>
+    <FormControl
+      variant="outlined"
+      className={`${classes.formControl} ${className || ''}`}
+    >
       <InputLabel className={classes.formLabel}>Tag</InputLabel>
       <Select
         className={classes.formSelect}
@@ -16,9 +23,9 @@ export const TodoTag = ({ id, tag, tagTodo }) => {
         onChange={(e) => tagTodo(id, e.target.value)}
         label="Tag"
       >
-        <MenuItem value="TODO">Todo</MenuItem>
-        <MenuItem value="DONE">Done</MenuItem>
-        <MenuItem value="IN_PROGRESS">In porgress</MenuItem>
+        <MenuItem value={TODO}>Todo</MenuItem>
+        <MenuItem value={DONE}>Done</MenuItem>
+        <MenuItem value={IN_PROGRESS}>In porgress</MenuItem>
       </Select>
     </FormControl>
   );

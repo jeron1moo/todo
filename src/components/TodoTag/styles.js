@@ -9,6 +9,7 @@ export default makeStyles((theme) => ({
   formLabel: {
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.secondary.main,
+    paddingLeft: theme.spacing(2),
   },
   formSelect: {
     backgroundColor: theme.palette.primary.dark,

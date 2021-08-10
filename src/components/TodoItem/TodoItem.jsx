@@ -35,9 +35,12 @@ const TodoItem = ({
             {description}
           </ListItemText>
         </Box>
-        <Box className={classes.todoTag}>
-          <TodoTag id={id} tag={tag} tagTodo={tagTodo} />
-        </Box>
+        <TodoTag
+          id={id}
+          tag={tag}
+          tagTodo={tagTodo}
+          className={classes.todoTag}
+        />
         <Box className={classes.todoPin}>
           <ListItemSecondaryAction
             className="actions"

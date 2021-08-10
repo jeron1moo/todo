@@ -18,12 +18,6 @@ export const TodoList = ({ className }) => {
   const { pinTodo, archiveTodo, tagTodo } = useActions();
   const loading = useSelector(({ todos }) => todos.loading);
 
-  const events = {
-    pinTodo,
-    archiveTodo,
-    tagTodo,
-  };
-
   if (loading) {
     return (
       <Box className={`${classes.loadingTodos} ${className || ''}`}>
@@ -47,7 +41,13 @@ export const TodoList = ({ className }) => {
       {todosInOrder.length > 0 && (
         <List className={`${classes.todoNav} ${className || ''}`}>
           {todosInOrder.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} {...events} />
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              pinTodo={pinTodo}
+              archiveTodo={archiveTodo}
+              tagTodo={tagTodo}
+            />
           ))}
         </List>
       )}
