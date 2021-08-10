@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import CachedIcon from '@material-ui/icons/Cached';
 import DoneIcon from '@material-ui/icons/Done';
@@ -14,7 +14,7 @@ const DONE = 'DONE';
 
 const FilterTodo = () => {
   const classes = useStyles();
-  const [formats, setFormats] = React.useState(() => [ALL]);
+  const [formats, setFormats] = useState(() => [ALL]);
   const { filterTodo } = useFilters();
 
   const handleFormat = (event, newFormats) => {
@@ -65,43 +65,3 @@ const FilterTodo = () => {
 };
 
 export default FilterTodo;
-
-// {
-/* <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        startIcon={}
-      >
-        All
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        startIcon={}
-      >
-        Todo
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        startIcon={<CachedIcon />}
-      >
-        In Progress
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        startIcon={}
-      >
-        Done
-      </Button>
-      <ToggleButtonGroup
-        value={formats}
-        onChange={handleFormat}
-        aria-label="text formatting"
-      > */
-// }
