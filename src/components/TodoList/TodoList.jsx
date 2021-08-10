@@ -18,7 +18,7 @@ export const TodoList = ({ className }) => {
   const todosList = useSelector(selectInboxAndPinnedTodos);
   const loading = useSelector(({ todos }) => todos.loading);
   const { pinTodo, archiveTodo } = useActions();
-  const { sorted } = useSort();
+  const { sorted, setSort } = useSort();
 
   const events = {
     pinTodo,
@@ -28,6 +28,7 @@ export const TodoList = ({ className }) => {
   useEffect(() => {
     if (!loading && todosList.length > 1) {
       sorted();
+      setSort('ASC');
     }
   }, [loading]);
 

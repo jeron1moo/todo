@@ -4,24 +4,21 @@ import useActions from './useActions';
 
 const useSort = () => {
   const todosList = useSelector(({ todos }) => todos.todos);
+  const { sortTodo } = useActions();
 
   const [sort, setSort] = useState('ASC');
 
-  const { sortTodo } = useActions();
-
   const sortedByDate = todosList.sort((a, b) => {
-    const dateA = new Date(a.createdAt);
-    const dateB = new Date(b.createdAt);
-    return dateB.getTime() - dateA.getTime();
+    return new Date(b.createdAt) - new Date(a.createdAt);
   });
 
-  const sortBy = () => {
-    if (sort === 'ASC') return sortedByDate;
-    return sortedByDate.reverse();
+  const sortOrder = () => {
+    return sort === 'ASC' ? sortedByDate : sortedByDate.reverse();
   };
 
   const sorted = () => {
-    sortTodo(sortBy());
+    setSort(sort === 'ASC' ? 'DESC' : 'ASC');
+    sortTodo(sortOrder());
   };
 
   return {
