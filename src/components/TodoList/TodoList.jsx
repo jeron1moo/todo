@@ -15,13 +15,8 @@ const selectInboxAndPinnedTodos = createSelector(
 export const TodoList = ({ className }) => {
   const classes = useStyles();
   const todosList = useSelector(selectInboxAndPinnedTodos);
+  const { pinTodo, archiveTodo, tagTodo } = useActions();
   const loading = useSelector(({ todos }) => todos.loading);
-  const { pinTodo, archiveTodo } = useActions();
-
-  const events = {
-    pinTodo,
-    archiveTodo,
-  };
 
   if (loading) {
     return (
@@ -46,7 +41,13 @@ export const TodoList = ({ className }) => {
       {todosInOrder.length > 0 && (
         <List className={`${classes.todoNav} ${className || ''}`}>
           {todosInOrder.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} {...events} />
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              pinTodo={pinTodo}
+              archiveTodo={archiveTodo}
+              tagTodo={tagTodo}
+            />
           ))}
         </List>
       )}

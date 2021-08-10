@@ -8,6 +8,7 @@ import {
   LOAD_TODOS,
   PIN_TODO,
   ADD_TODO_SUCCESS,
+  TAG_TODO,
 } from '../constants/actionTypes';
 
 const addTodoSuccess = (todo) => ({
@@ -70,6 +71,7 @@ export const archiveTodo = (id) => {
 };
 
 export const pinTodo = (id) => ({ type: PIN_TODO, payload: { id } });
+export const tagTodo = (id, tag) => ({ type: TAG_TODO, payload: { id, tag } });
 
 export const loadTodos = () => {
   return (dispatch) => {
