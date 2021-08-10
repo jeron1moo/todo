@@ -12,6 +12,7 @@ import React from 'react';
 import useStyle from './styles';
 import TodoTag from '../TodoTag';
 import CustomIconButton from '../CustomIconButton';
+import DetailsButton from '../DetailsButton';
 
 const TodoItem = ({
   todo: { id, title, description, state, tag },
@@ -35,6 +36,7 @@ const TodoItem = ({
             {description}
           </ListItemText>
         </Box>
+        <DetailsButton id={id} todo />
         <TodoTag
           id={id}
           tag={tag}
