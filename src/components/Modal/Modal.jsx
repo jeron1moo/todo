@@ -29,7 +29,13 @@ const CustomModal = ({ modalName, buttonName, children }) => {
       >
         <Box className={classes.modalContent}>
           <Box className={classes.modalDescription}>
-            <Typography className={classes.modalTitle}>{modalName}</Typography>
+            <Typography
+              variant="h5"
+              component="span"
+              className={classes.modalTitle}
+            >
+              {modalName}
+            </Typography>
             <IconButton
               className={classes.modalButton}
               aria-label="close"

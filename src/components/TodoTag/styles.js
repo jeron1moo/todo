@@ -2,17 +2,17 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   formControl: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: 'transparent',
     color: theme.palette.secondary.main,
     width: '100%',
   },
   formLabel: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: 'transparent',
     color: theme.palette.secondary.main,
     paddingLeft: theme.spacing(2),
   },
   formSelect: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: 'transparent',
     color: theme.palette.secondary.main,
     '& .MuiOutlinedInput-notchedOutline': {
       color: theme.palette.secondary.main,

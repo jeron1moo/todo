@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
     position: 'relative',
     color: theme.palette.secondary.main,
     backgroundColor: theme.palette.primary.main,
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(4, 4, 3),
   },
   modalDescription: {
     display: 'flex',
