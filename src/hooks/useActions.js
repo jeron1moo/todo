@@ -7,13 +7,10 @@ import * as filters from '../redux/actions/filters';
 export const useActions = () => {
   const dispatch = useDispatch();
 
-  return useMemo(() => bindActionCreators(todos, dispatch), [dispatch]);
+  return useMemo(
+    () => bindActionCreators({ ...todos, ...filters }, dispatch),
+    [dispatch],
+  );
 };
 
-export const useFilters = () => {
-  const dispatch = useDispatch();
-
-  return useMemo(() => bindActionCreators(filters, dispatch), [dispatch]);
-};
-
-export default { useActions, useFilters };
+export default { useActions };

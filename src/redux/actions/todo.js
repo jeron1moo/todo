@@ -44,6 +44,7 @@ export const addTodo = (todo) => {
         ...todo,
         state: 'TODO_INBOX',
         id: nanoid(),
+        tag: 'TODO',
       })
       .then((res) => {
         dispatch(addTodoSuccess(res.data));

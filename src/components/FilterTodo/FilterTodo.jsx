@@ -5,7 +5,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import useStyles from './styles';
-import { useFilters } from '../../hooks/useActions';
+import { useActions } from '../../hooks/useActions';
 
 const ALL = 'ALL';
 const TODO = 'TODO';
@@ -15,7 +15,7 @@ const DONE = 'DONE';
 const FilterTodo = () => {
   const classes = useStyles();
   const [formats, setFormats] = useState(() => [ALL]);
-  const { filterTodo } = useFilters();
+  const { filterTodo } = useActions();
 
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);

@@ -20,7 +20,7 @@ export const TodoTag = ({ id, tag, tagTodo, className }) => {
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
         value={tag}
-        onChange={(e) => tagTodo(id, e.target.value)}
+        onChange={(e) => tagTodo({ id, tag: e.target.value })}
         label="Tag"
       >
         <MenuItem value={TODO}>Todo</MenuItem>

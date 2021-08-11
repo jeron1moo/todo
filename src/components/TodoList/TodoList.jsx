@@ -1,35 +1,28 @@
 import React from 'react';
 import { Box, List } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
-import { useActions } from '../../hooks/useActions';
-
-const selectFilteredInboxAndPinned = createSelector(
-  (state) => state.todos.todos,
-  (state) => state.filters,
-  (todos, filters) => {
-    const { tags } = filters;
-    const showAll = tags.includes('ALL');
-    if (showAll)
-      return todos.filter(
-        (t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED',
-      );
-    return todos.filter((t) => {
-      return (
-        tags.includes(t.tag) &&
-        (t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED')
-      );
-    });
-  },
-);
+import {
+  useGetTodos,
+  useArchiveTodo,
+  usePinTodo,
+  useTagTodo,
+} from '../../hooks/useQueries';
+import useFilters from '../../hooks/useFilters';
 
 export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const todosList = useSelector(selectFilteredInboxAndPinned);
-  const { pinTodo, archiveTodo, tagTodo } = useActions();
-  const loading = useSelector(({ todos }) => todos.loading);
+  const { data, isLoading: loading, isError } = useGetTodos();
+  const { pinTodo } = usePinTodo();
+  const { archiveTodo } = useArchiveTodo();
+  const { tagTodo } = useTagTodo();
+  const { todos: todosList } = useFilters(data);
+
+  if (isError) {
+    return (
+      <Box className={`${classes.loadingTodos} ${className || ''}`}>error</Box>
+    );
+  }
 
   if (loading) {
     return (
