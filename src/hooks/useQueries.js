@@ -28,6 +28,7 @@ const addMutate = async (todo) => {
     state: TODO_INBOX,
     id: nanoid(),
     tag: 'TODO',
+    createdAt: new Date(),
   });
   return res;
 };

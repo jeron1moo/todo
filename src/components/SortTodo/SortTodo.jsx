@@ -1,15 +1,17 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import React, { useEffect } from 'react';
-import useSort from '../../hooks/useSort';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import useActions from '../../hooks/useActions';
 import useStyles from './styles';
 
 const SortTodo = () => {
   const classes = useStyles();
-  const { sort, sorted, setSort } = useSort();
+  const sort = useSelector((state) => state.todos.sort);
+  const { sortTodo } = useActions();
 
-  useEffect(() => {
-    setSort(sort === 'ASC' ? 'DESC' : 'ASC');
-  }, []);
+  const handleChange = () => {
+    sortTodo(sort === 'ASC' ? 'DESC' : 'ASC');
+  };
 
   return (
     <FormControl variant="outlined" className={classes.formControl}>
@@ -17,11 +19,12 @@ const SortTodo = () => {
       <Select
         className={classes.formSelect}
         value={sort}
-        onChange={() => sorted()}
+        onChange={handleChange}
         label="Sort Date"
+        name="sort"
       >
-        <MenuItem value="DESC">Newest</MenuItem>
-        <MenuItem value="ASC">Oldest</MenuItem>
+        <MenuItem value="ASC">Newest</MenuItem>
+        <MenuItem value="DESC">Oldest</MenuItem>
       </Select>
     </FormControl>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, List } from '@material-ui/core';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
@@ -12,24 +12,17 @@ import useSort from '../../hooks/useSort';
 
 export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const { data: todosList, isLoading: loading, isError } = useGetTodos();
+  const { data, isLoading: loading, isError } = useGetTodos();
   const { pinTodo } = usePinTodo();
   const { archiveTodo } = useArchiveTodo();
   const { tagTodo } = useTagTodo();
-  const { sorted, setSort } = useSort();
+  const { todos: todosList } = useSort(data);
 
   if (isError) {
     return (
       <Box className={`${classes.loadingTodos} ${className || ''}`}>error</Box>
     );
   }
-
-  useEffect(() => {
-    if (!loading && todosList.length > 1) {
-      sorted();
-      setSort('ASC');
-    }
-  }, [loading]);
 
   if (loading) {
     return (

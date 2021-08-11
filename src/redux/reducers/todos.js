@@ -29,6 +29,7 @@ const initialState = {
   loading: false,
   todos,
   error: null,
+  sort: 'ASC',
 };
 
 export default produce((state, { type, payload }) => {
@@ -69,7 +70,7 @@ export default produce((state, { type, payload }) => {
       state.error = payload.error;
       break;
     case SORT_TODO:
-      state.todos = [...payload.todos];
+      state.sort = payload.sort;
       break;
     default:
       break;

@@ -74,7 +74,7 @@ export const archiveTodo = (id) => {
 };
 
 export const pinTodo = (id) => ({ type: PIN_TODO, payload: { id } });
-export const sortTodo = (todos) => ({ type: SORT_TODO, payload: { todos } });
+export const sortTodo = (sort) => ({ type: SORT_TODO, payload: { sort } });
 export const tagTodo = (id, tag) => ({ type: TAG_TODO, payload: { id, tag } });
 
 export const loadTodos = () => {

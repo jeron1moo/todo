@@ -1,30 +1,20 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import useActions from './useActions';
 
-const useSort = () => {
-  const todosList = useSelector(({ todos }) => todos.todos);
-  const { sortTodo } = useActions();
-
-  const [sort, setSort] = useState('ASC');
-
-  const sortedByDate = todosList.sort((a, b) => {
+const useSort = (data = []) => {
+  const sort = useSelector((state) => state.todos.sort);
+  console.log('%cupdated', 'color: #a72525;');
+  const sortedByDate = data.sort((a, b) => {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
 
-  const sortOrder = () => {
-    return sort === 'ASC' ? sortedByDate : sortedByDate.reverse();
+  const sortData = () => {
+    return sort === 'ASC' ? sortedByDate.reverse() : sortedByDate;
   };
 
-  const sorted = () => {
-    setSort(sort === 'ASC' ? 'DESC' : 'ASC');
-    sortTodo(sortOrder());
-  };
+  const todos = sortData();
 
   return {
-    sort,
-    setSort,
-    sorted,
+    todos,
   };
 };
 
