@@ -8,13 +8,15 @@ import {
   usePinTodo,
   useTagTodo,
 } from '../../hooks/useQueries';
+import useFilters from '../../hooks/useFilters';
 
 export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const { data: todosList, isLoading: loading, isError } = useGetTodos();
+  const { data, isLoading: loading, isError } = useGetTodos();
   const { pinTodo } = usePinTodo();
   const { archiveTodo } = useArchiveTodo();
   const { tagTodo } = useTagTodo();
+  const { todos: todosList } = useFilters(data);
 
   if (isError) {
     return (
@@ -32,7 +34,9 @@ export const TodoList = ({ className }) => {
 
   if (todosList.length === 0) {
     return (
-      <Box className={`${classes.emptyTodos} ${className || ''}`}>empty</Box>
+      <Box className={`${classes.emptyTodos} ${className || ''}`}>
+        Nothing to found
+      </Box>
     );
   }
 
