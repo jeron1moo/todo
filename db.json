@@ -5,70 +5,80 @@
       "description": "wqe",
       "state": "TODO_INBOX",
       "id": "fIm90BzjEEVnYCfeUJDOz",
-      "createdAt": "2021-08-09T14:17:26.744Z"
+      "createdAt": "2021-08-09T14:17:26.744Z",
+      "tag": "DONE"
     },
     {
       "title": "ter",
       "description": "ewr",
       "state": "TODO_INBOX",
       "id": "VU2pHAr8c_aq-8lBkdN-b",
-      "createdAt": "2021-08-09T18:23:25.554Z"
+      "createdAt": "2021-08-09T18:23:25.554Z",
+      "tag": "TODO"
     },
     {
       "title": "ydf",
       "description": "sda",
       "state": "TODO_INBOX",
       "id": "yX00fpvwamkT0lT7MwIHE",
-      "createdAt": "2021-08-09T15:17:31.400Z"
+      "createdAt": "2021-08-09T15:17:31.400Z",
+      "tag": "DONE"
     },
     {
       "title": "ew",
       "description": "rew",
       "state": "TODO_INBOX",
       "id": "9i-9Zy1UbyM8KqcLx7vml",
-      "createdAt": "2021-08-09T16:23:15.485Z"
+      "createdAt": "2021-08-09T16:23:15.485Z",
+      "tag": "TODO"
     },
     {
       "title": "ter",
       "description": "ewqqw",
       "state": "TODO_INBOX",
       "id": "6auLzWg3nFApwDgs4NQ9K",
-      "createdAt": "2021-08-09T12:43:28.818Z"
+      "createdAt": "2021-08-09T12:43:28.818Z",
+      "tag": "IN_PROGRESS"
     },
     {
       "title": "fd",
       "description": "sdfz",
       "state": "TODO_INBOX",
       "id": "XqueEympCP_-k5ml19n3x",
-      "createdAt": "2021-08-09T11:05:42.136Z"
+      "createdAt": "2021-08-09T11:05:42.136Z",
+      "tag": "DONE"
     },
     {
       "title": "sde",
       "description": "dsf",
       "state": "TODO_INBOX",
       "id": "DyoxGVIYHD-jVvmzo8Tft",
-      "createdAt": "2021-08-09T17:23:19.730Z"
+      "createdAt": "2021-08-09T17:23:19.730Z",
+      "tag": "IN_PROGRESS"
     },
     {
       "title": "rt",
       "description": "t",
       "state": "TODO_INBOX",
       "id": "Fad_zIhp7by6uuZLPP4F-",
-      "createdAt": "2021-08-09T14:45:21.686Z"
+      "createdAt": "2021-08-09T14:45:21.686Z",
+      "tag": "IN_PROGRESS"
     },
     {
       "title": "we",
       "description": "rew",
       "state": "TODO_INBOX",
       "id": "Yw_yNE7i9Iq_hkzWMiImk",
-      "createdAt": "2021-08-10T12:42:57.011Z"
+      "createdAt": "2021-08-10T12:42:57.011Z",
+      "tag": "DONE"
     },
     {
       "title": "qq",
       "description": "ee",
       "state": "TODO_INBOX",
       "id": "Fz8_1OyxPnhIPtS72j0TG",
-      "createdAt": "2021-08-10T12:43:02.082Z"
+      "createdAt": "2021-08-10T12:43:02.082Z",
+      "tag": "IN_PROGRESS"
     }
   ]
 }

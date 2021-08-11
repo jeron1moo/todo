@@ -9,6 +9,7 @@ import {
   PIN_TODO,
   ADD_TODO_SUCCESS,
   SORT_TODO,
+  TAG_TODO,
 } from '../constants/actionTypes';
 
 const addTodoSuccess = (todo) => ({
@@ -45,6 +46,7 @@ export const addTodo = (todo) => {
         state: 'TODO_INBOX',
         id: nanoid(),
         createdAt: new Date(),
+        tag: 'TODO',
       })
       .then((res) => {
         dispatch(addTodoSuccess(res.data));
@@ -73,6 +75,7 @@ export const archiveTodo = (id) => {
 
 export const pinTodo = (id) => ({ type: PIN_TODO, payload: { id } });
 export const sortTodo = (todos) => ({ type: SORT_TODO, payload: { todos } });
+export const tagTodo = (id, tag) => ({ type: TAG_TODO, payload: { id, tag } });
 
 export const loadTodos = () => {
   return (dispatch) => {
