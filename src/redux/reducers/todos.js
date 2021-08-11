@@ -4,6 +4,7 @@ import {
   PIN_TODO,
   LOADING,
   ADD_TODO_SUCCESS,
+  TAG_TODO,
   ADD_TODO_FAILURE,
   LOAD_TODOS,
 } from '../constants/actionTypes';
@@ -18,6 +19,7 @@ const todos = [
     title: '',
     description: '',
     state: '',
+    tag: '',
   },
 ];
 
@@ -45,6 +47,11 @@ export default produce((state, { type, payload }) => {
       const findTodo = state.todos.find((todo) => todo.id === payload.id);
       findTodo.state =
         findTodo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED;
+      break;
+    }
+    case TAG_TODO: {
+      const findTodo = state.todos.find((todo) => todo.id === payload.id);
+      findTodo.tag = payload.tag;
       break;
     }
     case LOADING:

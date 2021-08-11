@@ -4,43 +4,57 @@
       "title": "wer",
       "description": "ewqeqw",
       "state": "TODO_INBOX",
-      "id": "KzDGG2FiV-siTWUztTnJV"
+      "id": "KzDGG2FiV-siTWUztTnJV",
+      "tag": "IN_PROGRESS"
     },
     {
       "title": "we",
       "description": "ewq",
       "state": "TODO_INBOX",
-      "id": "QmP1AfreGP5eBHLkuZW_W"
+      "id": "QmP1AfreGP5eBHLkuZW_W",
+      "tag": "DONE"
     },
     {
       "title": "wq",
       "description": "qwe",
       "state": "TODO_INBOX",
-      "id": "Gofp-KDdz4MJqB5SB3zQP"
+      "id": "Gofp-KDdz4MJqB5SB3zQP",
+      "tag": "IN_PROGRESS"
     },
     {
       "title": "tre",
       "description": "ewqeq",
       "state": "TODO_INBOX",
-      "id": "Kb8pxujpBM4ROVSXzBnYK"
+      "id": "Kb8pxujpBM4ROVSXzBnYK",
+      "tag": "TODO"
     },
     {
       "title": "rty",
       "description": "qw",
       "state": "TODO_INBOX",
-      "id": "1v7-cdnWo-MPX-q2ialnZ"
+      "id": "1v7-cdnWo-MPX-q2ialnZ",
+      "tag": "DONE"
     },
     {
       "title": "rew",
       "description": "eqweqw",
       "state": "TODO_INBOX",
-      "id": "rr8CC5f308vi9c952Py39"
+      "id": "rr8CC5f308vi9c952Py39",
+      "tag": "IN_PROGRESS"
     },
     {
       "title": "we",
       "description": "eqw",
       "state": "TODO_INBOX",
-      "id": "MaWU-3DDj8N33XLpT4Rgh"
+      "id": "MaWU-3DDj8N33XLpT4Rgh",
+      "tag": "TODO"
+    },
+    {
+      "title": "er",
+      "description": "ewq",
+      "state": "TODO_INBOX",
+      "id": "OiYXlocG0JxDZ6vfuYnj7",
+      "tag": "DONE"
     }
   ]
 }

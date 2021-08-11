@@ -10,12 +10,14 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import React from 'react';
 import useStyle from './styles';
+import TodoTag from '../TodoTag';
 import CustomIconButton from '../CustomIconButton';
 
 const TodoItem = ({
-  todo: { id, title, description, state },
+  todo: { id, title, description, state, tag },
   archiveTodo,
   pinTodo,
+  tagTodo,
 }) => {
   const classes = useStyle();
   return (
@@ -33,6 +35,12 @@ const TodoItem = ({
             {description}
           </ListItemText>
         </Box>
+        <TodoTag
+          id={id}
+          tag={tag}
+          tagTodo={tagTodo}
+          className={classes.todoTag}
+        />
         <Box className={classes.todoPin}>
           <ListItemSecondaryAction
             className="actions"

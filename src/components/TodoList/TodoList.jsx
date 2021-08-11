@@ -2,24 +2,23 @@ import React from 'react';
 import { Box, List } from '@material-ui/core';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
-import { useTodos, useArchiveTodo, usePinTodo } from '../../hooks/useQueries';
+import {
+  useGetTodos,
+  useArchiveTodo,
+  usePinTodo,
+  useTagTodo,
+} from '../../hooks/useQueries';
 
 export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const { data: todosList, isLoading: loading, isError } = useTodos();
+  const { data: todosList, isLoading: loading, isError } = useGetTodos();
   const { pinTodo } = usePinTodo();
   const { archiveTodo } = useArchiveTodo();
-
-  const events = {
-    pinTodo,
-    archiveTodo,
-  };
+  const { tagTodo } = useTagTodo();
 
   if (isError) {
     return (
-      <Box className={`${classes.loadingTodos} ${className || ''}`}>
-        isError
-      </Box>
+      <Box className={`${classes.loadingTodos} ${className || ''}`}>error</Box>
     );
   }
 
@@ -46,7 +45,13 @@ export const TodoList = ({ className }) => {
       {todosInOrder.length > 0 && (
         <List className={`${classes.todoNav} ${className || ''}`}>
           {todosInOrder.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} {...events} />
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              pinTodo={pinTodo}
+              archiveTodo={archiveTodo}
+              tagTodo={tagTodo}
+            />
           ))}
         </List>
       )}

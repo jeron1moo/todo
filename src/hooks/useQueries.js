@@ -27,7 +27,18 @@ const addMutate = async (todo) => {
     ...todo,
     state: TODO_INBOX,
     id: nanoid(),
+    tag: 'TODO',
   });
+  return res;
+};
+
+const tagMutate = async ({ id, tag }) => {
+  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
+  const res = await axios.put(`${process.env.REACT_APP_URL_TODO}/${id}`, {
+    ...todo.data,
+    tag,
+  });
+
   return res;
 };
 
@@ -73,11 +84,31 @@ export const useArchiveTodo = () => {
   };
 };
 
-export const useTodos = () => {
+export const useTagTodo = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(tagMutate, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(TODOS);
+    },
+  });
+
+  return {
+    tagTodo: mutate,
+  };
+};
+
+export const useGetTodos = () => {
   return useQuery(TODOS, async () => {
     const { data } = await axios.get(process.env.REACT_APP_URL_TODO);
     return data;
   });
 };
 
-export default { usePinTodo, useArchiveTodo, useAddTodo, useTodos };
+export default {
+  usePinTodo,
+  useTagTodo,
+  useArchiveTodo,
+  useAddTodo,
+  useGetTodos,
+};
