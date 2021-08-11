@@ -1,12 +1,7 @@
 import { useSelector } from 'react-redux';
 
-const useFilters = (data) => {
+const useFilters = (data = []) => {
   const tags = useSelector(({ filters }) => filters.tags);
-  if (!data) {
-    return {
-      todos: [],
-    };
-  }
   const filterTodos = () => {
     const showAll = tags.includes('ALL');
     if (showAll) {
