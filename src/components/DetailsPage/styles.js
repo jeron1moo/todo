@@ -17,7 +17,10 @@ export default makeStyles((theme) => ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-
+    '& .MuiInputBase-root': {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
+    },
     '& .MuiTextField-root': {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.secondary.main,
@@ -44,10 +47,6 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: theme.spacing(3),
-    '& .MuiInputBase-root': {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.secondary.main,
-    },
   },
   button: {
     backgroundColor: theme.palette.background.default,
@@ -78,5 +77,23 @@ export default makeStyles((theme) => ({
     width: '100%',
     minHeight: 'auto',
     marginBottom: theme.spacing(3),
+  },
+  detailsIconClose: {
+    color: theme.palette.secondary.main,
+  },
+  detailsButtonClose: {
+    position: 'absolute',
+    right: '4px',
+    top: '4px',
+  },
+  loadingTodos: {
+    textTransform: 'uppercase',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    color: theme.palette.secondary.main,
+    fontSize: '32px',
+    fontWeight: '900',
   },
 }));

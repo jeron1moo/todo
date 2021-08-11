@@ -3,13 +3,12 @@ import { Box, Switch } from '@material-ui/core';
 import AddTodo from '../AddTodo';
 import useStyles from './styles';
 import Modal from '../Modal';
-import useActions from '../../hooks/useActions';
 import useTheme from '../../hooks/useTheme';
+import { useAddTodo } from '../../hooks/useQueries';
 
 const TodoNav = ({ className }) => {
   const classes = useStyles();
-  const { addTodo } = useActions();
-
+  const { addTodo } = useAddTodo();
   const { onApplyTheme } = useTheme();
 
   const events = {

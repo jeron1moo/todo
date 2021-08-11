@@ -3,7 +3,6 @@ import {
   Box,
   IconButton,
   ListItem,
-  ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -22,13 +21,14 @@ const TodoItem = ({
 }) => {
   const classes = useStyle();
   return (
-    <ListItem className={`list-item ${state}`}>
+    <ListItem className={`list-item-${state}`}>
       <Box className={classes.listItem}>
-        <Box className={classes.todoArchive}>
-          <IconButton aria-label="Archive Todo" onClick={() => archiveTodo(id)}>
-            <DeleteOutlineIcon />
-          </IconButton>
-        </Box>
+        <IconButton
+          className={classes.todoArchive}
+          onClick={() => archiveTodo(id)}
+        >
+          <DeleteOutlineIcon />
+        </IconButton>
         <Box className={classes.todoBody}>
           <ListItemText className={classes.todoTitle}>{title}</ListItemText>
           <Divider className={classes.todoDivider} />
@@ -36,21 +36,18 @@ const TodoItem = ({
             {description}
           </ListItemText>
         </Box>
-        <DetailsButton id={id} todo />
+        <DetailsButton id={id} />
         <TodoTag
           id={id}
           tag={tag}
           tagTodo={tagTodo}
           className={classes.todoTag}
         />
-        <Box className={classes.todoPin}>
-          <ListItemSecondaryAction
-            className="actions"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <CustomIconButton state={state} onClick={() => pinTodo(id)} />
-          </ListItemSecondaryAction>
-        </Box>
+        <CustomIconButton
+          className={classes.todoPin}
+          state={state}
+          onClick={() => pinTodo(id)}
+        />
       </Box>
     </ListItem>
   );

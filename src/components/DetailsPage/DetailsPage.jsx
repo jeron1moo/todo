@@ -1,25 +1,75 @@
 import React from 'react';
 
-import { Box, Button, TextField, Switch } from '@material-ui/core';
+import { Box, Button, TextField, Switch, IconButton } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CloseIcon from '@material-ui/icons/Close';
+import { useHistory } from 'react-router-dom';
 import useTheme from '../../hooks/useTheme';
 import useStyles from './styles';
+import { useTodo } from '../../hooks/useQueries';
 
-export const DetailsPage = ({ title, createdAt, description, tag }) => {
+export const DetailsPage = ({ match }) => {
   const classes = useStyles();
+  const history = useHistory();
   const { onApplyTheme } = useTheme();
+  const { data, isLoading, isError } = useTodo(match.params.id);
+
+  const handleClose = () => {
+    history.push('/');
+  };
+
+  const getDate = (date) => {
+    return date.substring(0, 16);
+  };
+
+  if (isLoading) {
+    return (
+      <Box>
+        <IconButton
+          className={classes.detailsButtonClose}
+          aria-label="close"
+          onClick={handleClose}
+        >
+          <CloseIcon className={classes.detailsIconClose} fontSize="big" />
+        </IconButton>
+        <Box className={`${classes.loadingTodos} `}>loading</Box>;
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box>
+        <IconButton
+          className={classes.detailsButtonClose}
+          aria-label="close"
+          onClick={handleClose}
+        >
+          <CloseIcon className={classes.detailsIconClose} fontSize="big" />
+        </IconButton>
+        <Box className={`${classes.loadingTodos} `}>error</Box>;
+      </Box>
+    );
+  }
 
   return (
     <Box className={classes.detailsPage}>
-      <Switch onChange={() => onApplyTheme()} name="themeSwitch" />
+      <IconButton
+        className={classes.detailsButtonClose}
+        aria-label="close"
+        onClick={handleClose}
+      >
+        <CloseIcon className={classes.detailsIconClose} fontSize="small" />
+      </IconButton>
+      <Switch onChange={onApplyTheme} name="themeSwitch" />
       <Box className={classes.datailsTitle}>
-        <TextField label="Title" value={title} variant="outlined" />
+        <TextField label="Title" value={data.title} variant="outlined" />
         <TextField
-          value={createdAt}
           type="datetime-local"
-          defaultValue="2017-05-24T10:30"
+          value={getDate(data.createdAt)}
           variant="outlined"
+          disabled
         />
       </Box>
       <TextField
@@ -28,13 +78,13 @@ export const DetailsPage = ({ title, createdAt, description, tag }) => {
         variant="outlined"
         multiline
         rows={12}
-        value={description}
+        value={data.description}
       />
       <TextField
         className={classes.detailsTag}
         label="Tag"
         variant="outlined"
-        value={tag}
+        value={data.tag}
       />
       <Button
         variant="contained"
