@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 
 const useSort = (data = []) => {
   const sort = useSelector((state) => state.todos.sort);
-  console.log('%cupdated', 'color: #a72525;');
   const sortedByDate = data.sort((a, b) => {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
