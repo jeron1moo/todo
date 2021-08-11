@@ -42,6 +42,18 @@ const tagMutate = async ({ id, tag }) => {
   return res;
 };
 
+const editMutate = async ({ id, title, description, tag }) => {
+  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
+  const res = await axios.put(`${process.env.REACT_APP_URL_TODO}/${id}`, {
+    ...todo.data,
+    title,
+    description,
+    tag,
+  });
+
+  return res;
+};
+
 export const usePinTodo = () => {
   const queryClient = useQueryClient();
 
@@ -98,6 +110,20 @@ export const useTagTodo = () => {
   };
 };
 
+export const useEditTodo = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(editMutate, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(TODOS);
+    },
+  });
+
+  return {
+    editTodo: mutate,
+  };
+};
+
 export const useGetTodos = () => {
   return useQuery(TODOS, async () => {
     const { data } = await axios.get(process.env.REACT_APP_URL_TODO);
@@ -111,4 +137,5 @@ export default {
   useArchiveTodo,
   useAddTodo,
   useGetTodos,
+  useEditTodo,
 };

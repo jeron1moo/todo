@@ -3,7 +3,13 @@ import React, { useState } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from './styles';
 
-const CustomModal = ({ modalName, buttonName, children }) => {
+const CustomModal = ({
+  modalName,
+  buttonName,
+  children,
+  startIcon,
+  className,
+}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -17,16 +23,14 @@ const CustomModal = ({ modalName, buttonName, children }) => {
 
   return (
     <Box>
-      <Button className={classes.themeButton} onClick={handleOpen}>
+      <Button
+        className={`${classes.button} ${className || ''}`}
+        startIcon={startIcon}
+        onClick={handleOpen}
+      >
         {buttonName}
       </Button>
-      <Modal
-        aria-labelledby="spring-modal-title"
-        aria-describedby="spring-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal className={classes.modal} open={open} onClose={handleClose}>
         <Box className={classes.modalContent}>
           <Box className={classes.modalDescription}>
             <Typography

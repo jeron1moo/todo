@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
 import useStyles from './styles';
 import TodoTag from '../TodoTag';
+import { useEditTodo } from '../../hooks/useQueries';
 
-const EditTodo = ({ id, title, description, tag, editTodo, handleClose }) => {
+const EditTodo = ({ id, title, description, tag, handleClose }) => {
   const classes = useStyles();
+  const { editTodo } = useEditTodo();
+
   const [state, setState] = useState({
+    id,
     title,
     description,
     tag,
@@ -18,8 +22,6 @@ const EditTodo = ({ id, title, description, tag, editTodo, handleClose }) => {
       [e.target.name]: value,
     });
   };
-
-  const tagTodo = () => {};
 
   return (
     <Box className={classes.editTodo}>
@@ -43,11 +45,11 @@ const EditTodo = ({ id, title, description, tag, editTodo, handleClose }) => {
         className={classes.editTag}
         id={id}
         tag={state.tag}
-        tagTodo={tagTodo}
+        tagTodo={handleChange}
       />
       <Box className={classes.editAcitons}>
         <Button
-          className={classes.themeButton}
+          className={classes.actionButton}
           onClick={() => {
             editTodo(state);
             handleClose();
@@ -57,7 +59,7 @@ const EditTodo = ({ id, title, description, tag, editTodo, handleClose }) => {
           Edit
         </Button>
         <Button
-          className={classes.themeButton}
+          className={classes.actionButton}
           onClick={() => {
             handleClose();
           }}

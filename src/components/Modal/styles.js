@@ -20,9 +20,6 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     width: '100%',
   },
-  themeButton: {
-    color: theme.palette.secondary.main,
-  },
   modalClose: {
     color: theme.palette.secondary.main,
   },
@@ -33,5 +30,19 @@ export default makeStyles((theme) => ({
   },
   modalTitle: {
     display: 'inline',
+  },
+  button: {
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.secondary.main,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    width: '90px',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.main,
+    },
+    '&:hover  .MuiSvgIcon-root': {
+      fill: theme.palette.primary.main,
+    },
   },
 }));

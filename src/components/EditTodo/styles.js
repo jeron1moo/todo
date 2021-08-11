@@ -3,9 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   editTodo: {
     height: '100% ',
-    alignItems: 'center',
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.secondary.main,
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '500px',
+    width: '500px',
     '& .MuiInputBase-input': {
       color: theme.palette.secondary.main,
     },
@@ -27,7 +30,7 @@ export default makeStyles((theme) => ({
         },
     },
   },
-  themeButton: {
+  actionButton: {
     color: theme.palette.secondary.main,
     background: theme.palette.background.default,
     '&:nth-child(1)': {
@@ -59,6 +62,19 @@ export default makeStyles((theme) => ({
   },
   editTag: {
     maxWidth: '150px',
+    width: '150px',
     marginBottom: theme.spacing(2),
+    alignSelf: 'flex-end',
+    backgroundColor: 'transparent',
+    color: theme.palette.secondary.main,
+    '& .MuiOutlinedInput-notchedOutline': {
+      color: theme.palette.secondary.main,
+      borderColor: theme.palette.secondary.main,
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline, &.Mui-focused .MuiOutlinedInput-notchedOutline':
+      {
+        color: theme.palette.primary.dark,
+        borderColor: theme.palette.primary.dark,
+      },
   },
 }));

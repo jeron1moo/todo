@@ -7,11 +7,14 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import EditIcon from '@material-ui/icons/Edit';
 
 import React from 'react';
 import useStyle from './styles';
 import TodoTag from '../TodoTag';
 import CustomIconButton from '../CustomIconButton';
+import EditTodo from '../EditTodo';
+import Modal from '../Modal';
 
 const TodoItem = ({
   todo: { id, title, description, state, tag },
@@ -20,6 +23,7 @@ const TodoItem = ({
   tagTodo,
 }) => {
   const classes = useStyle();
+
   return (
     <ListItem className={`list-item ${state}`}>
       <Box className={classes.listItem}>
@@ -35,10 +39,24 @@ const TodoItem = ({
             {description}
           </ListItemText>
         </Box>
+        <Modal
+          modalName="Edit Todo"
+          buttonName="Edit"
+          startIcon={<EditIcon />}
+          className={classes.editButton}
+        >
+          <EditTodo
+            id={id}
+            title={title}
+            description={description}
+            state={state}
+            tag={tag}
+          />
+        </Modal>
         <TodoTag
           id={id}
           tag={tag}
-          tagTodo={tagTodo}
+          tagTodo={(e) => tagTodo({ id, tag: e.target.value })}
           className={classes.todoTag}
         />
         <Box className={classes.todoPin}>
