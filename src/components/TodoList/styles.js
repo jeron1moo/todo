@@ -9,8 +9,16 @@ export default makeStyles((theme) => ({
   },
   emptyTodos: {
     textTransform: 'uppercase',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   loadingTodos: {
     textTransform: 'uppercase',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));

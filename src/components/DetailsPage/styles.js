@@ -13,6 +13,7 @@ export default makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     borderRadius: '30px',
     padding: theme.spacing(6),
+    gap: theme.spacing(3),
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -46,7 +47,6 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: theme.spacing(3),
   },
   button: {
     backgroundColor: theme.palette.background.default,
@@ -55,7 +55,6 @@ export default makeStyles((theme) => ({
     width: '300px',
     minWidth: '100px',
     alignSelf: 'flex-end',
-    marginBottom: theme.spacing(3),
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
     },
@@ -67,16 +66,21 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.secondary.main,
     maxWidth: '300px',
-    minWidth: '300px',
+    width: '300px',
     alignSelf: 'flex-end',
-    marginBottom: theme.spacing(3),
+    '& span': {
+      marginRight: theme.spacing(2),
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline, &.Mui-focused .MuiOutlinedInput-notchedOutline':
+      {
+        borderColor: theme.palette.background.default,
+      },
   },
   detailsDescription: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.secondary.main,
     width: '100%',
     minHeight: 'auto',
-    marginBottom: theme.spacing(3),
   },
   detailsIconClose: {
     color: theme.palette.secondary.main,
@@ -95,5 +99,13 @@ export default makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     fontSize: '32px',
     fontWeight: '900',
+  },
+  detailsTitle: {
+    maxWidth: '300px',
+    width: '300px',
+  },
+  detailsDate: {
+    maxWidth: '300px',
+    width: '300px',
   },
 }));

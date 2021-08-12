@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
     position: 'relative',
     color: theme.palette.secondary.main,
     backgroundColor: theme.palette.primary.main,
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(4, 4, 3),
   },
   modalDescription: {
     display: 'flex',
@@ -19,9 +19,6 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-  },
-  themeButton: {
-    color: theme.palette.secondary.main,
   },
   modalClose: {
     color: theme.palette.secondary.main,
@@ -33,5 +30,19 @@ export default makeStyles((theme) => ({
   },
   modalTitle: {
     display: 'inline',
+  },
+  button: {
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.secondary.main,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    width: '90px',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.main,
+    },
+    '&:hover  .MuiSvgIcon-root': {
+      fill: theme.palette.primary.main,
+    },
   },
 }));

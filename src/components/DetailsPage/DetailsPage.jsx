@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import useTheme from '../../hooks/useTheme';
 import useStyles from './styles';
 import { useTodo } from '../../hooks/useQueries';
+import TodoTag from '../TodoTag';
 
 export const DetailsPage = ({ match }) => {
   const classes = useStyles();
@@ -64,11 +65,18 @@ export const DetailsPage = ({ match }) => {
       </IconButton>
       <Switch onChange={onApplyTheme} name="themeSwitch" />
       <Box className={classes.datailsTitle}>
-        <TextField label="Title" value={data.title} variant="outlined" />
+        <TextField
+          label="Title"
+          disabled
+          value={data.title}
+          variant="outlined"
+          className={classes.detailsTitle}
+        />
         <TextField
           type="datetime-local"
           value={getDate(data.createdAt)}
           variant="outlined"
+          className={classes.detailsDate}
           disabled
         />
       </Box>
@@ -79,12 +87,13 @@ export const DetailsPage = ({ match }) => {
         multiline
         rows={12}
         value={data.description}
+        disabled
       />
-      <TextField
+      <TodoTag
+        id={data.id}
+        tag={data.tag}
+        disabled
         className={classes.detailsTag}
-        label="Tag"
-        variant="outlined"
-        value={data.tag}
       />
       <Button
         variant="contained"

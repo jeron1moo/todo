@@ -50,4 +50,7 @@ export default makeStyles((theme) => ({
   todoDivider: {
     backgroundColor: theme.palette.secondary.main,
   },
+  editButton: {
+    marginLeft: theme.spacing(2),
+  },
 }));
