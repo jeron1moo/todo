@@ -8,21 +8,35 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from 'react-router-dom';
 import useTheme from '../../hooks/useTheme';
 import useStyles from './styles';
-import { useTodo } from '../../hooks/useQueries';
+import { useArchiveTodo, useTagTodo, useTodo } from '../../hooks/useQueries';
 import TodoTag from '../TodoTag';
+import EditTodo from '../EditTodo';
+import Modal from '../Modal';
 
 export const DetailsPage = ({ match }) => {
   const classes = useStyles();
   const history = useHistory();
   const { onApplyTheme } = useTheme();
+  const { archiveTodo } = useArchiveTodo();
+  const { tagTodo } = useTagTodo();
+
   const { data, isLoading, isError } = useTodo(match.params.id);
 
   const handleClose = () => {
     history.push('/');
   };
 
+  const handleDelete = (id) => {
+    archiveTodo(id);
+    history.push('/');
+  };
+
   const getDate = (date) => {
     return date.substring(0, 16);
+  };
+
+  const handeChangeTag = ({ id }, e) => {
+    tagTodo({ id, tag: e.target.value });
   };
 
   if (isLoading) {
@@ -101,22 +115,30 @@ export const DetailsPage = ({ match }) => {
         disabled
       />
       <TodoTag
-        id={data.id}
         tag={data.tag}
         disabled
         className={classes.detailsTag}
+        tagTodo={(e) => handeChangeTag(data, e)}
       />
-      <Button
-        variant="contained"
-        className={classes.button}
+      <Modal
+        modalName="Edit Todo"
+        buttonName="Edit"
         startIcon={<EditIcon />}
+        className={classes.button}
       >
-        Edit
-      </Button>
+        <EditTodo
+          id={data.id}
+          title={data.title}
+          description={data.description}
+          state={data.state}
+          tag={data.tag}
+        />
+      </Modal>
       <Button
         variant="contained"
         className={classes.button}
         startIcon={<DeleteIcon />}
+        onClick={() => handleDelete(data.id)}
       >
         Delete
       </Button>

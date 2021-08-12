@@ -36,7 +36,7 @@ export default makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    width: '90px',
+    minWidth: '90px',
     '&:hover': {
       color: theme.palette.primary.main,
       backgroundColor: theme.palette.secondary.main,
