@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     height: '100vh',
     display: 'grid',
     gridTemplateColumns: '1fr',
-    gridTemplateRows: '150px 1fr',
+    gridTemplateRows: 'auto 1fr',
     justifyContent: 'center',
   },
   todoItem: {

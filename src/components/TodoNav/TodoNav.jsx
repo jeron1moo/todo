@@ -7,6 +7,8 @@ import applyTheme from '../../redux/actions/theme';
 import useStyles from './styles';
 import Modal from '../Modal';
 import { useAddTodo } from '../../hooks/useQueries';
+import SortTodo from '../SortTodo';
+import FilterTodo from '../FilterTodo';
 
 const TodoNav = ({ className }) => {
   const classes = useStyles();
@@ -20,10 +22,23 @@ const TodoNav = ({ className }) => {
 
   return (
     <Box className={`${classes.todoNav} ${className || ''}`}>
-      <Switch onChange={() => onApplyTheme()} name="themeSwitch" />
-      <Modal modalName="Add Todo" startIcon={<AddIcon />} buttonName="Add">
-        <AddTodo {...events} />
-      </Modal>
+      <Box className={classes.navActions}>
+        <Switch
+          onChange={() => onApplyTheme()}
+          name="themeSwitch"
+          className={classes.navTheme}
+        />
+        <Modal
+          modalName="Add Todo"
+          buttonName="Add"
+          startIcon={<AddIcon />}
+          className={classes.navAdd}
+        >
+          <AddTodo {...events} />
+        </Modal>
+      </Box>
+      <FilterTodo className={classes.navFilter} />
+      <SortTodo className={classes.navSort} />
     </Box>
   );
 };
