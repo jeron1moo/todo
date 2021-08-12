@@ -99,6 +99,10 @@ export default makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     fontSize: '32px',
     fontWeight: '900',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: theme.spacing(5),
   },
   detailsTitle: {
     maxWidth: '300px',
@@ -107,5 +111,8 @@ export default makeStyles((theme) => ({
   detailsDate: {
     maxWidth: '300px',
     width: '300px',
+  },
+  buttonError: {
+    backgroundColor: '#f44336',
   },
 }));
