@@ -22,11 +22,12 @@ const CustomModal = ({
   };
 
   return (
-    <Box>
+    <>
       <Button
         className={`${classes.button} ${className || ''}`}
         startIcon={startIcon}
         onClick={handleOpen}
+        variant="contained"
       >
         {buttonName}
       </Button>
@@ -51,7 +52,7 @@ const CustomModal = ({
           {React.cloneElement(children, { handleClose })}
         </Box>
       </Modal>
-    </Box>
+    </>
   );
 };
 

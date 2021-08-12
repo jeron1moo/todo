@@ -37,6 +37,8 @@ const EditTodo = ({ id, title, description, tag, handleClose }) => {
         label="Description"
         className={classes.editInput}
         name="description"
+        multiline
+        rows={4}
         value={state.description}
         onChange={handleChange}
         fullWidth

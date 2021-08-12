@@ -7,16 +7,24 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useHistory } from 'react-router-dom';
 import useTheme from '../../hooks/useTheme';
 import useStyles from './styles';
-import { useTodo } from '../../hooks/useQueries';
+import { useArchiveTodo, useTodo } from '../../hooks/useQueries';
 import TodoTag from '../TodoTag';
+import EditTodo from '../EditTodo';
+import Modal from '../Modal';
 
 export const DetailsPage = ({ match }) => {
   const classes = useStyles();
   const history = useHistory();
   const { onApplyTheme } = useTheme();
+  const { archiveTodo } = useArchiveTodo();
   const { data, isLoading, isError } = useTodo(match.params.id);
 
   const handleClose = () => {
+    history.push('/');
+  };
+
+  const handleDelete = (id) => {
+    archiveTodo(id);
     history.push('/');
   };
 
@@ -32,7 +40,7 @@ export const DetailsPage = ({ match }) => {
           aria-label="close"
           onClick={handleClose}
         >
-          <CloseIcon className={classes.detailsIconClose} fontSize="big" />
+          <CloseIcon className={classes.detailsIconClose} fontSize="large" />
         </IconButton>
         <Box className={`${classes.loadingTodos} `}>loading</Box>;
       </Box>
@@ -47,7 +55,7 @@ export const DetailsPage = ({ match }) => {
           aria-label="close"
           onClick={handleClose}
         >
-          <CloseIcon className={classes.detailsIconClose} fontSize="big" />
+          <CloseIcon className={classes.detailsIconClose} fontSize="large" />
         </IconButton>
         <Box className={`${classes.loadingTodos} `}>error</Box>;
       </Box>
@@ -95,17 +103,25 @@ export const DetailsPage = ({ match }) => {
         disabled
         className={classes.detailsTag}
       />
-      <Button
-        variant="contained"
-        className={classes.button}
+      <Modal
+        modalName="Edit Todo"
+        buttonName="Edit"
         startIcon={<EditIcon />}
+        className={classes.button}
       >
-        Edit
-      </Button>
+        <EditTodo
+          id={data.id}
+          title={data.title}
+          description={data.description}
+          state={data.state}
+          tag={data.tag}
+        />
+      </Modal>
       <Button
         variant="contained"
         className={classes.button}
         startIcon={<DeleteIcon />}
+        onClick={() => handleDelete(data.id)}
       >
         Delete
       </Button>

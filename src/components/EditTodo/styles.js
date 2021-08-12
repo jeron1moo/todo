@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   editTodo: {
-    height: '100% ',
+    height: 'auto',
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.secondary.main,
     display: 'flex',
@@ -67,6 +67,9 @@ export default makeStyles((theme) => ({
     alignSelf: 'flex-end',
     backgroundColor: 'transparent',
     color: theme.palette.secondary.main,
+    '& span': {
+      paddingRight: theme.spacing(2),
+    },
     '& .MuiOutlinedInput-notchedOutline': {
       color: theme.palette.secondary.main,
       borderColor: theme.palette.secondary.main,

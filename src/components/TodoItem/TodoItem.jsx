@@ -6,15 +6,11 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditIcon from '@material-ui/icons/Edit';
-
 import React from 'react';
 import useStyle from './styles';
 import TodoTag from '../TodoTag';
 import CustomIconButton from '../CustomIconButton';
 import DetailsButton from '../DetailsButton';
-import EditTodo from '../EditTodo';
-import Modal from '../Modal';
 
 const TodoItem = ({
   todo: { id, title, description, state, tag },
@@ -41,20 +37,7 @@ const TodoItem = ({
           </ListItemText>
         </Box>
         <DetailsButton id={id} />
-        <Modal
-          modalName="Edit Todo"
-          buttonName="Edit"
-          startIcon={<EditIcon />}
-          className={classes.editButton}
-        >
-          <EditTodo
-            id={id}
-            title={title}
-            description={description}
-            state={state}
-            tag={tag}
-          />
-        </Modal>
+
         <TodoTag
           id={id}
           tag={tag}
