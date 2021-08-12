@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import useActions from '../../hooks/useActions';
 import useStyles from './styles';
+import { useActions } from '../../hooks/useActions';
 
 const SortTodo = () => {
   const classes = useStyles();

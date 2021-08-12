@@ -5,7 +5,8 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.secondary.main,
     alignSelf: 'flex-end',
-    width: '150px',
+    width: '125px',
+    height: '50px',
   },
   formLabel: {
     backgroundColor: theme.palette.primary.main,

@@ -1,16 +1,20 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 const useSort = (data = []) => {
   const sort = useSelector((state) => state.todos.sort);
-  const sortedByDate = data.sort((a, b) => {
-    return new Date(b.createdAt) - new Date(a.createdAt);
-  });
 
-  const sortData = () => {
-    return sort === 'ASC' ? sortedByDate.reverse() : sortedByDate;
-  };
+  const todos = useMemo(() => {
+    const result = data.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
 
-  const todos = sortData();
+    if (sort === 'DESC') {
+      return result.reverse();
+    }
+
+    return result;
+  }, [sort, data]);
 
   return {
     todos,

@@ -13,8 +13,16 @@ export default makeStyles((theme) => ({
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: theme.spacing(1),
   },
   themeButton: {
     color: theme.palette.secondary.main,
+  },
+  navActions: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 }));
