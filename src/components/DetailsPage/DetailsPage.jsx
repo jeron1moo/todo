@@ -4,6 +4,7 @@ import { Box, Button, TextField, Switch, IconButton } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloseIcon from '@material-ui/icons/Close';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from 'react-router-dom';
 import useTheme from '../../hooks/useTheme';
 import useStyles from './styles';
@@ -32,9 +33,9 @@ export const DetailsPage = ({ match }) => {
           aria-label="close"
           onClick={handleClose}
         >
-          <CloseIcon className={classes.detailsIconClose} fontSize="big" />
+          <CloseIcon className={classes.detailsIconClose} fontSize="large" />
         </IconButton>
-        <Box className={`${classes.loadingTodos} `}>loading</Box>;
+        <Box className={`${classes.loadingTodos} `}>loading</Box>
       </Box>
     );
   }
@@ -47,9 +48,19 @@ export const DetailsPage = ({ match }) => {
           aria-label="close"
           onClick={handleClose}
         >
-          <CloseIcon className={classes.detailsIconClose} fontSize="big" />
+          <CloseIcon className={classes.detailsIconClose} fontSize="large" />
         </IconButton>
-        <Box className={`${classes.loadingTodos} `}>error</Box>;
+        <Box className={`${classes.loadingTodos} `}>
+          error
+          <Button
+            variant="contained"
+            className={`${classes.button} ${classes.buttonError}`}
+            startIcon={<ExitToAppIcon />}
+            onClick={handleClose}
+          >
+            Go back
+          </Button>
+        </Box>
       </Box>
     );
   }
