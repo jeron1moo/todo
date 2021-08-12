@@ -7,7 +7,7 @@ const TODO = 'TODO';
 const DONE = 'DONE';
 const IN_PROGRESS = 'IN_PROGRESS';
 
-export const TodoTag = ({ id, tag, tagTodo, className }) => {
+export const TodoTag = ({ tag, tagTodo, className }) => {
   const classes = useStyles();
   return (
     <FormControl
@@ -17,10 +17,9 @@ export const TodoTag = ({ id, tag, tagTodo, className }) => {
       <InputLabel className={classes.formLabel}>Tag</InputLabel>
       <Select
         className={classes.formSelect}
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
         value={tag}
-        onChange={(e) => tagTodo({ id, tag: e.target.value })}
+        onChange={tagTodo}
+        name="tag"
         label="Tag"
       >
         <MenuItem value={TODO}>Todo</MenuItem>

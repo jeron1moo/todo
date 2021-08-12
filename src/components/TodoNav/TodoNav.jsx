@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Switch } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import AddTodo from '../AddTodo';
 import applyTheme from '../../redux/actions/theme';
 import useStyles from './styles';
@@ -27,7 +28,12 @@ const TodoNav = ({ className }) => {
           name="themeSwitch"
           className={classes.navTheme}
         />
-        <Modal modalName="Add Todo" buttonName="Add" className={classes.navAdd}>
+        <Modal
+          modalName="Add Todo"
+          buttonName="Add"
+          startIcon={<AddIcon />}
+          className={classes.navAdd}
+        >
           <AddTodo {...events} />
         </Modal>
       </Box>
