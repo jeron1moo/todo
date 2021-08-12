@@ -29,6 +29,7 @@ const addMutate = async (todo) => {
     id: nanoid(),
     tag: 'TODO',
     createdAt: new Date(),
+    modifiedAt: new Date(),
   });
   return res;
 };
@@ -55,6 +56,7 @@ const editMutate = async ({ id, title, description, tag }) => {
     title,
     description,
     tag,
+    modifiedAt: new Date(),
   });
 
   return res;
