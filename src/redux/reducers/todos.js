@@ -7,6 +7,7 @@ import {
   TAG_TODO,
   ADD_TODO_FAILURE,
   LOAD_TODOS,
+  SORT_TODO,
 } from '../constants/actionTypes';
 
 const TODO_ARCHIVED = 'TODO_ARCHIVED';
@@ -19,6 +20,7 @@ const todos = [
     title: '',
     description: '',
     state: '',
+    createdAt: '',
     tag: '',
   },
 ];
@@ -27,6 +29,7 @@ const initialState = {
   loading: false,
   todos,
   error: null,
+  sort: 'ASC',
 };
 
 export default produce((state, { type, payload }) => {
@@ -65,6 +68,9 @@ export default produce((state, { type, payload }) => {
     case ADD_TODO_FAILURE:
       state.loading = false;
       state.error = payload.error;
+      break;
+    case SORT_TODO:
+      state.sort = payload.sort;
       break;
     default:
       break;

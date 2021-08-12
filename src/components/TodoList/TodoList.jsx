@@ -8,6 +8,7 @@ import {
   usePinTodo,
   useTagTodo,
 } from '../../hooks/useQueries';
+import useSort from '../../hooks/useSort';
 import useFilters from '../../hooks/useFilters';
 
 export const TodoList = ({ className }) => {
@@ -16,7 +17,8 @@ export const TodoList = ({ className }) => {
   const { pinTodo } = usePinTodo();
   const { archiveTodo } = useArchiveTodo();
   const { tagTodo } = useTagTodo();
-  const { todos: todosList } = useFilters(data);
+  const { todos: sortedTodos } = useSort(data);
+  const { todos: todosList } = useFilters(sortedTodos);
 
   if (isError) {
     return (
@@ -44,6 +46,7 @@ export const TodoList = ({ className }) => {
     ...todosList.filter((t) => t.state === 'TODO_PINNED'),
     ...todosList.filter((t) => t.state !== 'TODO_PINNED'),
   ];
+
   return (
     <>
       {todosInOrder.length > 0 && (
