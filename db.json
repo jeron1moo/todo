@@ -29,7 +29,7 @@
       "description": "ewt",
       "state": "TODO_INBOX",
       "id": "RFBigq6bQ4O9Ov9Ni0DKh",
-      "tag": "TODO",
+      "tag": "IN_PROGRESS",
       "createdAt": "2021-08-11T10:26:50.665Z"
     },
     {
@@ -37,7 +37,7 @@
       "description": "eqwe",
       "state": "TODO_INBOX",
       "id": "VcIfWKAI8R-4sq8S0Mo_Z",
-      "tag": "TODO",
+      "tag": "IN_PROGRESS",
       "createdAt": "2021-08-12T08:27:46.224Z"
     },
     {
@@ -45,7 +45,7 @@
       "description": "rwerwe",
       "state": "TODO_INBOX",
       "id": "B1O0rRHU5aiAxX2PX9xW0",
-      "tag": "TODO",
+      "tag": "DONE",
       "createdAt": "2021-08-12T08:28:00.481Z"
     }
   ]

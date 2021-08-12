@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useHistory } from 'react-router-dom';
 import useTheme from '../../hooks/useTheme';
 import useStyles from './styles';
-import { useArchiveTodo, useTodo } from '../../hooks/useQueries';
+import { useArchiveTodo, useTagTodo, useTodo } from '../../hooks/useQueries';
 import TodoTag from '../TodoTag';
 import EditTodo from '../EditTodo';
 import Modal from '../Modal';
@@ -17,6 +17,8 @@ export const DetailsPage = ({ match }) => {
   const history = useHistory();
   const { onApplyTheme } = useTheme();
   const { archiveTodo } = useArchiveTodo();
+  const { tagTodo } = useTagTodo();
+
   const { data, isLoading, isError } = useTodo(match.params.id);
 
   const handleClose = () => {
@@ -30,6 +32,10 @@ export const DetailsPage = ({ match }) => {
 
   const getDate = (date) => {
     return date.substring(0, 16);
+  };
+
+  const handeChangeTag = ({ id }, e) => {
+    tagTodo({ id, tag: e.target.value });
   };
 
   if (isLoading) {
@@ -98,10 +104,10 @@ export const DetailsPage = ({ match }) => {
         disabled
       />
       <TodoTag
-        id={data.id}
         tag={data.tag}
         disabled
         className={classes.detailsTag}
+        tagTodo={(e) => handeChangeTag(data, e)}
       />
       <Modal
         modalName="Edit Todo"
