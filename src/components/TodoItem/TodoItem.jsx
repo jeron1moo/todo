@@ -4,6 +4,7 @@ import {
   IconButton,
   ListItem,
   ListItemText,
+  Typography,
 } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
@@ -34,10 +35,14 @@ const TodoItem = ({
           <DeleteOutlineIcon />
         </IconButton>
         <Box className={classes.todoBody}>
-          <ListItemText className={classes.todoTitle}>{title}</ListItemText>
+          <ListItemText>
+            <Typography className={classes.todoTitle}>{title}</Typography>
+          </ListItemText>
           <Divider className={classes.todoDivider} />
-          <ListItemText className={classes.todoDescription}>
-            {description}
+          <ListItemText>
+            <Typography className={classes.todoDescription}>
+              {description}
+            </Typography>
           </ListItemText>
         </Box>
         <DetailsButton id={id} />
