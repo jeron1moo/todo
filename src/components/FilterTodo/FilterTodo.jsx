@@ -18,7 +18,14 @@ const FilterTodo = () => {
   const { filterTodo } = useActions();
 
   const handleFormat = (event, newFormats) => {
-    setFormats(newFormats);
+    const set = new Set(newFormats);
+    if (newFormats.pop() === ALL) {
+      set.clear();
+      set.add(ALL);
+    } else {
+      set.delete(ALL);
+    }
+    setFormats(Array.from(set));
   };
 
   useEffect(() => {
