@@ -5,6 +5,9 @@ export default makeStyles((theme) => ({
     backgroundColor: 'transparent',
     color: theme.palette.secondary.main,
     width: '100%',
+    '& .MuiSvgIcon-root': {
+      fill: theme.palette.secondary.main,
+    },
   },
   formLabel: {
     backgroundColor: 'transparent',

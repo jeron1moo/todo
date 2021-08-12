@@ -3,29 +3,38 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   listItem: {
     backgroundColor: theme.palette.primary.dark,
-    borderRadius: '3px',
     color: theme.palette.secondary.main,
-    alignItems: 'center',
+    borderRadius: '3px',
     display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
     justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
     padding: theme.spacing(1),
     '& .MuiSvgIcon-root *': {
       color: theme.palette.secondary.main,
     },
   },
   todoTitle: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
     textOverflow: 'ellipsis',
+    width: '100%',
   },
   todoDescription: {
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
   todoBody: {
-    flex: 10,
+    width: 0,
+    flex: 5,
   },
   todoArchive: {
     flex: 1,
+    padding: theme.spacing(0),
+    maxWidth: '30px',
   },
   todoTag: {
     maxWidth: '200px',
@@ -36,6 +45,7 @@ export default makeStyles((theme) => ({
   },
   todoPin: {
     flex: 1,
+    maxWidth: '30px',
   },
   todoDivider: {
     backgroundColor: theme.palette.secondary.main,

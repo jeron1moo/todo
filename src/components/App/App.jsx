@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import { CssBaseline } from '@material-ui/core';
@@ -7,6 +7,7 @@ import { CssBaseline } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Todo from '../Todo/Todo';
+import DetailsPage from '../DetailsPage/DetailsPage';
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,10 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={choosedTheme}>
           <CssBaseline />
-          <Route exact path="/" component={Todo} />
+          <Switch>
+            <Route exact path="/" component={Todo} />
+            <Route path="/todo/:id" component={DetailsPage} />;
+          </Switch>
         </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>

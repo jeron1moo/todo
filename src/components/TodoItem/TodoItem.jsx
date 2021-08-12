@@ -3,7 +3,6 @@ import {
   Box,
   IconButton,
   ListItem,
-  ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -13,6 +12,7 @@ import React from 'react';
 import useStyle from './styles';
 import TodoTag from '../TodoTag';
 import CustomIconButton from '../CustomIconButton';
+import DetailsButton from '../DetailsButton';
 import EditTodo from '../EditTodo';
 import Modal from '../Modal';
 
@@ -25,13 +25,14 @@ const TodoItem = ({
   const classes = useStyle();
 
   return (
-    <ListItem className={`list-item ${state}`}>
+    <ListItem className={`list-item-${state}`}>
       <Box className={classes.listItem}>
-        <Box className={classes.todoArchive}>
-          <IconButton aria-label="Archive Todo" onClick={() => archiveTodo(id)}>
-            <DeleteOutlineIcon />
-          </IconButton>
-        </Box>
+        <IconButton
+          className={classes.todoArchive}
+          onClick={() => archiveTodo(id)}
+        >
+          <DeleteOutlineIcon />
+        </IconButton>
         <Box className={classes.todoBody}>
           <ListItemText className={classes.todoTitle}>{title}</ListItemText>
           <Divider className={classes.todoDivider} />
@@ -39,6 +40,7 @@ const TodoItem = ({
             {description}
           </ListItemText>
         </Box>
+        <DetailsButton id={id} />
         <Modal
           modalName="Edit Todo"
           buttonName="Edit"
@@ -59,14 +61,11 @@ const TodoItem = ({
           tagTodo={(e) => tagTodo({ id, tag: e.target.value })}
           className={classes.todoTag}
         />
-        <Box className={classes.todoPin}>
-          <ListItemSecondaryAction
-            className="actions"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <CustomIconButton state={state} onClick={() => pinTodo(id)} />
-          </ListItemSecondaryAction>
-        </Box>
+        <CustomIconButton
+          className={classes.todoPin}
+          state={state}
+          onClick={() => pinTodo(id)}
+        />
       </Box>
     </ListItem>
   );

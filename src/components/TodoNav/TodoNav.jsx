@@ -1,20 +1,18 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Box, Switch } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import AddTodo from '../AddTodo';
-import applyTheme from '../../redux/actions/theme';
 import useStyles from './styles';
 import Modal from '../Modal';
+import useTheme from '../../hooks/useTheme';
 import { useAddTodo } from '../../hooks/useQueries';
 import SortTodo from '../SortTodo';
 import FilterTodo from '../FilterTodo';
 
 const TodoNav = ({ className }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const onApplyTheme = () => dispatch(applyTheme());
   const { addTodo } = useAddTodo();
+  const { onApplyTheme } = useTheme();
 
   const events = {
     addTodo,
