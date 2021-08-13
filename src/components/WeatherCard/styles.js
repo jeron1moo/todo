@@ -39,10 +39,12 @@ export default makeStyles((theme) => ({
   },
   weatherAcutal: {
     fontSize: theme.spacing(18),
+    lineHeight: '128px',
     fontWeight: '200',
   },
   weatherName: {
-    fontSize: theme.spacing(4),
+    fontSize: theme.spacing(3),
+    fontWeight: '200',
   },
   weatherCountry: {
     fontSize: theme.spacing(4),
@@ -60,6 +62,23 @@ export default makeStyles((theme) => ({
   weatherSummary: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+  },
+  highLow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  high: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  low: {
+    display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
   },
 }));

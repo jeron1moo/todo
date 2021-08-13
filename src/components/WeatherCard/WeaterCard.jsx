@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, CircularProgress, Typography, Switch } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { useWeatherName } from '../../hooks/useQueries';
 import useStyles from './styles';
 import useTheme from '../../hooks/useTheme';
@@ -31,19 +33,6 @@ const WeatherCard = ({ name }) => {
     );
   }
 
-  const toDate = (time) => {
-    const date = new Date(time * 1000);
-    const hours = date.getHours();
-    const minutes = `0${date.getMinutes()}`;
-    const seconds = `0${date.getSeconds()}`;
-
-    const formattedTime = `${hours}:${minutes.substr(-2)}:${seconds.substr(
-      -2,
-    )}`;
-
-    return formattedTime;
-  };
-
   return (
     <Box className={classes.weatherCard}>
       <Box className={classes.cardDescription}>
@@ -60,14 +49,8 @@ const WeatherCard = ({ name }) => {
       <Box />
       <Box className={classes.cardContent}>
         <Box className={classes.cardMain}>
-          <Typography className={classes.weatherDate}>
-            {toDate(data.weather.timestamp)}
-          </Typography>
           <Box className={classes.weatherTitle}>
             <Typography className={classes.weatherName}>{data.name}</Typography>
-            <Typography className={classes.weatherCountry}>
-              {data.country}
-            </Typography>
           </Box>
           <Box className={classes.weatherTemperature}>
             <img
@@ -89,10 +72,25 @@ const WeatherCard = ({ name }) => {
               Feels like {(data.weather.temperature.feelsLike - 273).toFixed(0)}
               °С
             </Typography>
-            <Box className={classes.highLow} />
+            <Box className={classes.highLow}>
+              <Box className={classes.high}>
+                <ArrowUpwardIcon />
+                <Typography className={classes.weatherFeels}>
+                  {(data.weather.temperature.feelsLike - 273).toFixed(0)}
+                  °С
+                </Typography>
+              </Box>
+              <Box className={classes.low}>
+                <ArrowDownwardIcon />
+                <Typography className={classes.weatherFeels}>
+                  {(data.weather.temperature.feelsLike - 273).toFixed(0)}
+                  °С
+                </Typography>
+              </Box>
+            </Box>
           </Box>
           <Box className={classes.weatherWind}>
-            <Typography>{data.weather.wind.speed}</Typography>
+            <Typography>{data.weather.wind.speed} kph</Typography>
           </Box>
           <Box className={classes.weatherClouds}>
             <Typography className={classes.weatherHumidiy}>
