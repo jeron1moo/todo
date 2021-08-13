@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { request, gql } from 'graphql-request';
 
 const TODOS = 'todos';
 const TODO_PINNED = 'TODO_PINNED';
@@ -145,6 +146,57 @@ export const useGetTodos = () => {
   });
 };
 
+export const useWeatherName = (name) => {
+  return useQuery(
+    ['weather', name],
+    async () => {
+      const { getCityByName } = await request(
+        'https://graphql-weather-api.herokuapp.com/',
+        gql`
+          query {
+            getCityByName(name: "${name}") {
+              id
+              name
+              country
+              coord {
+                lon
+                lat
+              }
+              weather {
+                summary {
+                  title
+                  description
+                  icon
+                }
+                temperature {
+                  actual
+                  feelsLike
+                  min
+                  max
+                }
+                wind {
+                  speed
+                  deg
+                }
+                clouds {
+                  all
+                  visibility
+                  humidity
+                }
+                timestamp
+              }
+            }
+          }
+        `,
+      );
+      return getCityByName;
+    },
+    {
+      enabled: !!name,
+    },
+  );
+};
+
 export default {
   usePinTodo,
   useTagTodo,
@@ -153,4 +205,5 @@ export default {
   useGetTodos,
   useTodo,
   useEditTodo,
+  useWeatherName,
 };

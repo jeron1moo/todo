@@ -11,6 +11,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "graphql": "^15.5.1",
+    "graphql-request": "^3.5.0",
     "immer": "^9.0.5",
     "json-server": "^0.16.3",
     "nanoid": "^3.1.23",

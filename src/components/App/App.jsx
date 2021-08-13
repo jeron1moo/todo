@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Todo from '../Todo/Todo';
 import DetailsPage from '../DetailsPage/DetailsPage';
+import WeatherPage from '../WeatherPage/WeatherPage';
 
 const queryClient = new QueryClient();
 
@@ -20,7 +21,8 @@ const App = () => {
           <CssBaseline />
           <Switch>
             <Route exact path="/" component={Todo} />
-            <Route path="/todo/:id" component={DetailsPage} />;
+            <Route path="/todo/:id" component={DetailsPage} />
+            <Route path="/weather" component={WeatherPage} />
           </Switch>
         </ThemeProvider>
       </QueryClientProvider>
