@@ -55,7 +55,7 @@ const data = [
 ];
 
 seeder.connect(url, async () => {
-  seeder.loadModels(['./src/server/src/app/models/todos.js']);
+  seeder.loadModels(['./src/app/models/todos.js']);
   seeder.clearModels(['Todos'], () => {
     seeder.populateModels(data, (err, done) => {
       if (err) {

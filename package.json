@@ -11,15 +11,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
     "immer": "^9.0.5",
     "json-server": "^0.16.3",
-    "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.1.0",
-    "mongoose": "^5.13.7",
-    "mongoose-seed": "^0.6.0",
     "nanoid": "^3.1.23",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -35,14 +28,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "devserver": "cd ./src/server/ && npm run dev",
     "start:jsonserver": "json-server --watch db.json --port 4000",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start:server": "node src/server/src/index.js",
-    "dev:server": "nodemon src/server/src/index.js",
-    "seed": "node ./src/server/src/app/seeders/todos_seed.js",
-    "seed_clear": "node ./src/server/src/app/seeders/todos_clear.js"
+    "server:seed": "cd ./src/server/ && npm run seed",
+    "server:seed_clear": "cd ./src/server/ && npm run seed_clear",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -71,7 +63,6 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "nodemon": "^2.0.12",
     "prettier": "2.3.2",
     "redux-devtools": "^3.7.0"
   }

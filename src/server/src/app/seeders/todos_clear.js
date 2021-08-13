@@ -7,7 +7,7 @@ const MONGO_DB = process.env.MONGO_DB || 'posts';
 const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
 
 seeder.connect(url, async () => {
-  seeder.loadModels(['./src/server/src/app/models/todos.js']);
+  seeder.loadModels(['./src/app/models/todos.js']);
   seeder.clearModels(['Todos'], () => {
     return seeder.disconnect();
   });
