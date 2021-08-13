@@ -28,9 +28,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:server": "json-server --watch db.json --port 4000",
+    "devserver": "cd ./server/ && npm run dev",
+    "start:jsonserver": "json-server --watch db.json --port 4000",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "server:seed": "cd ./server/ && npm run seed",
+    "server:seed_clear": "cd ./server/ && npm run seed_clear",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
