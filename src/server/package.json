@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start:server": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "seed": "node ./src/app/seeders/todos_seed.js",
+    "seed_clear": "node ./src/app/seeders/todos_clear.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +18,10 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.7",
+    "mongoose-seed": "^0.6.0",
     "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "prettier": "2.3.2"
   }
 }
