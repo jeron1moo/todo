@@ -31,7 +31,9 @@ const WeatherPage = () => {
         name="name"
         value={value}
       />
-      <WeatherCard name={value} />
+      <Box className={classes.weatherCard}>
+        <WeatherCard name={value} />
+      </Box>
     </Box>
   );
 };

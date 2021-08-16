@@ -10,6 +10,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    height: 'auto',
     justifyContent: 'center',
     padding: theme.spacing(3),
   },
@@ -17,7 +18,15 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
   },
-
+  cardName: {
+    fontSize: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing(4),
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.spacing(5),
+    },
+  },
   weatherTemperature: {
     display: 'flex',
     flexDirection: 'row',
@@ -34,17 +43,40 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     width: '100%',
   },
+  weatherIcon: {
+    width: theme.spacing(18),
+    [theme.breakpoints.up('md')]: {
+      width: theme.spacing(22),
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: theme.spacing(25),
+    },
+  },
   weatherAcutal: {
-    fontSize: theme.spacing(18),
+    fontSize: theme.spacing(14),
     lineHeight: '128px',
     fontWeight: '200',
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing(22),
+      lineHeight: '150px',
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.spacing(25),
+      lineHeight: '180px',
+    },
   },
   weatherName: {
-    fontSize: theme.spacing(3),
     fontWeight: '200',
+    fontSize: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing(4),
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.spacing(5),
+    },
   },
   weatherCountry: {
     fontSize: theme.spacing(4),
@@ -68,7 +100,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '100%',
   },
   high: {
@@ -77,8 +109,24 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
   },
   low: {
+    marginLeft: theme.spacing(4),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  weatherFeels: {
+    fontSize: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing(4),
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.spacing(5),
+    },
+  },
+  weatherWind: {
+    textAlign: 'center',
+  },
+  weatherHumidiy: {
+    textAlign: 'center',
   },
 }));
