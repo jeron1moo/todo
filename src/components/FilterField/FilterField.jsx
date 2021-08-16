@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Autocomplete } from '@material-ui/lab';
-import { TextField } from '@material-ui/core';
+import { Autocomplete, createFilterOptions } from '@material-ui/lab';
+import { TextField, CircularProgress } from '@material-ui/core';
 import { matchSorter } from 'match-sorter';
 import useStyles from './styles';
 import { useGetTodos } from '../../hooks/useQueries';
@@ -9,49 +9,67 @@ import { useActions } from '../../hooks/useActions';
 const FilterField = () => {
   const classes = useStyles();
   const { filterTodoTitles } = useActions();
-  const { data, isLoading, isError } = useGetTodos();
-  const [tags, setTags] = useState({ tags: [] });
+  const [titles, setTitles] = useState([]);
+  const [tags, setTags] = useState([]);
+  const { data, isLoading } = useGetTodos();
 
-  const filterOptions = (options, { inputValue }) =>
-    matchSorter(options, inputValue);
+  const filter = createFilterOptions();
 
-  const onTagsChange = (e, values) => {
-    setTags({
-      tags: values,
-    });
+  const filterOptions = (options, params) => {
+    const filtered = filter(options, params);
+
+    if (params.inputValue !== '') {
+      filtered.push(params.inputValue);
+    }
+
+    return filtered;
   };
 
   useEffect(() => {
-    filterTodoTitles(tags.tags);
+    if (!data || isLoading) return setTitles([]);
+    return setTitles(Array.from(new Set(data.map((t) => t.title))));
+  }, [data]);
+
+  useEffect(() => {
+    filterTodoTitles(tags);
   }, [tags]);
 
-  if (isLoading) {
-    return <h1>asd</h1>;
-  }
-
-  if (isError) {
-    return <h1>asd</h1>;
-  }
-
-  const titles = Array.from(new Set(data.map((t) => t.title)));
+  const onTagsChange = (e, values) => {
+    const searchParam = matchSorter(titles, e.target.textContent);
+    setTags([...searchParam, values]);
+  };
 
   return (
     <div className={classes.filterField}>
       <Autocomplete
-        multiple
         options={titles}
-        getOptionLabel={(option) => option}
-        defaultValue={[]}
-        limitTags={2}
+        values={tags}
         onChange={onTagsChange}
         filterSelectedOptions
         filterOptions={filterOptions}
+        loading={isLoading}
+        getOptionLabel={(option) => {
+          return option;
+        }}
+        freeSolo
         renderInput={(params) => (
           <TextField
             {...params}
             variant="outlined"
             label="filter"
-            placeholder="Titles"
+            placeholder="titles"
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <>
+                  {isLoading ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : (
+                    params.InputProps.endAdornment
+                  )}
+                </>
+              ),
+            }}
           />
         )}
       />

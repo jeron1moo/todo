@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   filterField: {
     color: theme.palette.secondary.main,
     backgroundColor: theme.palette.primary.main,
-    width: 'auto',
+    width: '300px',
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: 'theme.palette.secondary.main',
     },
