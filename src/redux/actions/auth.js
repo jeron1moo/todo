@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   LOGIN_ACTION,
   LOGIN_FAILURE,
@@ -5,21 +6,25 @@ import {
   LOGOUT_ACTION,
   LOGOUT_FAILURE,
   LOGOUT_SUCCESS,
+  REMOVE_MESSAGE,
+  UPDATE_DATA,
 } from '../constants/auth';
 
-const authRequest = () => async (dispatch) => {
+const authRequest = async (body, url, dispatch) => {
   try {
     dispatch({ type: LOGIN_ACTION });
-    const response = [];
-    // dispatch(LOGIN_ACTION);
-    // const response = await publicRequest<>({
-    //   url: endpoint,
-    //   method: 'POST',
-    //   data: body,
-    // });
-    dispatch({ type: LOGIN_SUCCESS, payload: { response } });
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_URL_USERS}/${url}`,
+      {
+        ...body,
+      },
+    );
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: { response: data, message: 'Successfully login' },
+    });
   } catch (e) {
-    dispatch({ type: LOGIN_FAILURE, payload: { e } });
+    dispatch({ type: LOGIN_FAILURE, payload: { message: e.message } });
   }
 };
 
@@ -27,24 +32,30 @@ export const logout = () => async (dispatch) => {
   try {
     // const token = validateToken(getState());
     dispatch({ type: LOGOUT_ACTION });
-    const response = [];
-    // const response = await axios(
-
-    //   {
-    //     url: 'logout',
-    //     method: 'DELETE',
-    //   },
+    // await axios.post(process.env.REACT_APP_URL_TODO, {
     //   token,
-    //   dispatch,
-    // );
-    dispatch({ type: LOGOUT_SUCCESS, payload: { response } });
+    // });
+
+    dispatch({
+      type: LOGOUT_SUCCESS,
+      payload: { message: 'Successfully logout' },
+    });
   } catch (e) {
-    dispatch({ type: LOGOUT_FAILURE, payload: { e } });
+    dispatch({ type: LOGOUT_FAILURE, payload: { message: e.message } });
   }
 };
 
-export const basicSignup = (body) => async (dispatch) =>
-  authRequest(body, 'signup/basic', dispatch);
+export const removeMessage = () => ({
+  type: REMOVE_MESSAGE,
+});
 
-export const basicLogin = (body) => async (dispatch) =>
-  authRequest(body, 'login/basic', dispatch);
+export const updateData = (data) => ({
+  type: UPDATE_DATA,
+  payload: { response: data },
+});
+
+export const register = (body) => async (dispatch) =>
+  authRequest(body, 'register', dispatch);
+
+export const login = (body) => async (dispatch) =>
+  authRequest(body, 'login', dispatch);

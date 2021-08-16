@@ -35,7 +35,7 @@ export default produce((state, { type, payload }) => {
       break;
     case UPDATE_DATA:
       if (!payload) break;
-      state.data = payload.data;
+      state.data = payload.response;
       state.isLoggedIn = true;
       state.isForcedLogout = false;
       break;
@@ -46,7 +46,7 @@ export default produce((state, { type, payload }) => {
       state.isLoggingIn = true;
       break;
     case LOGIN_SUCCESS:
-      state.data = payload.data;
+      state.data = payload.response;
       state.isLoggingIn = false;
       state.isLoggedIn = true;
       state.isForcedLogout = false;
