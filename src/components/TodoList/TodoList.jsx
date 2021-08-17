@@ -53,7 +53,7 @@ export const TodoList = ({ className }) => {
         <List className={`${classes.todoNav} ${className || ''}`}>
           {todosInOrder.map((todo) => (
             <TodoItem
-              key={todo.id}
+              key={todo._id}
               todo={todo}
               pinTodo={pinTodo}
               archiveTodo={archiveTodo}

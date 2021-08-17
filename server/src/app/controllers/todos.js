@@ -3,7 +3,7 @@ const Todos = require('../models/todos');
 exports.index = async (req, res) => {
   try {
     const todo = await Todos.find({}).exec();
-    return res.send({ todos: todo });
+    return res.send({ data: todo });
   } catch (err) {
     return res.status(500).send(err);
   }
@@ -76,12 +76,11 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   const { id } = req.params;
-
   try {
     const todo = await Todos.deleteOne({ _id: id });
 
     if (todo.deletedCount === 0) {
-      return res.status(404).send({ message: 'There is no such todo' });
+      return res.status(402).send({ message: 'There is no such todo' });
     }
 
     return res.send({ message: 'Success.' });

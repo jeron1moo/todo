@@ -21,13 +21,12 @@ export const DetailsPage = ({ match }) => {
   const { tagTodo } = useTagTodo();
 
   const { data, isLoading, isError } = useTodo(match.params.id);
-
   const handleClose = () => {
     history.push('/');
   };
 
-  const handleDelete = (id) => {
-    archiveTodo(id);
+  const handleDelete = (_id) => {
+    archiveTodo(_id);
     history.push('/');
   };
 
@@ -35,8 +34,8 @@ export const DetailsPage = ({ match }) => {
     return date.substring(0, 16);
   };
 
-  const handeChangeTag = ({ id }, e) => {
-    tagTodo({ id, tag: e.target.value });
+  const handeChangeTag = ({ _id }, e) => {
+    tagTodo({ _id, tag: e.target.value });
   };
 
   if (isLoading) {
@@ -99,7 +98,7 @@ export const DetailsPage = ({ match }) => {
         />
         <TextField
           type="datetime-local"
-          value={getDate(data.createdAt)}
+          value={getDate(data.created_at)}
           variant="outlined"
           className={classes.detailsDate}
           disabled
@@ -127,7 +126,7 @@ export const DetailsPage = ({ match }) => {
         className={classes.button}
       >
         <EditTodo
-          id={data.id}
+          id={data._id}
           title={data.title}
           description={data.description}
           state={data.state}
@@ -138,7 +137,7 @@ export const DetailsPage = ({ match }) => {
         variant="contained"
         className={classes.button}
         startIcon={<DeleteIcon />}
-        onClick={() => handleDelete(data.id)}
+        onClick={() => handleDelete(data._id)}
       >
         Delete
       </Button>
