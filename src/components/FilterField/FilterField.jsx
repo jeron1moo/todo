@@ -33,8 +33,9 @@ const FilterField = () => {
     filterTodoTitles(filters);
   }, [filters]);
 
-  const onTagsChange = (_, values) => {
-    setFilters(matchSorter(titles, values));
+  const onTagsChange = (e, values) => {
+    if (values === null) return setFilters([]);
+    return setFilters([...matchSorter(titles, values), values]);
   };
 
   return (
@@ -43,6 +44,7 @@ const FilterField = () => {
         options={titles}
         values={filters}
         onChange={onTagsChange}
+        // onKeyDown={onKeyDown}
         filterSelectedOptions
         filterOptions={filterOptions}
         loading={isLoading}
