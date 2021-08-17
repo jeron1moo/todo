@@ -1,5 +1,6 @@
 import { Box, TextField, Typography, Switch } from '@material-ui/core';
 import React from 'react';
+import { useDebounce } from 'use-debounce';
 import WeatherCard from '../WeatherCard/WeaterCard';
 import useStyles from './styles';
 import useTheme from '../../hooks/useTheme';
@@ -9,6 +10,7 @@ const WeatherPage = () => {
   const { onApplyTheme } = useTheme();
 
   const [value, setValue] = React.useState('');
+  const [search] = useDebounce(value, 1000);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -32,7 +34,7 @@ const WeatherPage = () => {
         value={value}
       />
       <Box className={classes.weatherCard}>
-        <WeatherCard name={value} />
+        <WeatherCard name={search} />
       </Box>
     </Box>
   );

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { request, gql } from 'graphql-request';
+import { request } from 'graphql-request';
+import WEATHER_QUERY from '../queries/weather_query';
 
 const TODOS = 'todos';
 const TODO_PINNED = 'TODO_PINNED';
@@ -151,43 +152,14 @@ export const useWeatherName = (name) => {
     ['weather', name],
     async () => {
       const { getCityByName } = await request(
-        'https://graphql-weather-api.herokuapp.com/',
-        gql`
-          query {
-            getCityByName(name: "${name}") {
-              id
-              name
-              country
-              coord {
-                lon
-                lat
-              }
-              weather {
-                summary {
-                  title
-                  description
-                  icon
-                }
-                temperature {
-                  actual
-                  feelsLike
-                  min
-                  max
-                }
-                wind {
-                  speed
-                  deg
-                }
-                clouds {
-                  all
-                  visibility
-                  humidity
-                }
-                timestamp
-              }
-            }
-          }
-        `,
+        process.env.REACT_APP_URL_WEATHER,
+        WEATHER_QUERY,
+        {
+          name,
+          config: {
+            units: 'metric',
+          },
+        },
       );
       return getCityByName;
     },
