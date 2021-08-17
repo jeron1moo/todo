@@ -24,7 +24,10 @@ const authRequest = async (body, url, dispatch) => {
       payload: { response: data, message: 'Successfully login' },
     });
   } catch (e) {
-    dispatch({ type: LOGIN_FAILURE, payload: { message: e.message } });
+    dispatch({
+      type: LOGIN_FAILURE,
+      payload: { message: e.response.data.message },
+    });
   }
 };
 
@@ -41,7 +44,10 @@ export const logout = () => async (dispatch) => {
       payload: { message: 'Successfully logout' },
     });
   } catch (e) {
-    dispatch({ type: LOGOUT_FAILURE, payload: { message: e.message } });
+    dispatch({
+      type: LOGOUT_FAILURE,
+      payload: { message: e.response.data.message },
+    });
   }
 };
 
