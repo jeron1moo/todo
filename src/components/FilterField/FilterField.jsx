@@ -10,9 +10,8 @@ const FilterField = () => {
   const classes = useStyles();
   const { filterTodoTitles } = useActions();
   const [titles, setTitles] = useState([]);
-  const [tags, setTags] = useState([]);
+  const [filters, setFilters] = useState([]);
   const { data, isLoading } = useGetTodos();
-
   const filter = createFilterOptions();
 
   const filterOptions = (options, params) => {
@@ -26,24 +25,23 @@ const FilterField = () => {
   };
 
   useEffect(() => {
-    if (!data || isLoading) return setTitles([]);
-    return setTitles(Array.from(new Set(data.map((t) => t.title))));
+    if (data && !isLoading)
+      setTitles(Array.from(new Set(data.map((t) => t.title))));
   }, [data]);
 
   useEffect(() => {
-    filterTodoTitles(tags);
-  }, [tags]);
+    filterTodoTitles(filters);
+  }, [filters]);
 
-  const onTagsChange = (e, values) => {
-    const searchParam = matchSorter(titles, e.target.textContent);
-    setTags([...searchParam, values]);
+  const onTagsChange = (_, values) => {
+    setFilters(matchSorter(titles, values));
   };
 
   return (
     <div className={classes.filterField}>
       <Autocomplete
         options={titles}
-        values={tags}
+        values={filters}
         onChange={onTagsChange}
         filterSelectedOptions
         filterOptions={filterOptions}
