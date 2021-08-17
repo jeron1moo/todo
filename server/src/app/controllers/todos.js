@@ -3,9 +3,9 @@ const Todos = require('../models/todos');
 exports.index = async (req, res) => {
   try {
     const todo = await Todos.find({}).exec();
-    return res.send({ data: todo });
+    return res.send({ todos: todo });
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).send({ message: 'Unpredictable error' });
   }
 };
 
@@ -25,7 +25,7 @@ exports.getById = async (req, res) => {
 
     return res.send(todo);
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).send({ message: 'Unpredictable error' });
   }
 };
 
@@ -44,7 +44,7 @@ exports.create = async (req, res) => {
     }
     return res.status(200).redirect('/todos/');
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).send({ message: 'Unpredictable error' });
   }
 };
 
@@ -70,7 +70,7 @@ exports.update = async (req, res) => {
 
     return res.send({ message: 'Success.' });
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).send({ message: 'Unpredictable error' });
   }
 };
 
@@ -83,8 +83,8 @@ exports.delete = async (req, res) => {
       return res.status(402).send({ message: 'There is no such todo' });
     }
 
-    return res.send({ message: 'Success.' });
+    return res.send({ message: 'Delete success.' });
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).send({ message: 'Unpredictable error' });
   }
 };

@@ -136,7 +136,7 @@ export const useEditTodo = () => {
 export const useGetTodos = () => {
   return useQuery(TODOS, async () => {
     const { data } = await axios.get(process.env.REACT_APP_URL_TODO);
-    return data.data;
+    return data.todos;
   });
 };
 
