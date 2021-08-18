@@ -11,13 +11,17 @@ export default createTheme({
     },
     secondary: {
       main: '#ffffff',
-      light: 'rgb(255, 197, 112)',
-      dark: 'rgb(200, 147, 89)',
+      light: '#7081CE',
+      dark: '#92A0E4',
       contrastText: 'rgba(0, 0, 0, 0.87)',
     },
     background: {
       default: '#8290CE',
       paper: '#fff',
+    },
+    error: {
+      main: '#e57373',
+      light: '#f6a5c0',
     },
   },
 });
