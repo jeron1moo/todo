@@ -147,7 +147,7 @@ export const useGetTodos = () => {
   });
 };
 
-export const useWeatherName = (name) => {
+export const useWeatherName = (name, unit) => {
   return useQuery(
     ['weather', name],
     async () => {
@@ -157,7 +157,7 @@ export const useWeatherName = (name) => {
         {
           name,
           config: {
-            units: 'metric',
+            units: unit ? 'metric' : 'imperial',
           },
         },
       );

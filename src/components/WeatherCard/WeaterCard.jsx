@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, CircularProgress, Typography, Switch } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { useWeatherName } from '../../hooks/useQueries';
 import useStyles from './styles';
-import { celsiusToFahrenheit } from '../../utils';
 
 const IMG = (name) => `http://openweathermap.org/img/wn/${name}@2x.png`;
 const Cel = 'C';
@@ -14,14 +13,14 @@ const Far = 'F';
 const WeatherCard = ({ name }) => {
   const classes = useStyles();
   const [temperature, setTemperature] = useState(true);
-  const { data, error, isFetching } = useWeatherName(name);
+  const { data, error, isFetching, refetch } = useWeatherName(
+    name,
+    temperature,
+  );
 
-  const temperatureConverter = (temp) => {
-    if (temperature) {
-      return temp.toFixed(0);
-    }
-    return celsiusToFahrenheit(temp).toFixed(0);
-  };
+  useEffect(() => {
+    refetch();
+  }, [temperature]);
 
   if (isFetching) {
     return <CircularProgress />;
@@ -66,7 +65,7 @@ const WeatherCard = ({ name }) => {
               alt=""
             />
             <Typography className={classes.weatherAcutal}>
-              {temperatureConverter(actual)}°{temperature ? Cel : Far}
+              {actual}°{temperature ? Cel : Far}
             </Typography>
           </Box>
           <Typography className={classes.weatherDescirption}>
@@ -76,20 +75,19 @@ const WeatherCard = ({ name }) => {
         <Box className={classes.cardAdditional}>
           <Box className={classes.weatherSummary}>
             <Typography className={classes.weatherFeels}>
-              Feels like {temperatureConverter(feelsLike)}°
-              {temperature ? Cel : Far}
+              Feels like {feelsLike}°{temperature ? Cel : Far}
             </Typography>
             <Box className={classes.highLow}>
               <Box className={classes.high}>
                 <ArrowUpwardIcon />
                 <Typography className={classes.weatherFeels}>
-                  {temperatureConverter(max)}°{temperature ? Cel : Far}
+                  {max}°{temperature ? Cel : Far}
                 </Typography>
               </Box>
               <Box className={classes.low}>
                 <ArrowDownwardIcon />
                 <Typography className={classes.weatherFeels}>
-                  {temperatureConverter(min)}°{temperature ? Cel : Far}
+                  {min}°{temperature ? Cel : Far}
                 </Typography>
               </Box>
             </Box>
