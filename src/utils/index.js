@@ -3,8 +3,14 @@ export const getRandom = (min, max) =>
 
 export const checkEmpty = (value) => value.trim() === '';
 
-export const celsiusToFahrenheit = (celsius) => (celsius * 9) / 5 + 32;
+export const validateToken = (state) => {
+  const { token } = state?.auth?.data;
+  if (!token) throw new Error('Please log in');
+  return token;
+};
 
-export const fahrenheitToCelsius = (fahrenheit) => ((fahrenheit - 32) * 5) / 9;
-
-export const kelvinsToCelsius = (kelvins) => kelvins - 273.15;
+export const validateEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
