@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Autocomplete, createFilterOptions } from '@material-ui/lab';
 import { TextField, CircularProgress } from '@material-ui/core';
-import { matchSorter } from 'match-sorter';
 import useStyles from './styles';
 import { useGetTodos } from '../../hooks/useQueries';
 import { useActions } from '../../hooks/useActions';
@@ -10,7 +9,6 @@ const FilterField = () => {
   const classes = useStyles();
   const { filterTodoTitles } = useActions();
   const [titles, setTitles] = useState([]);
-  const [filters, setFilters] = useState([]);
   const { data, isLoading } = useGetTodos();
   const filter = createFilterOptions();
 
@@ -29,22 +27,15 @@ const FilterField = () => {
       setTitles(Array.from(new Set(data.map((t) => t.title))));
   }, [data]);
 
-  useEffect(() => {
-    filterTodoTitles(filters);
-  }, [filters]);
-
-  const onTagsChange = (e, values) => {
-    if (values === null) return setFilters([]);
-    return setFilters([...matchSorter(titles, values), values]);
+  const onTagsChange = (e, value) => {
+    filterTodoTitles(value);
   };
 
   return (
     <div className={classes.filterField}>
       <Autocomplete
         options={titles}
-        values={filters}
         onChange={onTagsChange}
-        // onKeyDown={onKeyDown}
         filterSelectedOptions
         filterOptions={filterOptions}
         loading={isLoading}

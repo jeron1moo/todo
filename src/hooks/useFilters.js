@@ -1,20 +1,26 @@
 import { useSelector } from 'react-redux';
+import { matchSorter } from 'match-sorter';
+
+const ALL = 'ALL';
 
 const useFilters = (data = []) => {
-  const { tags, titles } = useSelector(({ filters }) => filters);
+  const { tags, title } = useSelector(({ filters }) => filters);
 
   const stateFilter = () => {
-    if (tags.includes('ALL')) {
+    if (tags.includes(ALL)) {
       return data;
     }
     return data.filter((t) => tags.includes(t.tag));
   };
 
   const titleFilter = () => {
-    if (!titles.length) {
+    if (!title) {
       return stateFilter();
     }
-    return stateFilter().filter((t) => titles.includes(t.title));
+    stateFilter().map((t) => title.includes(t.title));
+    const titles = Array.from(new Set(data.map((t) => t.title)));
+    const filteredTitles = matchSorter(titles, title);
+    return stateFilter().filter((t) => filteredTitles.includes(t.title));
   };
 
   const filterTodos = () => {

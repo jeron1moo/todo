@@ -3,7 +3,7 @@ import { SHOW_ALL, ADD_TITLES } from '../constants/todoFilter';
 
 const initialState = {
   tags: [],
-  titles: [],
+  title: '',
 };
 
 export default produce((state, { type, payload }) => {
@@ -12,7 +12,7 @@ export default produce((state, { type, payload }) => {
       state.tags = [...payload.tags];
       break;
     case ADD_TITLES:
-      state.titles = [...payload.titles];
+      state.title = payload.title;
       break;
     default:
       break;
