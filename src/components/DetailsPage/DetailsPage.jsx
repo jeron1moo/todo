@@ -25,8 +25,8 @@ export const DetailsPage = ({ match }) => {
     history.push('/');
   };
 
-  const handleDelete = (_id) => {
-    archiveTodo(_id);
+  const handleDelete = (id) => {
+    archiveTodo(id);
     history.push('/');
   };
 
@@ -34,8 +34,8 @@ export const DetailsPage = ({ match }) => {
     return date.substring(0, 16);
   };
 
-  const handeChangeTag = ({ _id }, e) => {
-    tagTodo({ _id, tag: e.target.value });
+  const handeChangeTag = ({ id }, e) => {
+    tagTodo({ id, tag: e.target.value });
   };
 
   if (isLoading) {
@@ -126,7 +126,7 @@ export const DetailsPage = ({ match }) => {
         className={classes.button}
       >
         <EditTodo
-          id={data._id}
+          id={data.id}
           title={data.title}
           description={data.description}
           state={data.state}
@@ -137,7 +137,7 @@ export const DetailsPage = ({ match }) => {
         variant="contained"
         className={classes.button}
         startIcon={<DeleteIcon />}
-        onClick={() => handleDelete(data._id)}
+        onClick={() => handleDelete(data.id)}
       >
         Delete
       </Button>

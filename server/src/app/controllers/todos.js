@@ -2,8 +2,8 @@ const Todos = require('../models/todos');
 
 exports.index = async (req, res) => {
   try {
-    const todo = await Todos.find({}).exec();
-    return res.send({ todos: todo });
+    const todos = await Todos.find({}).exec();
+    return res.send({ todos });
   } catch (err) {
     return res.status(500).send({ message: 'Unpredictable error' });
   }

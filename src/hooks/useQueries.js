@@ -30,9 +30,9 @@ const addMutate = async (todo) => {
   return res;
 };
 
-const tagMutate = async ({ _id, tag }) => {
-  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${_id}`);
-  const res = await axios.patch(`${process.env.REACT_APP_URL_TODO}/${_id}`, {
+const tagMutate = async ({ id, tag }) => {
+  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
+  const res = await axios.patch(`${process.env.REACT_APP_URL_TODO}/${id}`, {
     ...todo.data,
     tag,
   });

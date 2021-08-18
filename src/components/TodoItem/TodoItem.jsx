@@ -14,7 +14,7 @@ import CustomIconButton from '../CustomIconButton';
 import DetailsButton from '../DetailsButton';
 
 const TodoItem = ({
-  todo: { _id, title, description, state, tag },
+  todo: { id, title, description, state, tag },
   archiveTodo,
   pinTodo,
   tagTodo,
@@ -26,7 +26,7 @@ const TodoItem = ({
       <Box className={classes.listItem}>
         <IconButton
           className={classes.todoArchive}
-          onClick={() => archiveTodo(_id)}
+          onClick={() => archiveTodo(id)}
         >
           <DeleteOutlineIcon />
         </IconButton>
@@ -41,18 +41,18 @@ const TodoItem = ({
             </Typography>
           </ListItemText>
         </Box>
-        <DetailsButton _id={_id} />
+        <DetailsButton id={id} />
 
         <TodoTag
-          _id={_id}
+          id={id}
           tag={tag}
-          tagTodo={(e) => tagTodo({ _id, tag: e.target.value })}
+          tagTodo={(e) => tagTodo({ id, tag: e.target.value })}
           className={classes.todoTag}
         />
         <CustomIconButton
           className={classes.todoPin}
           state={state}
-          onClick={() => pinTodo(_id)}
+          onClick={() => pinTodo(id)}
         />
       </Box>
     </ListItem>
