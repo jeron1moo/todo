@@ -5,10 +5,9 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { useWeatherName } from '../../hooks/useQueries';
 import useStyles from './styles';
+import { displayTemperature } from '../../utils';
 
 const IMG = (name) => `http://openweathermap.org/img/wn/${name}@2x.png`;
-const Cel = 'C';
-const Far = 'F';
 
 const WeatherCard = ({ name }) => {
   const classes = useStyles();
@@ -65,7 +64,7 @@ const WeatherCard = ({ name }) => {
               alt=""
             />
             <Typography className={classes.weatherAcutal}>
-              {actual}°{temperature ? Cel : Far}
+              {displayTemperature(actual, temperature)}
             </Typography>
           </Box>
           <Typography className={classes.weatherDescirption}>
@@ -75,19 +74,20 @@ const WeatherCard = ({ name }) => {
         <Box className={classes.cardAdditional}>
           <Box className={classes.weatherSummary}>
             <Typography className={classes.weatherFeels}>
-              Feels like {feelsLike}°{temperature ? Cel : Far}
+              Feels like
+              {displayTemperature(feelsLike, temperature)}
             </Typography>
             <Box className={classes.highLow}>
               <Box className={classes.high}>
                 <ArrowUpwardIcon />
                 <Typography className={classes.weatherFeels}>
-                  {max}°{temperature ? Cel : Far}
+                  {displayTemperature(max, temperature)}
                 </Typography>
               </Box>
               <Box className={classes.low}>
                 <ArrowDownwardIcon />
                 <Typography className={classes.weatherFeels}>
-                  {min}°{temperature ? Cel : Far}
+                  {displayTemperature(min, temperature)}
                 </Typography>
               </Box>
             </Box>
