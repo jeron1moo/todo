@@ -6,9 +6,18 @@ const MONGO_DB = process.env.MONGO_DB || 'posts';
 
 const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
 
-mongoose.connect(url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-});
+mongoose
+  .connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
+  .then(() => {
+    console.log('Successfully connected to database');
+  })
+  .catch((error) => {
+    console.log('database connection failed. exiting now...');
+    console.error(error);
+    process.exit(1);
+  });

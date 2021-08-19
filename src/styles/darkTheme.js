@@ -19,5 +19,9 @@ export default createTheme({
       default: '#303030',
       paper: '#424242',
     },
+    error: {
+      main: '#e57373',
+      light: '#f6a5c0',
+    },
   },
 });
