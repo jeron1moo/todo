@@ -17,7 +17,6 @@ const useFilters = (data = []) => {
     if (!title) {
       return stateFilter();
     }
-    stateFilter().map((t) => title.includes(t.title));
     const titles = Array.from(new Set(data.map((t) => t.title)));
     const filteredTitles = matchSorter(titles, title);
     return stateFilter().filter((t) => filteredTitles.includes(t.title));
