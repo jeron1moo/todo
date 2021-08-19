@@ -10,7 +10,7 @@ const TODO_INBOX = 'TODO_INBOX';
 
 const pinMutate = async (id) => {
   const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
-  const res = await axios.put(`${process.env.REACT_APP_URL_TODO}/${id}`, {
+  const res = await axios.patch(`${process.env.REACT_APP_URL_TODO}/${id}`, {
     ...todo.data,
     state: todo.data.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
   });
@@ -18,9 +18,7 @@ const pinMutate = async (id) => {
 };
 
 const archiveMutate = async (id) => {
-  const res = await axios.delete(`${process.env.REACT_APP_URL_TODO}/${id}`, {
-    id,
-  });
+  const res = await axios.delete(`${process.env.REACT_APP_URL_TODO}/${id}`);
   return res;
 };
 
@@ -30,15 +28,13 @@ const addMutate = async (todo) => {
     state: TODO_INBOX,
     id: nanoid(),
     tag: 'TODO',
-    createdAt: new Date(),
-    modifiedAt: new Date(),
   });
   return res;
 };
 
 const tagMutate = async ({ id, tag }) => {
   const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
-  const res = await axios.put(`${process.env.REACT_APP_URL_TODO}/${id}`, {
+  const res = await axios.patch(`${process.env.REACT_APP_URL_TODO}/${id}`, {
     ...todo.data,
     tag,
   });
@@ -53,12 +49,11 @@ const getTodoById = async (id) => {
 
 const editMutate = async ({ id, title, description, tag }) => {
   const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
-  const res = await axios.put(`${process.env.REACT_APP_URL_TODO}/${id}`, {
+  const res = await axios.patch(`${process.env.REACT_APP_URL_TODO}/${id}`, {
     ...todo.data,
     title,
     description,
     tag,
-    modifiedAt: new Date(),
   });
 
   return res;
@@ -143,7 +138,7 @@ export const useEditTodo = () => {
 export const useGetTodos = () => {
   return useQuery(TODOS, async () => {
     const { data } = await axios.get(process.env.REACT_APP_URL_TODO);
-    return data;
+    return data.todos;
   });
 };
 

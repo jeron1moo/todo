@@ -21,7 +21,6 @@ export const DetailsPage = ({ match }) => {
   const { tagTodo } = useTagTodo();
 
   const { data, isLoading, isError } = useTodo(match.params.id);
-
   const handleClose = () => {
     history.push('/');
   };
@@ -99,7 +98,7 @@ export const DetailsPage = ({ match }) => {
         />
         <TextField
           type="datetime-local"
-          value={getDate(data.createdAt)}
+          value={getDate(data.created_at)}
           variant="outlined"
           className={classes.detailsDate}
           disabled

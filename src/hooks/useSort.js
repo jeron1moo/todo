@@ -6,7 +6,7 @@ const useSort = (data = []) => {
 
   const todos = useMemo(() => {
     const result = data.sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt);
+      return new Date(b.created_at) - new Date(a.created_at);
     });
 
     if (sort === 'DESC') {
