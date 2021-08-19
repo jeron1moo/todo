@@ -25,4 +25,9 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  filterSort: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: theme.spacing(3),
+  },
 }));

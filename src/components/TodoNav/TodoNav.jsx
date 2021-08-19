@@ -8,6 +8,7 @@ import useTheme from '../../hooks/useTheme';
 import { useAddTodo } from '../../hooks/useQueries';
 import SortTodo from '../SortTodo';
 import FilterTodo from '../FilterTodo';
+import FilterField from '../FilterField';
 
 const TodoNav = ({ className }) => {
   const classes = useStyles();
@@ -36,7 +37,10 @@ const TodoNav = ({ className }) => {
         </Modal>
       </Box>
       <FilterTodo className={classes.navFilter} />
-      <SortTodo className={classes.navSort} />
+      <Box className={classes.filterSort}>
+        <FilterField />
+        <SortTodo />
+      </Box>
     </Box>
   );
 };

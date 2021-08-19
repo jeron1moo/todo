@@ -16,6 +16,7 @@
     "graphql-tag": "^2.12.5",
     "immer": "^9.0.5",
     "json-server": "^0.16.3",
+    "match-sorter": "^6.3.0",
     "nanoid": "^3.1.23",
     "react": "^17.0.2",
     "react-cookie": "^4.1.1",
