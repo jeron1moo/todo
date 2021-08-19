@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { request } from 'graphql-request';
+import WEATHER_QUERY from '../queries/weather_query';
 
 const TODOS = 'todos';
 const TODO_PINNED = 'TODO_PINNED';
@@ -140,6 +142,28 @@ export const useGetTodos = () => {
   });
 };
 
+export const useWeatherName = (name, unit) => {
+  return useQuery(
+    ['weather', name],
+    async () => {
+      const { getCityByName } = await request(
+        process.env.REACT_APP_URL_WEATHER,
+        WEATHER_QUERY,
+        {
+          name,
+          config: {
+            units: unit ? 'metric' : 'imperial',
+          },
+        },
+      );
+      return getCityByName;
+    },
+    {
+      enabled: !!name,
+    },
+  );
+};
+
 export default {
   usePinTodo,
   useTagTodo,
@@ -148,4 +172,5 @@ export default {
   useGetTodos,
   useTodo,
   useEditTodo,
+  useWeatherName,
 };
