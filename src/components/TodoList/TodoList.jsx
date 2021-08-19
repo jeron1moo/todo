@@ -1,26 +1,30 @@
 import React from 'react';
 import { Box, List } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
-import useActions from '../../hooks/useActions';
+import {
+  useGetTodos,
+  useArchiveTodo,
+  usePinTodo,
+  useTagTodo,
+} from '../../hooks/useQueries';
+import useSort from '../../hooks/useSort';
+import useFilters from '../../hooks/useFilters';
 
-const selectInboxAndPinnedTodos = createSelector(
-  (state) => state.todos,
-  (todos) =>
-    todos.filter((t) => t.state === 'TODO_INBOX' || t.state === 'TODO_PINNED'),
-);
-
-export const TodoList = ({ loading, className }) => {
+export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const todosList = useSelector(selectInboxAndPinnedTodos);
-  const { pinTodo, archiveTodo } = useActions();
+  const { data, isLoading: loading, isError } = useGetTodos();
+  const { pinTodo } = usePinTodo();
+  const { archiveTodo } = useArchiveTodo();
+  const { tagTodo } = useTagTodo();
+  const { todos: sortedTodos } = useSort(data);
+  const { todos: todosList } = useFilters(sortedTodos);
 
-  const events = {
-    pinTodo,
-    archiveTodo,
-  };
+  if (isError) {
+    return (
+      <Box className={`${classes.loadingTodos} ${className || ''}`}>error</Box>
+    );
+  }
 
   if (loading) {
     return (
@@ -32,7 +36,9 @@ export const TodoList = ({ loading, className }) => {
 
   if (todosList.length === 0) {
     return (
-      <Box className={`${classes.emptyTodos} ${className || ''}`}>empty</Box>
+      <Box className={`${classes.emptyTodos} ${className || ''}`}>
+        Nothing to found
+      </Box>
     );
   }
 
@@ -40,12 +46,19 @@ export const TodoList = ({ loading, className }) => {
     ...todosList.filter((t) => t.state === 'TODO_PINNED'),
     ...todosList.filter((t) => t.state !== 'TODO_PINNED'),
   ];
+
   return (
     <>
       {todosInOrder.length > 0 && (
         <List className={`${classes.todoNav} ${className || ''}`}>
           {todosInOrder.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} {...events} />
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              pinTodo={pinTodo}
+              archiveTodo={archiveTodo}
+              tagTodo={tagTodo}
+            />
           ))}
         </List>
       )}

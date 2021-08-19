@@ -1,4 +1,14 @@
-import { ADD_TODO, ARCHIVE_TODO, PIN_TODO } from '../constants/actionTypes';
+import produce from 'immer';
+import {
+  ARCHIVE_TODO,
+  PIN_TODO,
+  LOADING,
+  ADD_TODO_SUCCESS,
+  TAG_TODO,
+  ADD_TODO_FAILURE,
+  LOAD_TODOS,
+  SORT_TODO,
+} from '../constants/actionTypes';
 
 const TODO_ARCHIVED = 'TODO_ARCHIVED';
 const TODO_PINNED = 'TODO_PINNED';
@@ -6,48 +16,63 @@ const TODO_INBOX = 'TODO_INBOX';
 
 const todos = [
   {
-    id: 1,
-    title: 'Here',
-    description: 'Do nothing',
-    state: 'TODO_INBOX',
-  },
-  {
-    id: 2,
-    title: 'Asss',
-    description: 'Relax',
-    state: 'TODO_INBOX',
-  },
-  {
-    id: 3,
-    title: 'Here',
-    description: 'Chill',
-    state: 'TODO_PINNED',
+    id: 0,
+    title: '',
+    description: '',
+    state: '',
+    createdAt: '',
+    tag: '',
   },
 ];
 
-export default (state = todos, { type, payload }) => {
+const initialState = {
+  loading: false,
+  todos,
+  error: null,
+  sort: 'ASC',
+};
+
+export default produce((state, { type, payload }) => {
   switch (type) {
-    case ADD_TODO: {
-      return [...state, payload.todo];
-    }
+    case LOAD_TODOS:
+      state.todos = [...payload.todos];
+      state.loading = false;
+      state.error = null;
+      break;
     case ARCHIVE_TODO: {
-      const newState = state.map((todo) =>
-        todo.id === payload.id ? { ...todo, state: TODO_ARCHIVED } : todo,
-      );
-      return newState;
+      const findTodo = state.todos.find((todo) => todo.id === payload.id);
+      findTodo.state = TODO_ARCHIVED;
+      state.loading = false;
+      state.error = null;
+      break;
     }
     case PIN_TODO: {
-      const newState = state.map((todo) =>
-        todo.id === payload.id
-          ? {
-              ...todo,
-              state: todo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
-            }
-          : todo,
-      );
-      return newState;
+      const findTodo = state.todos.find((todo) => todo.id === payload.id);
+      findTodo.state =
+        findTodo.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED;
+      break;
     }
+    case TAG_TODO: {
+      const findTodo = state.todos.find((todo) => todo.id === payload.id);
+      findTodo.tag = payload.tag;
+      break;
+    }
+    case LOADING:
+      state.loading = true;
+      break;
+    case ADD_TODO_SUCCESS:
+      state.loading = false;
+      state.error = null;
+      state.todos.push(payload);
+      break;
+    case ADD_TODO_FAILURE:
+      state.loading = false;
+      state.error = payload.error;
+      break;
+    case SORT_TODO:
+      state.sort = payload.sort;
+      break;
     default:
-      return state;
+      break;
   }
-};
+}, initialState);

@@ -1,23 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { CookiesProvider } from 'react-cookie';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
-import rootReducer from './redux';
+import configureStore from './configureStore';
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
+const store = configureStore();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <CookiesProvider>
       <App />
-    </Provider>
-  </React.StrictMode>,
+    </CookiesProvider>
+  </Provider>,
   document.getElementById('root'),
 );
 
