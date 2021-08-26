@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import useStyles from './styles';
 
 const AddTodo = ({ addTodo, handleClose }) => {
   const classes = useStyles();
+  const { id } = useSelector((state) => state.auth.data);
   const [state, setState] = useState({
     title: '',
     description: '',
@@ -38,7 +40,7 @@ const AddTodo = ({ addTodo, handleClose }) => {
       <Button
         className={classes.themeButton}
         onClick={() => {
-          addTodo(state);
+          addTodo({ state, id });
           handleClose();
         }}
         fullWidth

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Autocomplete, createFilterOptions } from '@material-ui/lab';
 import { TextField, CircularProgress } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import useStyles from './styles';
 import { useGetTodos } from '../../hooks/useQueries';
 import { useActions } from '../../hooks/useActions';
@@ -9,7 +10,8 @@ const FilterField = () => {
   const classes = useStyles();
   const { filterTodoTitles } = useActions();
   const [titles, setTitles] = useState([]);
-  const { data, isLoading } = useGetTodos();
+  const { id } = useSelector((state) => state.auth.data);
+  const { data, isLoading } = useGetTodos(id);
   const filter = createFilterOptions();
 
   const filterOptions = (options, params) => {

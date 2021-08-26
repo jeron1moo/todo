@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, List } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
 import {
@@ -13,7 +14,8 @@ import useFilters from '../../hooks/useFilters';
 
 export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const { data, isLoading: loading, isError } = useGetTodos();
+  const { id } = useSelector((state) => state.auth);
+  const { data, isLoading: loading, isError } = useGetTodos(id);
   const { pinTodo } = usePinTodo();
   const { archiveTodo } = useArchiveTodo();
   const { tagTodo } = useTagTodo();
