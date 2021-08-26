@@ -4,7 +4,7 @@ const router = express.Router();
 const todos = require('../controllers/todos');
 
 router
-  .route('/:userId/:id')
+  .route('/todo/:id')
   .get(todos.getById)
   .patch(todos.update)
   .delete(todos.delete);
