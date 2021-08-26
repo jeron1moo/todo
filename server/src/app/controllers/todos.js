@@ -1,9 +1,38 @@
 const Todos = require('../models/todos');
+const Users = require('../models/users');
 
 exports.index = async (req, res) => {
   try {
-    const todos = await Todos.find({}).exec();
-    return res.send({ todos });
+    const { id } = req.params;
+    const user = await Users.findById(id).populate('todos');
+    if (!user) {
+      return res.status(400).send({ message: 'User error' });
+    }
+    return res.send({ todos: user.todos });
+  } catch (err) {
+    return res.status(500).send({ message: 'Unpredictable error' });
+  }
+};
+
+exports.create = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, state, tag } = req.body;
+
+    if (!title || !description || !state || !tag) {
+      return res.status(400).send({ message: 'Parameters undefined' });
+    }
+
+    const todo = await new Todos({ title, description, state, tag, user: id });
+    const result = await todo.save();
+    if (!result) {
+      return res.status(400).send('Unable to save todos to database');
+    }
+
+    const userById = await Users.findById(id);
+    userById.todos.push(todo);
+    await userById.save();
+    return res.send(userById);
   } catch (err) {
     return res.status(500).send({ message: 'Unpredictable error' });
   }
@@ -24,25 +53,6 @@ exports.getById = async (req, res) => {
     }
 
     return res.send(todo);
-  } catch (err) {
-    return res.status(500).send({ message: 'Unpredictable error' });
-  }
-};
-
-exports.create = async (req, res) => {
-  const { title, description, state, tag } = req.body;
-
-  try {
-    if (!title || !description || !state || !tag) {
-      return res.status(400).send({ message: 'Parameters undefined' });
-    }
-
-    const todo = await new Todos({ title, description, state, tag });
-    const result = todo.save();
-    if (!result) {
-      return res.status(400).send('Unable to save todos to database');
-    }
-    return res.status(200).redirect('/todos/');
   } catch (err) {
     return res.status(500).send({ message: 'Unpredictable error' });
   }

@@ -9,21 +9,26 @@ const TODO_PINNED = 'TODO_PINNED';
 const TODO_INBOX = 'TODO_INBOX';
 
 const pinMutate = async (id) => {
-  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
-  const res = await axios.patch(`${process.env.REACT_APP_URL_TODO}/${id}`, {
-    ...todo.data,
-    state: todo.data.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
-  });
+  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/todo/${id}`);
+  const res = await axios.patch(
+    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+    {
+      ...todo.data,
+      state: todo.data.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
+    },
+  );
   return res;
 };
 
 const archiveMutate = async (id) => {
-  const res = await axios.delete(`${process.env.REACT_APP_URL_TODO}/${id}`);
+  const res = await axios.delete(
+    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+  );
   return res;
 };
 
-const addMutate = async (todo) => {
-  const res = await axios.post(process.env.REACT_APP_URL_TODO, {
+const addMutate = async ({ state: todo, id }) => {
+  const res = await axios.post(`${process.env.REACT_APP_URL_TODO}/${id}`, {
     ...todo,
     state: TODO_INBOX,
     id: nanoid(),
@@ -33,28 +38,36 @@ const addMutate = async (todo) => {
 };
 
 const tagMutate = async ({ id, tag }) => {
-  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
-  const res = await axios.patch(`${process.env.REACT_APP_URL_TODO}/${id}`, {
-    ...todo.data,
-    tag,
-  });
+  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/todo/${id}`);
+  const res = await axios.patch(
+    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+    {
+      ...todo.data,
+      tag,
+    },
+  );
 
   return res;
 };
 
 const getTodoById = async (id) => {
-  const { data } = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+  );
   return data;
 };
 
 const editMutate = async ({ id, title, description, tag }) => {
-  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
-  const res = await axios.patch(`${process.env.REACT_APP_URL_TODO}/${id}`, {
-    ...todo.data,
-    title,
-    description,
-    tag,
-  });
+  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/todo/${id}`);
+  const res = await axios.patch(
+    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+    {
+      ...todo.data,
+      title,
+      description,
+      tag,
+    },
+  );
 
   return res;
 };
@@ -135,9 +148,9 @@ export const useEditTodo = () => {
   };
 };
 
-export const useGetTodos = () => {
+export const useGetTodos = (id) => {
   return useQuery(TODOS, async () => {
-    const { data } = await axios.get(process.env.REACT_APP_URL_TODO);
+    const { data } = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
     return data.todos;
   });
 };

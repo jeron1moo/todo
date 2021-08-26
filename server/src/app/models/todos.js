@@ -8,6 +8,10 @@ const Todos = new Schema(
     description: { type: String, default: '', required: true },
     state: { type: String, default: '', required: true },
     tag: { type: String, default: '', required: true },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'Users',
+    },
   },
   {
     timestamps: {

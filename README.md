@@ -6,7 +6,7 @@
 - node
 - setup env in server: ./server/.env file
 
-##run
+## run
 
 start server: 
 - npm run devserver
