@@ -1,4 +1,4 @@
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -9,19 +9,24 @@ import SnackBar from '../SnackBar';
 const AuthNav = () => {
   const history = useHistory();
   const classes = useStyles();
-  const { isLoggedIn, message } = useSelector(({ auth }) => auth);
+  const { isLoggedIn, message, data } = useSelector(({ auth }) => auth);
   const { logout } = useActions();
   return (
     <Box className={classes.authnav}>
       {isLoggedIn ? (
-        <Button
-          className={classes.logout}
-          onClick={() => {
-            logout();
-          }}
-        >
-          Logout
-        </Button>
+        <Box className={classes.loggedIn}>
+          <Typography className={classes.loggedInName}>
+            hi, {data.name.toUpperCase()}
+          </Typography>
+          <Button
+            className={classes.logout}
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </Button>
+        </Box>
       ) : (
         <Box className={classes.loggedin}>
           <Button

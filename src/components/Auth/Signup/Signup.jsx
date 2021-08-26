@@ -13,20 +13,25 @@ const Signup = ({ onLogin }) => {
     email: '',
     password: '',
     spassword: '',
+    userName: '',
     isEmailError: false,
     isPasswordError: false,
     isSPasswordError: false,
+    isNameError: false,
     emailError: '',
     passwordError: '',
     spasswordError: '',
+    nameError: '',
   });
 
-  const { email, password } = formData;
+  const { email, password, userName } = formData;
 
   const validate = () => {
     const validations = { ...formData };
     validations.email = validations.email.trim();
     validations.password = validations.password.trim();
+    validations.userName = validations.userName.trim();
+
     let error = false;
 
     if (validations.email.length === 0) {
@@ -53,6 +58,12 @@ const Signup = ({ onLogin }) => {
       error = true;
     }
 
+    if (validations.userName.length < 3) {
+      validations.nameError = 'Name not valid, must be > 3 letters';
+      validations.isNameError = true;
+      error = true;
+    }
+
     setFormData(validations);
     return error;
   };
@@ -62,7 +73,7 @@ const Signup = ({ onLogin }) => {
 
   const onSubmit = async () => {
     if (validate()) return;
-    await register({ email, password });
+    await register({ email, password, name: userName });
   };
 
   return (
@@ -84,6 +95,16 @@ const Signup = ({ onLogin }) => {
         className={classes.input}
         error={formData.isSPasswordError}
         helperText={formData.spasswordError}
+      />
+      <TextField
+        name="userName"
+        label="name"
+        autoComplete="name"
+        value={formData.userName}
+        onChange={onChange}
+        className={classes.input}
+        error={formData.isNameError}
+        helperText={formData.nameError}
       />
     </Form>
   );

@@ -4,8 +4,8 @@ const Users = require('../models/users');
 
 exports.register = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    if (!(email && password)) {
+    const { email, password, name } = req.body;
+    if (!(email && password && name)) {
       res.status(400).send({ message: 'All input is required' });
     }
 
@@ -22,10 +22,11 @@ exports.register = async (req, res) => {
     const user = await new Users({
       email: email.toLowerCase(),
       password: encryptedPassword,
+      name,
     });
 
     const token = jwt.sign(
-      { user_id: user._id, email },
+      { user_id: user._id, email, name },
       process.env.TOKEN_KEY,
       {
         expiresIn: '24h',
