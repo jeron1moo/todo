@@ -21,7 +21,7 @@ const App = () => {
 
   const setAuthCookies = () => {
     if (authData?.token) {
-      const expiryInSec = 5 * 60;
+      const expiryInSec = 5 * 6000;
       setCookie(KEY_AUTH_DATA, authData, {
         path: '/',
         maxAge: expiryInSec,

@@ -98,14 +98,24 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   const { id } = req.params;
-  const { user_id: userId } = req.params;
-
+  const { user_id: userId } = req.user;
   try {
-    const todo = await Todos.deleteOne({ _id: id });
+    // const todo = await Todos.deleteOne({ user: userId });
+    await Users.findOneAndUpdate(
+      { _id: userId },
+      {
+        $pull: { todos: id },
+      },
+    );
+    // await Todos.findOneAndUpdate({ _id: id }, { user: userId });
 
-    if (todo.deletedCount === 0) {
-      return res.status(402).send({ message: 'There is no such todo' });
-    }
+    // if (todo.user._id !== userId) {
+    //   return res.status(402).send({ message: 'Todo is not your' });
+    // }
+
+    // if (todo.deletedCount === 0) {
+    //   return res.status(402).send({ message: 'There is no such todo' });
+    // }
 
     return res.send({ message: 'Delete success.' });
   } catch (err) {
