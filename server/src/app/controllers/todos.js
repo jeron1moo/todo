@@ -3,7 +3,7 @@ const Users = require('../models/users');
 
 exports.index = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { user_id: id } = req.user;
     const user = await Users.findById(id).populate('todos');
     if (!user) {
       return res.status(400).send({ message: 'User error' });
@@ -14,9 +14,18 @@ exports.index = async (req, res) => {
   }
 };
 
+exports.all = async (req, res) => {
+  try {
+    const todos = await Todos.find({}).exec();
+    return res.send({ todos });
+  } catch (err) {
+    return res.status(500).send({ message: 'Unpredictable error' });
+  }
+};
+
 exports.create = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { user_id: id } = req.user;
     const { title, description, state, tag } = req.body;
 
     if (!title || !description || !state || !tag) {
@@ -39,7 +48,7 @@ exports.create = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-  const { id } = req.params;
+  const { user_id: id } = req.params;
 
   try {
     if (!id) {
@@ -60,6 +69,8 @@ exports.getById = async (req, res) => {
 
 exports.update = async (req, res) => {
   const { id } = req.params;
+  const { user_id: userId } = req.user;
+
   const { title, description, state, tag } = req.body;
 
   try {
@@ -70,6 +81,7 @@ exports.update = async (req, res) => {
     const todo = await Todos.updateOne(
       {
         _id: id,
+        user: userId,
       },
       { title, description, state, tag },
     );
@@ -86,6 +98,8 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   const { id } = req.params;
+  const { user_id: userId } = req.params;
+
   try {
     const todo = await Todos.deleteOne({ _id: id });
 

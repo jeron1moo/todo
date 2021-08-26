@@ -5,7 +5,7 @@ import useStyles from './styles';
 
 const AddTodo = ({ addTodo, handleClose }) => {
   const classes = useStyles();
-  const { id } = useSelector((state) => state.auth.data);
+  const { id, token } = useSelector((state) => state.auth.data);
   const [state, setState] = useState({
     title: '',
     description: '',
@@ -40,7 +40,7 @@ const AddTodo = ({ addTodo, handleClose }) => {
       <Button
         className={classes.themeButton}
         onClick={() => {
-          addTodo({ state, id });
+          addTodo({ state, id, token });
           handleClose();
         }}
         fullWidth

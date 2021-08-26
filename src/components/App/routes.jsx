@@ -31,11 +31,12 @@ const Routes = () => {
   return (
     <Switch>
       <Route path="/auth/login" component={() => <AuthForm logAuth />} />
-      <Route path="/auth" component={AuthForm} />\
+      <Route path="/auth" component={AuthForm} />
       <Route path="/weather" component={WeatherPage} />
+      <Route path="/all" component={Todo} />
       <PrivateRoute>
-        <Route exact path="/" component={Todo} />
         <Route path="/todo/:id" component={DetailsPage} />
+        <Route exact path="/" component={Todo} />
       </PrivateRoute>
     </Switch>
   );

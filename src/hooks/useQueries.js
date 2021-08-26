@@ -7,58 +7,83 @@ import WEATHER_QUERY from '../queries/weather_query';
 const TODOS = 'todos';
 const TODO_PINNED = 'TODO_PINNED';
 const TODO_INBOX = 'TODO_INBOX';
+const config = (token) => {
+  return {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+};
 
-const pinMutate = async (id) => {
-  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/todo/${id}`);
+const pinMutate = async ({ id, token }) => {
+  const todo = await axios.get(
+    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+    config(token),
+  );
   const res = await axios.patch(
     `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
     {
       ...todo.data,
       state: todo.data.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
     },
+    config(token),
   );
   return res;
 };
 
-const archiveMutate = async (id) => {
+const archiveMutate = async ({ id, token }) => {
   const res = await axios.delete(
     `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+    config(token),
   );
   return res;
 };
 
-const addMutate = async ({ state: todo, id }) => {
-  const res = await axios.post(`${process.env.REACT_APP_URL_TODO}/${id}`, {
-    ...todo,
-    state: TODO_INBOX,
-    id: nanoid(),
-    tag: 'TODO',
-  });
+const addMutate = async ({ state: todo, id, token }) => {
+  const res = await axios.post(
+    `${process.env.REACT_APP_URL_TODO}/${id}`,
+
+    {
+      ...todo,
+      state: TODO_INBOX,
+      id: nanoid(),
+      tag: 'TODO',
+    },
+    config(token),
+  );
   return res;
 };
 
-const tagMutate = async ({ id, tag }) => {
-  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/todo/${id}`);
+const tagMutate = async ({ id, tag, token }) => {
+  const todo = await axios.get(
+    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+    config(token),
+  );
   const res = await axios.patch(
     `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
     {
       ...todo.data,
       tag,
     },
+    config(token),
   );
 
   return res;
 };
 
-const getTodoById = async (id) => {
+const getTodoById = async ({ id, token }) => {
   const { data } = await axios.get(
     `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+    config(token),
   );
   return data;
 };
 
-const editMutate = async ({ id, title, description, tag }) => {
-  const todo = await axios.get(`${process.env.REACT_APP_URL_TODO}/todo/${id}`);
+const editMutate = async ({ id, title, description, tag, token }) => {
+  const todo = await axios.get(
+    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+    config(token),
+  );
   const res = await axios.patch(
     `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
     {
@@ -67,6 +92,7 @@ const editMutate = async ({ id, title, description, tag }) => {
       description,
       tag,
     },
+    config(token),
   );
 
   return res;
@@ -128,8 +154,8 @@ export const useTagTodo = () => {
   };
 };
 
-export const useTodo = (todoId) => {
-  return useQuery([TODOS, todoId], () => getTodoById(todoId), {
+export const useTodo = ({ todoId, token }) => {
+  return useQuery([TODOS, todoId], () => getTodoById({ todoId, token }), {
     enabled: !!todoId,
   });
 };
@@ -148,9 +174,27 @@ export const useEditTodo = () => {
   };
 };
 
-export const useGetTodos = (id) => {
+export const useGetTodos = ({ id, pathname, token }) => {
   return useQuery(TODOS, async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_URL_TODO}/${id}`);
+    if (pathname === '/all') {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_URL_TODO}/all`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      return data.todos;
+    }
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL_TODO}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
     return data.todos;
   });
 };

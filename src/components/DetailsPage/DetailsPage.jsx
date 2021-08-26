@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CloseIcon from '@material-ui/icons/Close';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import useTheme from '../../hooks/useTheme';
 import useStyles from './styles';
 import { useArchiveTodo, useTagTodo, useTodo } from '../../hooks/useQueries';
@@ -19,14 +20,14 @@ export const DetailsPage = ({ match }) => {
   const { onApplyTheme } = useTheme();
   const { archiveTodo } = useArchiveTodo();
   const { tagTodo } = useTagTodo();
-
-  const { data, isLoading, isError } = useTodo(match.params.id);
+  const { token } = useSelector((state) => state.auth.data);
+  const { data, isLoading, isError } = useTodo({ id: match.params.id, token });
   const handleClose = () => {
     history.push('/');
   };
 
   const handleDelete = (id) => {
-    archiveTodo(id);
+    archiveTodo({ id, token });
     history.push('/');
   };
 
@@ -35,7 +36,7 @@ export const DetailsPage = ({ match }) => {
   };
 
   const handeChangeTag = ({ id }, e) => {
-    tagTodo({ id, tag: e.target.value });
+    tagTodo({ id, tag: e.target.value, token });
   };
 
   if (isLoading) {
