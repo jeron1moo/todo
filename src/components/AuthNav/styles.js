@@ -41,4 +41,14 @@ export default makeStyles((theme) => ({
       color: theme.palette.primary.contrastText,
     },
   },
+  loggedIn: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: '12px',
+    color: theme.palette.secondary.main,
+  },
+  loggedInName: {
+    color: theme.palette.primary.contrastText,
+  },
 }));
