@@ -15,7 +15,9 @@ import useFilters from '../../hooks/useFilters';
 
 export const TodoList = ({ className }) => {
   const classes = useStyles();
-  const { id, token } = useSelector((state) => state.auth.data);
+  const dataState = useSelector((state) => state.auth.data);
+  const id = dataState?.id;
+  const token = dataState?.token;
   const { pathname } = useLocation();
   const {
     data,

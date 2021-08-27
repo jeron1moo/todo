@@ -11,7 +11,9 @@ const FilterField = () => {
   const classes = useStyles();
   const { filterTodoTitles } = useActions();
   const [titles, setTitles] = useState([]);
-  const { id, token } = useSelector((state) => state.auth?.data);
+  const dataState = useSelector((state) => state.auth?.data);
+  const id = dataState?.id;
+  const token = dataState?.token;
   const { pathname } = useLocation();
   const { data, isLoading } = useGetTodos({ pathname, id, token });
   const filter = createFilterOptions();

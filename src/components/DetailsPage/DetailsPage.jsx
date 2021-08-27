@@ -20,7 +20,8 @@ export const DetailsPage = ({ match }) => {
   const { onApplyTheme } = useTheme();
   const { archiveTodo } = useArchiveTodo();
   const { tagTodo } = useTagTodo();
-  const { token } = useSelector((state) => state.auth.data);
+  const stateData = useSelector((state) => state.auth.data);
+  const token = stateData?.token;
   const { data, isLoading, isError } = useTodo({ id: match.params.id, token });
   const handleClose = () => {
     history.push('/');
@@ -132,6 +133,7 @@ export const DetailsPage = ({ match }) => {
           description={data.description}
           state={data.state}
           tag={data.tag}
+          token={token}
         />
       </Modal>
       <Button

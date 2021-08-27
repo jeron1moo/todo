@@ -21,7 +21,8 @@ const TodoItem = ({
   tagTodo,
 }) => {
   const classes = useStyle();
-  const { token } = useSelector(({ auth }) => auth.data);
+  const dataState = useSelector(({ auth }) => auth.data);
+  const token = dataState?.token;
   return (
     <ListItem className={`list-item-${state}`}>
       <Box className={classes.listItem}>

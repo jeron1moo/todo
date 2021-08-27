@@ -48,13 +48,8 @@ exports.create = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-  const { user_id: id } = req.params;
-
+  const { id } = req.params;
   try {
-    if (!id) {
-      return res.status(401).send({ message: 'There is no such user' });
-    }
-
     const todo = await Todos.findOne({ _id: id });
 
     if (!todo) {
@@ -80,14 +75,13 @@ exports.update = async (req, res) => {
 
     const todo = await Todos.updateOne(
       {
-        _id: id,
-        user: userId,
+        $and: [{ _id: id }, { user: userId }],
       },
       { title, description, state, tag },
     );
 
     if (todo.nModified === 0) {
-      return res.status(404).send({ message: 'Update error' });
+      return res.status(403).send({ message: 'Cannot remove not your todo.' });
     }
 
     return res.send({ message: 'Success.' });
@@ -100,22 +94,16 @@ exports.delete = async (req, res) => {
   const { id } = req.params;
   const { user_id: userId } = req.user;
   try {
-    // const todo = await Todos.deleteOne({ user: userId });
-    await Users.findOneAndUpdate(
+    const userRemoveTodo = await Users.updateOne(
       { _id: userId },
       {
         $pull: { todos: id },
       },
     );
-    // await Todos.findOneAndUpdate({ _id: id }, { user: userId });
-
-    // if (todo.user._id !== userId) {
-    //   return res.status(402).send({ message: 'Todo is not your' });
-    // }
-
-    // if (todo.deletedCount === 0) {
-    //   return res.status(402).send({ message: 'There is no such todo' });
-    // }
+    if (userRemoveTodo.nModified === 0) {
+      return res.status(401).send({ message: 'Cannot remove not your todo.' });
+    }
+    await Todos.deleteOne({ _id: id });
 
     return res.send({ message: 'Delete success.' });
   } catch (err) {

@@ -154,9 +154,9 @@ export const useTagTodo = () => {
   };
 };
 
-export const useTodo = ({ todoId, token }) => {
-  return useQuery([TODOS, todoId], () => getTodoById({ todoId, token }), {
-    enabled: !!todoId,
+export const useTodo = ({ id, token }) => {
+  return useQuery([TODOS, id], () => getTodoById({ id, token }), {
+    enabled: !!id,
   });
 };
 
