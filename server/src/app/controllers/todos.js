@@ -40,6 +40,7 @@ exports.create = async (req, res) => {
 
     const userById = await Users.findById(id);
     userById.todos.push(todo);
+    req.io.emit('todo:add', { todo });
     await userById.save();
     return res.send(userById);
   } catch (err) {
@@ -84,6 +85,7 @@ exports.update = async (req, res) => {
       return res.status(403).send({ message: 'Cannot remove not your todo.' });
     }
 
+    req.io.emit('todo:update', { id });
     return res.send({ message: 'Success.' });
   } catch (err) {
     return res.status(500).send({ message: 'Unpredictable error' });
@@ -105,6 +107,7 @@ exports.delete = async (req, res) => {
     }
     await Todos.deleteOne({ _id: id });
 
+    req.io.emit('todo:delete', { id });
     return res.send({ message: 'Delete success.' });
   } catch (err) {
     return res.status(500).send({ message: 'Unpredictable error' });

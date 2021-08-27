@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+import { io } from 'socket.io-client';
 import { useActions } from '../../hooks/useActions';
 import Routes from './routes';
 
@@ -16,8 +17,14 @@ export const KEY_AUTH_DATA = 'KEY_AUTH_DATA';
 const App = () => {
   const choosedTheme = useSelector(({ theme }) => theme);
   const [cookies, setCookie, removeCookie] = useCookies([KEY_AUTH_DATA]);
-  const { updateData } = useActions();
+  const { updateData, setSocket } = useActions();
   const { data: authData, isLoggedIn } = useSelector(({ auth }) => auth);
+
+  useEffect(() => {
+    const newSocket = io('http://localhost:5000');
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, [setSocket]);
 
   const setAuthCookies = () => {
     if (authData?.token) {

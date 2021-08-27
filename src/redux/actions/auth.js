@@ -39,7 +39,6 @@ export const logout = () => async (dispatch) => {
     // await axios.post(process.env.REACT_APP_URL_TODO, {
     //   token,
     // });
-
     dispatch({
       type: LOGOUT_SUCCESS,
       payload: { message: 'Successfully logout' },

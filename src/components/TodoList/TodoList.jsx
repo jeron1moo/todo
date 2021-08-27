@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, List } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 import TodoItem from '../TodoItem';
 import useStyles from './styles';
 import {
@@ -16,6 +17,8 @@ import useFilters from '../../hooks/useFilters';
 export const TodoList = ({ className }) => {
   const classes = useStyles();
   const dataState = useSelector((state) => state.auth.data);
+  const { socket } = useSelector((state) => state.socket);
+
   const id = dataState?.id;
   const token = dataState?.token;
   const { pathname } = useLocation();
@@ -29,6 +32,14 @@ export const TodoList = ({ className }) => {
   const { tagTodo } = useTagTodo();
   const { todos: sortedTodos } = useSort(data);
   const { todos: todosList } = useFilters(sortedTodos);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (socket)
+      socket.on('removed', () => {
+        queryClient.invalidateQueries();
+      });
+  });
 
   if (isError) {
     return (

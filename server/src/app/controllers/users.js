@@ -41,6 +41,7 @@ exports.register = async (req, res) => {
         .status(400)
         .send({ message: 'Unable to save todos to database' });
     }
+
     return res.status(201).send(result);
   } catch (err) {
     return res.status(500).send({ message: 'Undefined error' });

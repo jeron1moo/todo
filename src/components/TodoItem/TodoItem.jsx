@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useStyle from './styles';
 import TodoTag from '../TodoTag';
@@ -22,13 +22,24 @@ const TodoItem = ({
 }) => {
   const classes = useStyle();
   const dataState = useSelector(({ auth }) => auth.data);
+  const s = useSelector(({ socket }) => socket);
+
+  useEffect(() => {
+    s.socket.on('removed', () => {
+      console.log('%cTodoItem.jsx line:2', 'color: #007acc;');
+    });
+  });
+
   const token = dataState?.token;
   return (
     <ListItem className={`list-item-${state}`}>
       <Box className={classes.listItem}>
         <IconButton
           className={classes.todoArchive}
-          onClick={() => archiveTodo({ id, token })}
+          onClick={() => {
+            s.socket.emit('remove');
+            return archiveTodo({ id, token });
+          }}
         >
           <DeleteOutlineIcon />
         </IconButton>

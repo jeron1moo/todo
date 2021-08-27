@@ -179,21 +179,13 @@ export const useGetTodos = ({ id, pathname, token }) => {
     if (pathname === '/all') {
       const { data } = await axios.get(
         `${process.env.REACT_APP_URL_TODO}/all`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        config(token),
       );
       return data.todos;
     }
     const { data } = await axios.get(
       `${process.env.REACT_APP_URL_TODO}/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
+      config(token),
     );
     return data.todos;
   });
