@@ -2,7 +2,10 @@ import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { request } from 'graphql-request';
+import React from 'react';
+import { io } from 'socket.io-client';
 import WEATHER_QUERY from '../queries/weather_query';
+import { useActions } from './useActions';
 
 const TODOS = 'todos';
 const TODO_PINNED = 'TODO_PINNED';
@@ -172,6 +175,26 @@ export const useEditTodo = () => {
   return {
     editTodo: mutate,
   };
+};
+
+export const useReactQuerySubscription = () => {
+  const queryClient = useQueryClient();
+  const { setSocket } = useActions();
+  const socket = io('http://localhost:5000');
+  React.useEffect(() => {
+    setSocket(socket);
+    return () => {
+      socket.close();
+    };
+  }, []);
+  React.useEffect(() => {
+    socket.on('removed', () => {
+      console.log('%cuseQueries.js line:18', 'color: #007acc;');
+    });
+    socket.on('added', () => {
+      console.log('%cewwe', 'color: #007acc;');
+    });
+  }, [queryClient]);
 };
 
 export const useGetTodos = ({ id, pathname, token }) => {

@@ -6,6 +6,7 @@ import useStyles from './styles';
 const AddTodo = ({ addTodo, handleClose }) => {
   const classes = useStyles();
   const { id, token } = useSelector((state) => state.auth.data);
+  const { socket } = useSelector((state) => state.socket);
   const [state, setState] = useState({
     title: '',
     description: '',
@@ -40,6 +41,7 @@ const AddTodo = ({ addTodo, handleClose }) => {
       <Button
         className={classes.themeButton}
         onClick={() => {
+          socket.emit('todo:add');
           addTodo({ state, id, token });
           handleClose();
         }}
