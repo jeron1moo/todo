@@ -8,12 +8,10 @@ import TodoList from '../TodoList';
 import useStyles from './styles';
 import AuthNav from '../AuthNav';
 import UsersNav from '../UsersNav';
-import { useReactQuerySubscription } from '../../hooks/useQueries';
 
 export const Todo = () => {
   const classes = useStyles();
   const { socket } = useSelector((state) => state.socket);
-  useReactQuerySubscription();
 
   return (
     <Box className={classes.todoContainer}>

@@ -20,16 +20,19 @@ export const DetailsPage = ({ match }) => {
   const { onApplyTheme } = useTheme();
   const { archiveTodo } = useArchiveTodo();
   const { tagTodo } = useTagTodo();
-  const stateData = useSelector((state) => state.auth.data);
-  const token = stateData?.token;
+  const globalState = useSelector((state) => state);
+  const { socket } = globalState.socket;
+  const token = globalState.auth.data?.token;
   const { data, isLoading, isError } = useTodo({ id: match.params.id, token });
   const handleClose = () => {
     history.push('/');
   };
 
   const handleDelete = (id) => {
-    archiveTodo({ id, token });
-    history.push('/');
+    archiveTodo({ id, token }).then(() => {
+      socket.emit('invalidate');
+      history.push('/');
+    });
   };
 
   const getDate = (date) => {
@@ -37,7 +40,9 @@ export const DetailsPage = ({ match }) => {
   };
 
   const handeChangeTag = ({ id }, e) => {
-    tagTodo({ id, tag: e.target.value, token });
+    tagTodo({ id, tag: e.target.value, token }).then(() => {
+      socket.emit('invalidate');
+    });
   };
 
   if (isLoading) {
@@ -134,6 +139,7 @@ export const DetailsPage = ({ match }) => {
           state={data.state}
           tag={data.tag}
           token={token}
+          socket={socket}
         />
       </Modal>
       <Button

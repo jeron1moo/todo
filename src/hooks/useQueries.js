@@ -19,86 +19,110 @@ const config = (token) => {
 };
 
 const pinMutate = async ({ id, token }) => {
-  const todo = await axios.get(
-    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
-    config(token),
-  );
-  const res = await axios.patch(
-    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
-    {
-      ...todo.data,
-      state: todo.data.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
-    },
-    config(token),
-  );
-  return res;
+  try {
+    const todo = await axios.get(
+      `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+      config(token),
+    );
+    const res = await axios.patch(
+      `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+      {
+        ...todo.data,
+        state: todo.data.state === TODO_PINNED ? TODO_INBOX : TODO_PINNED,
+      },
+      config(token),
+    );
+    return res;
+  } catch (error) {
+    return error;
+  }
 };
 
 const archiveMutate = async ({ id, token }) => {
-  const res = await axios.delete(
-    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
-    config(token),
-  );
-  return res;
+  try {
+    const res = await axios.delete(
+      `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+      config(token),
+    );
+    return res;
+  } catch (error) {
+    return error;
+  }
 };
 
 const addMutate = async ({ state: todo, id, token }) => {
-  const res = await axios.post(
-    `${process.env.REACT_APP_URL_TODO}/${id}`,
+  try {
+    const res = await axios.post(
+      `${process.env.REACT_APP_URL_TODO}/${id}`,
 
-    {
-      ...todo,
-      state: TODO_INBOX,
-      id: nanoid(),
-      tag: 'TODO',
-    },
-    config(token),
-  );
-  return res;
+      {
+        ...todo,
+        state: TODO_INBOX,
+        id: nanoid(),
+        tag: 'TODO',
+      },
+      config(token),
+    );
+    return res;
+  } catch (error) {
+    return error;
+  }
 };
 
 const tagMutate = async ({ id, tag, token }) => {
-  const todo = await axios.get(
-    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
-    config(token),
-  );
-  const res = await axios.patch(
-    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
-    {
-      ...todo.data,
-      tag,
-    },
-    config(token),
-  );
+  try {
+    const todo = await axios.get(
+      `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+      config(token),
+    );
+    const res = await axios.patch(
+      `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+      {
+        ...todo.data,
+        tag,
+      },
+      config(token),
+    );
 
-  return res;
+    return res;
+  } catch (error) {
+    return error;
+  }
 };
 
 const getTodoById = async ({ id, token }) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
-    config(token),
-  );
-  return data;
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+      config(token),
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
 };
 
 const editMutate = async ({ id, title, description, tag, token }) => {
-  const todo = await axios.get(
-    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
-    config(token),
-  );
-  const res = await axios.patch(
-    `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
-    {
-      ...todo.data,
-      title,
-      description,
-      tag,
-    },
-    config(token),
-  );
+  try {
+    const todo = await axios.get(
+      `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+      config(token),
+    );
+    const res = await axios.patch(
+      `${process.env.REACT_APP_URL_TODO}/todo/${id}`,
+      {
+        ...todo.data,
+        title,
+        description,
+        tag,
+      },
+      config(token),
+    );
 
-  return res;
+    return res;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const usePinTodo = () => {

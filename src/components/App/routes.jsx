@@ -5,6 +5,7 @@ import Todo from '../Todo/Todo';
 import DetailsPage from '../DetailsPage/DetailsPage';
 import AuthForm from '../Auth/AuthForm';
 import WeatherPage from '../WeatherPage/WeatherPage';
+import { useReactQuerySubscription } from '../../hooks/useQueries';
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { isLoggedIn } = useSelector(({ auth }) => auth);
@@ -28,6 +29,7 @@ const PrivateRoute = ({ children, ...rest }) => {
 };
 
 const Routes = () => {
+  useReactQuerySubscription();
   return (
     <Switch>
       <Route path="/auth/login" component={() => <AuthForm logAuth />} />
