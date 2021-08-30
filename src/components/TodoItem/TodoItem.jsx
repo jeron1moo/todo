@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import useStyle from './styles';
 import TodoTag from '../TodoTag';
@@ -24,12 +24,6 @@ const TodoItem = ({
   const dataState = useSelector(({ auth }) => auth.data);
   const s = useSelector(({ socket }) => socket);
 
-  useEffect(() => {
-    s.socket.on('removed', () => {
-      console.log('%cTodoItem.jsx line:2', 'color: #007acc;');
-    });
-  });
-
   const token = dataState?.token;
   return (
     <ListItem className={`list-item-${state}`}>
@@ -37,8 +31,9 @@ const TodoItem = ({
         <IconButton
           className={classes.todoArchive}
           onClick={() => {
-            s.socket.emit('remove');
-            return archiveTodo({ id, token });
+            archiveTodo({ id, token }).then(() => {
+              s.socket.emit('invalidate');
+            });
           }}
         >
           <DeleteOutlineIcon />
@@ -59,13 +54,21 @@ const TodoItem = ({
         <TodoTag
           id={id}
           tag={tag}
-          tagTodo={(e) => tagTodo({ id, tag: e.target.value, token })}
+          tagTodo={(e) => {
+            tagTodo({ id, tag: e.target.value, token }).then(() => {
+              s.socket.emit('invalidate');
+            });
+          }}
           className={classes.todoTag}
         />
         <CustomIconButton
           className={classes.todoPin}
           state={state}
-          onClick={() => pinTodo({ id, token })}
+          onClick={() => {
+            pinTodo({ id, token }).then(() => {
+              s.socket.emit('invalidate');
+            });
+          }}
         />
       </Box>
     </ListItem>

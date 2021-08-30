@@ -41,8 +41,9 @@ const AddTodo = ({ addTodo, handleClose }) => {
       <Button
         className={classes.themeButton}
         onClick={() => {
-          socket.emit('todo:add');
-          addTodo({ state, id, token });
+          addTodo({ state, id, token }).then(() => {
+            socket.emit('invalidate');
+          });
           handleClose();
         }}
         fullWidth

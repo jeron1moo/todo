@@ -9,7 +9,13 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { useActions } from '../../hooks/useActions';
 import Routes from './routes';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
 
 export const KEY_AUTH_DATA = 'KEY_AUTH_DATA';
 

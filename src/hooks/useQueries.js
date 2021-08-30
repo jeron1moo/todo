@@ -2,7 +2,7 @@ import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { request } from 'graphql-request';
-import React from 'react';
+import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import WEATHER_QUERY from '../queries/weather_query';
 import { useActions } from './useActions';
@@ -104,56 +104,56 @@ const editMutate = async ({ id, title, description, tag, token }) => {
 export const usePinTodo = () => {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(pinMutate, {
+  const { mutateAsync } = useMutation(pinMutate, {
     onSuccess: () => {
       queryClient.invalidateQueries(TODOS);
     },
   });
 
   return {
-    pinTodo: mutate,
+    pinTodo: mutateAsync,
   };
 };
 
 export const useAddTodo = () => {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(addMutate, {
+  const { mutateAsync } = useMutation(addMutate, {
     onSuccess: () => {
       queryClient.invalidateQueries(TODOS);
     },
   });
 
   return {
-    addTodo: mutate,
+    addTodo: mutateAsync,
   };
 };
 
 export const useArchiveTodo = () => {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(archiveMutate, {
+  const { mutateAsync } = useMutation(archiveMutate, {
     onSuccess: () => {
       queryClient.invalidateQueries(TODOS);
     },
   });
 
   return {
-    archiveTodo: mutate,
+    archiveTodo: mutateAsync,
   };
 };
 
 export const useTagTodo = () => {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(tagMutate, {
+  const { mutateAsync } = useMutation(tagMutate, {
     onSuccess: () => {
       queryClient.invalidateQueries(TODOS);
     },
   });
 
   return {
-    tagTodo: mutate,
+    tagTodo: mutateAsync,
   };
 };
 
@@ -166,14 +166,14 @@ export const useTodo = ({ id, token }) => {
 export const useEditTodo = () => {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(editMutate, {
+  const { mutateAsync } = useMutation(editMutate, {
     onSuccess: () => {
       queryClient.invalidateQueries(TODOS);
     },
   });
 
   return {
-    editTodo: mutate,
+    editTodo: mutateAsync,
   };
 };
 
@@ -181,19 +181,15 @@ export const useReactQuerySubscription = () => {
   const queryClient = useQueryClient();
   const { setSocket } = useActions();
   const socket = io('http://localhost:5000');
-  React.useEffect(() => {
+  useEffect(() => {
     setSocket(socket);
+    socket.on('update', () => {
+      queryClient.invalidateQueries(TODOS);
+    });
     return () => {
+      setSocket(null);
       socket.close();
     };
-  }, []);
-  React.useEffect(() => {
-    socket.on('removed', () => {
-      console.log('%cuseQueries.js line:18', 'color: #007acc;');
-    });
-    socket.on('added', () => {
-      console.log('%cewwe', 'color: #007acc;');
-    });
   }, [queryClient]);
 };
 

@@ -49,17 +49,13 @@ const activeUsers = [{ user: { name: '12' } }];
 io.on('connection', (socket) => {
   console.log('%cA user connected', 'color: #007acc;');
 
-  socket.on('todo:add', () => {
-    socket.emit('added');
+  socket.on('invalidate', () => {
+    socket.broadcast.emit('update');
   });
 
-  socket.on('login', (data) => {
+  socket.on('connect', (data) => {
     activeUsers.push(data);
     socket.broadcast.emit('usersList', activeUsers);
-  });
-
-  socket.on('remove', () => {
-    socket.broadcast.emit('removed');
   });
 
   socket.on('disconnect', () => {
