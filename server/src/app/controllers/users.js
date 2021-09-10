@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
     });
 
     const token = jwt.sign(
-      { user_id: user._id, email, name },
+      { user_id: user._id, email },
       process.env.TOKEN_KEY,
       {
         expiresIn: '24h',
@@ -41,6 +41,7 @@ exports.register = async (req, res) => {
         .status(400)
         .send({ message: 'Unable to save todos to database' });
     }
+
     return res.status(201).send(result);
   } catch (err) {
     return res.status(500).send({ message: 'Undefined error' });

@@ -11,9 +11,11 @@ const AuthForm = ({ logAuth }) => {
   const classes = useStyles();
   const history = useHistory();
   const { isLoggedIn, message } = useSelector(({ auth }) => auth);
+  // const { socket } = useSelector((state) => state.socket);
   const [signup, setSignup] = useState(logAuth);
   useEffect(() => {
     if (isLoggedIn) {
+      // socket.emit('loggedIn', { user: { name: data.name } });
       history.push('/');
       setSignup(false);
     }
