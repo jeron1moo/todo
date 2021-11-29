@@ -3,7 +3,7 @@ const Users = require('../models/users');
 
 exports.index = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { user_id: id } = req.user;
     const user = await Users.findById(id).populate('todos');
     if (!user) {
       return res.status(400).send({ message: 'User error' });
@@ -14,9 +14,18 @@ exports.index = async (req, res) => {
   }
 };
 
+exports.all = async (req, res) => {
+  try {
+    const todos = await Todos.find({}).exec();
+    return res.send({ todos });
+  } catch (err) {
+    return res.status(500).send({ message: 'Unpredictable error' });
+  }
+};
+
 exports.create = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { user_id: id } = req.user;
     const { title, description, state, tag } = req.body;
 
     if (!title || !description || !state || !tag) {
@@ -40,12 +49,7 @@ exports.create = async (req, res) => {
 
 exports.getById = async (req, res) => {
   const { id } = req.params;
-
   try {
-    if (!id) {
-      return res.status(401).send({ message: 'There is no such user' });
-    }
-
     const todo = await Todos.findOne({ _id: id });
 
     if (!todo) {
@@ -60,6 +64,8 @@ exports.getById = async (req, res) => {
 
 exports.update = async (req, res) => {
   const { id } = req.params;
+  const { user_id: userId } = req.user;
+
   const { title, description, state, tag } = req.body;
 
   try {
@@ -69,13 +75,13 @@ exports.update = async (req, res) => {
 
     const todo = await Todos.updateOne(
       {
-        _id: id,
+        $and: [{ _id: id }, { user: userId }],
       },
       { title, description, state, tag },
     );
 
     if (todo.nModified === 0) {
-      return res.status(404).send({ message: 'Update error' });
+      return res.status(403).send({ message: 'Cannot remove not your todo.' });
     }
 
     return res.send({ message: 'Success.' });
@@ -86,12 +92,18 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   const { id } = req.params;
+  const { user_id: userId } = req.user;
   try {
-    const todo = await Todos.deleteOne({ _id: id });
-
-    if (todo.deletedCount === 0) {
-      return res.status(402).send({ message: 'There is no such todo' });
+    const userRemoveTodo = await Users.updateOne(
+      { _id: userId },
+      {
+        $pull: { todos: id },
+      },
+    );
+    if (userRemoveTodo.nModified === 0) {
+      return res.status(401).send({ message: 'Cannot remove not your todo.' });
     }
+    await Todos.deleteOne({ _id: id });
 
     return res.send({ message: 'Delete success.' });
   } catch (err) {

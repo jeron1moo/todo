@@ -4,10 +4,9 @@ import useStyles from './styles';
 import TodoTag from '../TodoTag';
 import { useEditTodo } from '../../hooks/useQueries';
 
-const EditTodo = ({ id, title, description, tag, handleClose }) => {
+const EditTodo = ({ id, title, description, tag, handleClose, token }) => {
   const classes = useStyles();
   const { editTodo } = useEditTodo();
-
   const [state, setState] = useState({
     id,
     title,
@@ -53,7 +52,7 @@ const EditTodo = ({ id, title, description, tag, handleClose }) => {
         <Button
           className={classes.actionButton}
           onClick={() => {
-            editTodo(state);
+            editTodo({ ...state, token });
             handleClose();
           }}
           fullWidth

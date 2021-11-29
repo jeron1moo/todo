@@ -11,15 +11,11 @@ import {
   LOGOUT_FAILURE,
 } from '../constants/auth';
 
-const authData = {
-  user: null,
-  tokens: {
-    accessToken: '',
-  },
-};
-
 const initialState = {
-  data: authData,
+  data: {
+    id: null,
+    token: null,
+  },
   isLoggingIn: false,
   isLoggingOut: false,
   isLoggedIn: false,
